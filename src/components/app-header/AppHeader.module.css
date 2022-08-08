@@ -1,0 +1,36 @@
+.main {
+  background: #1c1c1c;
+  max-width: 1920px;
+  margin: 40px;
+  grid-area: header;
+}
+
+.navbar {
+  font-family:  'JetBrainsMono', Arial, Helvetica, sans-serif;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  grid-template-columns: max-content minmax(min-content, auto) max-content;
+}
+
+.navbarItemContainer {
+  list-style: none;
+  padding: 0;
+  padding: 0 112px 0 0;
+  display: flex;
+  gap: 8px;
+}
+
+.navbarItem {
+  padding: 16px 20px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.link {
+  text-decoration: none;
+  color: inherit;
+}
