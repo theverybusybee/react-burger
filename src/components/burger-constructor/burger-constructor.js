@@ -5,6 +5,7 @@ import {
   CurrencyIcon,
   Button,
 } from "@ya.praktikum/react-developer-burger-ui-components";
+import PropTypes from 'prop-types';
 
 function SetConstructorElements(props) {
   return (
@@ -35,6 +36,12 @@ function SetConstructorElements(props) {
   );
 }
 
+SetConstructorElements.propTypes = {
+  image: PropTypes.string,
+  name: PropTypes.string,
+  price: PropTypes.number,
+}; 
+
 function SetConstructorElementsStuff({ ingredients }) {
   return (
     <div
@@ -55,11 +62,17 @@ function SetConstructorElementsStuff({ ingredients }) {
   );
 }
 
+SetConstructorElementsStuff.propTypes = {
+  image: PropTypes.string,
+  name: PropTypes.string,
+  price: PropTypes.number,
+}; 
+
 export default function BurgerConstructor({ ingredients }) {
   const stuffing = ingredients.filter((ingredient) => ingredient.type != "bun");
   return (
     <section className={BurgerConstructorStyles.main}>
-      <SetConstructorElements ingredients={ingredients[0]}>
+      <SetConstructorElements ingredients={ingredients[0]} >
         <div className={BurgerConstructorStyles.stuff}>
           {stuffing.map((stuff) => {
             return (
