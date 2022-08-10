@@ -1,0 +1,27 @@
+.card {
+  box-sizing: border-box;
+  height: 208px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 8px;
+  position: relative;
+}
+
+.image {
+  display: block;
+  padding-left: 16px;
+  padding-right: 16px;
+}
+
+.costContainer {
+  display: flex;
+  gap: 8px;
+}
+
+.counter {
+  position: absolute;
+  top: 0;
+  right: 0;
+}
