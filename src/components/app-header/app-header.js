@@ -13,14 +13,14 @@ export default function AppHeader() {
         <ul className={AppHeaderStyle.navbarItemContainer}>
           <li className={`${AppHeaderStyle.navbarItem} text text_type_main-default`}>
             <BurgerIcon type="primary" />
-            <a className={AppHeaderStyle.link} href="#">
+            <a className={AppHeaderStyle.link} href="index.html">
               Конструктор
             </a>
           </li>
 
           <li className={`${AppHeaderStyle.navbarItem} text text_type_main-default text_color_inactive`}>
             <ListIcon type="secondary" />
-            <a className={AppHeaderStyle.link} href="#">
+            <a className={AppHeaderStyle.link} href="index.html">
               Лента заказов
             </a>
           </li>
@@ -34,7 +34,7 @@ export default function AppHeader() {
 
         <li className={`${AppHeaderStyle.navbarItem} text text_type_main-default text_color_inactive`}>
           <ProfileIcon type="secondary" />
-          <a className={AppHeaderStyle.link} href="#">
+          <a className={AppHeaderStyle.link} href="index.html">
             Личный кабинет
           </a>
         </li>
