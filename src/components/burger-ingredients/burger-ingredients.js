@@ -3,7 +3,6 @@ import BurgerIngredientsStyles from "./burger-ingredients.module.css";
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import IngredientCard from "../ingredient-card/ingredient-card";
 import PropTypes from 'prop-types';
-import { ingredientType } from '../../utils/types'
 
 function Tabs() {
   const [current, setCurrent] = useState("bun");

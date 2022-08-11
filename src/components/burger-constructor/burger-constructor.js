@@ -6,7 +6,6 @@ import {
 import PropTypes from 'prop-types';
 import BunElements from "../set-bun-elements/set-bun-elements";
 import StuffElements from "../set-stuff-elements/set-stuff-elements";
-import { ingredientType } from "../../utils/types";
 
 export default function BurgerConstructor({ ingredients }) {
   const stuffing = ingredients.filter((ingredient) => ingredient.type !== "bun");

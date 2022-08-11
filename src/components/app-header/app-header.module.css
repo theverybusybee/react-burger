@@ -28,7 +28,7 @@
 }
 
 .navbarItem:last-child {
-  justify-self: end;
+  justify-self: flex-end;
 }
 
 .navbarItem_type_logo {

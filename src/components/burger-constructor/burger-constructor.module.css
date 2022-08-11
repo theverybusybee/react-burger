@@ -31,7 +31,7 @@
   padding-right: 8px;
   display: grid;
   grid-template-columns: 1fr max-content;
-  justify-items: end;
+  justify-items: flex-end;
   gap: 40px;
 }
 

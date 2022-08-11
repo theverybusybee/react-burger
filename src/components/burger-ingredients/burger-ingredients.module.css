@@ -1,7 +1,7 @@
 .main {
   grid-area: ingredients;
   max-width: 600px;
-  justify-self: end;
+  justify-self: flex-end;
 }
 
 .title {
