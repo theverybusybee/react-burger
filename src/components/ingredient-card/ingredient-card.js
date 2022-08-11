@@ -1,32 +1,33 @@
-import IngredientCardsStyles from "./ingredient-card.module.css";
+import IngredientCardStyles from "./ingredient-card.module.css";
 import {
   Counter,
   CurrencyIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import PropTypes from 'prop-types';
+import { ingredientType } from "../../utils/types";
 
-export default function IngredientCards({ingredients}) {
+export default function IngredientCard({ingredient}) {
   return (
-    <li className={IngredientCardsStyles.card}>
+    <li className={IngredientCardStyles.card}>
       <img
-        className="IngredientCards.image"
-        src={ingredients.image}
-        alt={ingredients.name}
+        className={IngredientCardStyles.image}
+        src={ingredient.image}
+        alt={ingredient.name}
       />
-      <div className={IngredientCardsStyles.costContainer}>
-        <p className={`${IngredientCards.cost} text text_type_digits-default`}>
-          {ingredients.price}
+      <div className={IngredientCardStyles.costContainer}>
+        <p className={`${IngredientCardStyles.cost} text text_type_digits-default`}>
+          {ingredient.price}
         </p>
         <CurrencyIcon
-          className={IngredientCardsStyles.currency}
+          className={IngredientCardStyles.currency}
           type="primary"
         />
       </div>
-      <h2 className={`${IngredientCards.name} text text_type_main-small`}>
-        {ingredients.name}
+      <h2 className={`${IngredientCardStyles.name} text text_type_main-small`}>
+        {ingredient.name}
       </h2>
       <Counter
-        className={IngredientCardsStyles.counter}
+        className={IngredientCardStyles.counter}
         count={1}
         size="default"
       />
@@ -34,8 +35,6 @@ export default function IngredientCards({ingredients}) {
   );
 }
 
-IngredientCards.propTypes = {
-  image: PropTypes.string,
-  name: PropTypes.string,
-  price: PropTypes.number,
+IngredientCard.propTypes = {
+  ingredient: PropTypes.shape(ingredientType),
 }; 

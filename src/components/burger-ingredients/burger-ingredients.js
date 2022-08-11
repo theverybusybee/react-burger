@@ -3,8 +3,9 @@ import BurgerIngredientsStyles from "./burger-ingredients.module.css";
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import IngredientCard from "../ingredient-card/ingredient-card";
 import PropTypes from 'prop-types';
+import { ingredientType } from '../../utils/types'
 
-function SetTab() {
+function Tabs() {
   const [current, setCurrent] = useState("bun");
   return (
     <div style={{ display: "flex" }}>
@@ -31,7 +32,7 @@ export default function BurgerIngredients({ingredients}) {
       <h1 className={`${BurgerIngredientsStyles.title} text text_type_main-large`}>
         Соберите бургер
       </h1>
-      <SetTab />
+      <Tabs />
       <div className={BurgerIngredientsStyles.ingredientsContainer}>
         <h2
           className={`${BurgerIngredientsStyles.ingredientSectionName} text text_type_main-medium`}
@@ -41,7 +42,7 @@ export default function BurgerIngredients({ingredients}) {
         </h2>
         <ul className={BurgerIngredientsStyles.cardsContainer}>
           {buns.map((ingredient) => {
-            return <IngredientCard ingredients={ingredient} key={ingredient._id} />;
+            return <IngredientCard ingredient={ingredient} key={ingredient._id} />;
           })}
         </ul>
 
@@ -53,7 +54,7 @@ export default function BurgerIngredients({ingredients}) {
         </h2>
         <ul className={BurgerIngredientsStyles.cardsContainer}>
           {sauces.map((ingredient) => {
-            return <IngredientCard ingredients={ingredient} key={ingredient._id} />;
+            return <IngredientCard ingredient={ingredient} key={ingredient._id} />;
           })}
         </ul>
 
@@ -65,7 +66,7 @@ export default function BurgerIngredients({ingredients}) {
         </h2>
         <ul className={BurgerIngredientsStyles.cardsContainer}>
           {main.map((ingredient) => {
-            return <IngredientCard ingredients={ingredient} key={ingredient._id} />;
+            return <IngredientCard ingredient={ingredient} key={ingredient._id} />;
           })}
         </ul>
       </div>
@@ -74,5 +75,5 @@ export default function BurgerIngredients({ingredients}) {
 }
 
 BurgerIngredients.propTypes = {
-  type: PropTypes.string,
+  ingredients:  PropTypes.arrayOf(PropTypes.object).isRequired,
 }; 

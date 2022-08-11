@@ -39,3 +39,8 @@
   text-decoration: none;
   color: inherit;
 }
+
+.link:hover {
+  color: #fff;
+  transition: color .3s ease-in;
+}
