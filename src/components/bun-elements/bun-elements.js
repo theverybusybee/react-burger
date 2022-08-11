@@ -1,6 +1,6 @@
 import { ConstructorElement } from "@ya.praktikum/react-developer-burger-ui-components";
 import PropTypes from 'prop-types';
-import BunElementsStyles from './set-bun-elements.module.css'
+import BunElementsStyles from './bun-elements.module.css'
 import { ingredientType } from "../../utils/types";
 
 export default function BunElements(props) {

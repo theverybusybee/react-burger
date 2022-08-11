@@ -4,8 +4,8 @@ import {
   Button,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import PropTypes from 'prop-types';
-import BunElements from "../set-bun-elements/set-bun-elements";
-import StuffElements from "../set-stuff-elements/set-stuff-elements";
+import BunElements from "../bun-elements/bun-elements";
+import StuffElements from "../stuff-elements/stuff-elements";
 
 export default function BurgerConstructor({ ingredients }) {
   const stuffing = ingredients.filter((ingredient) => ingredient.type !== "bun");
