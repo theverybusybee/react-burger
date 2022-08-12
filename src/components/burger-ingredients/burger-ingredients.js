@@ -1,25 +1,7 @@
-import { useState } from "react";
 import BurgerIngredientsStyles from "./burger-ingredients.module.css";
-import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import IngredientCard from "../ingredient-card/ingredient-card";
 import PropTypes from 'prop-types';
-
-function Tabs() {
-  const [current, setCurrent] = useState("bun");
-  return (
-    <div style={{ display: "flex" }}>
-      <Tab value="bun" active={current === "bun"} onClick={setCurrent}>
-        Булки
-      </Tab>
-      <Tab value="sause" active={current === "sause"} onClick={setCurrent}>
-        Соусы
-      </Tab>
-      <Tab value="main" active={current === "main"} onClick={setCurrent}>
-        Начинки
-      </Tab>
-    </div>
-  );
-}
+import Tabs from "../tabs/tabs";
 
 export default function BurgerIngredients({ingredients}) {
   const buns = ingredients.filter((bun) => bun.type === "bun");
