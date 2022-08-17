@@ -1,25 +1,45 @@
+import { useState } from "react";
 import BurgerConstructorStyles from "./burger-constructor.module.css";
 import {
   CurrencyIcon,
   Button,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import PropTypes from 'prop-types';
+import PropTypes from "prop-types";
 import BunElements from "../bun-elements/bun-elements";
 import StuffElements from "../stuff-elements/stuff-elements";
+import Modal from "../modal/modal";
+import ModalOverlay from "../modal-overlay/modal-overlay";
+import OrderDetails from "../order-details/order-details";
 
 export default function BurgerConstructor({ ingredients }) {
-  const stuffing = ingredients.filter((ingredient) => ingredient.type !== "bun");
+  const [isVisible, setVisability] = useState(false);
+
+  function handleOpenModal() {
+    setVisability(true);
+  }
+
+  function handleCloseModal() {
+    setVisability(false);
+  }
+
+  const modalOrderDetails = (
+    <ModalOverlay onClose={handleCloseModal}>
+      <Modal onClose={handleCloseModal}>
+        <OrderDetails />
+      </Modal>
+    </ModalOverlay>
+  );
+
+  const stuffing = ingredients.filter(
+    (ingredient) => ingredient.type !== "bun"
+  );
+  
   return (
     <section className={BurgerConstructorStyles.main}>
-      <BunElements ingredients={ingredients[0]} >
+      <BunElements>
         <div className={BurgerConstructorStyles.stuff}>
           {stuffing.map((stuff) => {
-            return (
-              <StuffElements
-                ingredients={stuff}
-                key={stuff._id}
-              />
-            );
+            return <StuffElements ingredients={stuff} key={stuff._id} />;
           })}
         </div>
       </BunElements>
@@ -28,14 +48,15 @@ export default function BurgerConstructor({ ingredients }) {
           <p className="text text_type_digits-medium">620</p>
           <CurrencyIcon />
         </div>
-        <Button type="primary" size="large">
+        <Button onClick={handleOpenModal} type="primary" size="large">
           Оформить заказ
         </Button>
+        {isVisible && modalOrderDetails}
       </div>
     </section>
   );
 }
 
 BurgerConstructor.propTypes = {
-  ingredients:  PropTypes.arrayOf(PropTypes.object).isRequired,
-}; 
+  ingredients: PropTypes.arrayOf(PropTypes.object).isRequired,
+};

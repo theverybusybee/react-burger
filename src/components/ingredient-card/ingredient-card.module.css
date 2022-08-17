@@ -7,6 +7,11 @@
   text-align: center;
   gap: 8px;
   position: relative;
+  cursor: pointer;
+}
+
+.card:hover {
+  filter: drop-shadow(5px 10px 0px rgba(153, 50, 204, 0.416));
 }
 
 .image {

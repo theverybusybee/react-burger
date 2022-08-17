@@ -1,15 +1,34 @@
+import { useState, useEffect } from 'react';
 import AppStyle from './app.module.css';
 import AppHeader from '../app-header/app-header'
 import BurgerIngredients from '../burger-ingredients/burger-ingredients';
 import BurgerConstructor from '../burger-constructor/burger-constructor';
-import { burgerIngredientsData } from '../../utils/data'
+import { urlLink } from '../../utils/data';
 
-function App() {
+function App(props) {
+  const [state, setState] = useState({
+    isLoading: false,
+    hasError: false,
+    data: [],
+  })
+
+   useEffect(() => {
+    const getData = async () => {
+      setState({...state, isLoading: true});
+      const res = await fetch(`${urlLink}`);
+      const data = await res.json();
+      setState({...state, data: data.data, isLoading: false });
+    }
+    getData();
+  }, [props])
+
+  const {data} = state;
+
   return (
     <div className={ AppStyle.main }>
       <AppHeader/>
-      <BurgerIngredients ingredients={ burgerIngredientsData }/>
-      <BurgerConstructor ingredients={ burgerIngredientsData } />
+      <BurgerIngredients ingredients={data} /> 
+      <BurgerConstructor ingredients={data} />
     </div>
   );
 }
