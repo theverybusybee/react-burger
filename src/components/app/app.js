@@ -14,31 +14,35 @@ function App() {
 
   useEffect(() => {
     const getData = async () => {
-      setState({ ...state, isLoading: true, hasError: false, });
+      setState({ ...state, isLoading: true, hasError: false });
       try {
         const res = await fetch(state.urlLink);
-        const data = await res.json();
-        setState({ ...state, data: data.data, isLoading: false, });
+        if (res.ok) {
+          const resData = await res.json();
+          setState({ ...state, data: resData.data, isLoading: false });
+        } else return Promise.reject(`Что-то пошло не так: ${res.status}`);
       } catch {
-        setState({ ...state, hasError: true, });
-      } 
+        setState({ ...state, hasError: true });
+      }
     };
     getData();
-  }, [state.urlLink]);
+  }, []);
 
   const { data } = state;
 
   return (
     <div className={AppStyle.main}>
       <AppHeader />
-      {(state.isLoading || state.hasError) ? (
+      {state.isLoading || state.hasError ? (
         <div className={AppStyle.loading}>
-          <p className='text text_type_main-large text_color_inactive'>Загрузка<span className={AppStyle.dotFlashing}></span></p>
+          <p className="text text_type_main-large text_color_inactive">
+            Загрузка<span className={AppStyle.dotFlashing}></span>
+          </p>
         </div>
       ) : (
         <>
-        <BurgerIngredients ingredients={data} />
-        <BurgerConstructor ingredients={data} />
+          <BurgerIngredients ingredients={data} />
+          <BurgerConstructor ingredients={data} />
         </>
       )}
     </div>

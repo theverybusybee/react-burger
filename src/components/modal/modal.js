@@ -8,30 +8,28 @@ import { modalsRoot } from "../../utils/data";
 
 export default function Modal({ children, onClose, isOpened }) {
   useEffect(() => {
-    const escCloser = (evt) => {
+    const handleEscClose = (evt) => {
       if (evt.key === "Escape") {
         onClose();
       }
     };
     if (isOpened) {
-      document.addEventListener("keydown", escCloser);
+      document.addEventListener("keydown", handleEscClose);
       return () => {
-        document.removeEventListener("keydown", escCloser);
+        document.removeEventListener("keydown", handleEscClose);
       };
     }
   }, [isOpened, onClose]);
 
   return createPortal(
-    <>
-      <ModalOverlay onClose={onClose}>
-        <div className={modalStyles.main}>
-          <button className={modalStyles.closeButton} onClick={onClose}>
-            <CloseIcon type="primary" />
-          </button>
-          {children}
-        </div>
-      </ModalOverlay>
-    </>,
+    <ModalOverlay onClose={onClose}>
+      <div className={modalStyles.main}>
+        <button className={modalStyles.closeButton} onClick={onClose}>
+          <CloseIcon type="primary" />
+        </button>
+        {children}
+      </div>
+    </ModalOverlay>,
     modalsRoot
   );
 }

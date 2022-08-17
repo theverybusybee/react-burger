@@ -41,6 +41,6 @@ export default function IngredientCard({ ingredient, openModal }) {
 }
 
 IngredientCard.propTypes = {
-  ingredient: PropTypes.shape(ingredientType),
+  ingredient: PropTypes.shape(ingredientType).isRequired,
   openModal: PropTypes.func.isRequired,
 };
