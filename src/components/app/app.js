@@ -1,34 +1,46 @@
-import { useState, useEffect } from 'react';
-import AppStyle from './app.module.css';
-import AppHeader from '../app-header/app-header'
-import BurgerIngredients from '../burger-ingredients/burger-ingredients';
-import BurgerConstructor from '../burger-constructor/burger-constructor';
-import { urlLink } from '../../utils/data';
+import { useState, useEffect } from "react";
+import AppStyle from "./app.module.css";
+import AppHeader from "../app-header/app-header";
+import BurgerIngredients from "../burger-ingredients/burger-ingredients";
+import BurgerConstructor from "../burger-constructor/burger-constructor";
 
-function App(props) {
+function App() {
   const [state, setState] = useState({
     isLoading: false,
     hasError: false,
     data: [],
-  })
+    urlLink: "https://norma.nomoreparties.space/api/ingredients",
+  });
 
-   useEffect(() => {
+  useEffect(() => {
     const getData = async () => {
-      setState({...state, isLoading: true});
-      const res = await fetch(`${urlLink}`);
-      const data = await res.json();
-      setState({...state, data: data.data, isLoading: false });
-    }
+      setState({ ...state, isLoading: true, hasError: false, });
+      try {
+        const res = await fetch(state.urlLink);
+        const data = await res.json();
+        setState({ ...state, data: data.data, isLoading: false, });
+      } catch {
+        setState({ ...state, hasError: true, });
+      } 
+    };
     getData();
-  }, [props])
+  }, [state.urlLink]);
 
-  const {data} = state;
+  const { data } = state;
 
   return (
-    <div className={ AppStyle.main }>
-      <AppHeader/>
-      <BurgerIngredients ingredients={data} /> 
-      <BurgerConstructor ingredients={data} />
+    <div className={AppStyle.main}>
+      <AppHeader />
+      {(state.isLoading || state.hasError) ? (
+        <div className={AppStyle.loading}>
+          <p className='text text_type_main-large text_color_inactive'>Загрузка<span className={AppStyle.dotFlashing}></span></p>
+        </div>
+      ) : (
+        <>
+        <BurgerIngredients ingredients={data} />
+        <BurgerConstructor ingredients={data} />
+        </>
+      )}
     </div>
   );
 }

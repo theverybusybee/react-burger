@@ -3,7 +3,6 @@ import BurgerIngredientsStyles from "./burger-ingredients.module.css";
 import PropTypes from "prop-types";
 import Tabs from "../tabs/tabs";
 import Modal from "../modal/modal";
-import ModalOverlay from "../modal-overlay/modal-overlay";
 import IngredientDetails from "../ingredient-details/ingredient-details";
 import IngredientsFilter from "../ingredients-filter/ingredients-filter";
 
@@ -12,7 +11,7 @@ export default function BurgerIngredients({ ingredients }) {
   const [cardIngredient, setcardIngredient] = useState(null);
 
   function handleOpenModal(ingredient) {
-    setcardIngredient(ingredient)
+    setcardIngredient(ingredient);
     setVisability(true);
   }
 
@@ -21,11 +20,9 @@ export default function BurgerIngredients({ ingredients }) {
   }
 
   const modalIngredientDetails = (
-    <ModalOverlay onClose={handleCloseModal}>
-      <Modal onClose={handleCloseModal}>
-        <IngredientDetails ingredient={cardIngredient} />
-      </Modal>
-    </ModalOverlay>
+    <Modal onClose={handleCloseModal} isOpened={isVisible}>
+      <IngredientDetails ingredient={cardIngredient} />
+    </Modal>
   );
 
   return (
@@ -44,7 +41,11 @@ export default function BurgerIngredients({ ingredients }) {
           Булки
         </h2>
         <ul className={BurgerIngredientsStyles.cardsContainer}>
-          <IngredientsFilter ingredients={ingredients} type={"bun"} openModal={handleOpenModal}/>
+          <IngredientsFilter
+            ingredients={ingredients}
+            type={"bun"}
+            openModal={handleOpenModal}
+          />
         </ul>
 
         <h2
@@ -54,7 +55,11 @@ export default function BurgerIngredients({ ingredients }) {
           Соусы
         </h2>
         <ul className={BurgerIngredientsStyles.cardsContainer}>
-          <IngredientsFilter ingredients={ingredients} type={"sauce"} openModal={handleOpenModal}/>
+          <IngredientsFilter
+            ingredients={ingredients}
+            type={"sauce"}
+            openModal={handleOpenModal}
+          />
         </ul>
 
         <h2
@@ -64,7 +69,11 @@ export default function BurgerIngredients({ ingredients }) {
           Начинки
         </h2>
         <ul className={BurgerIngredientsStyles.cardsContainer}>
-          <IngredientsFilter ingredients={ingredients} type={"main"} openModal={handleOpenModal}/>
+          <IngredientsFilter
+            ingredients={ingredients}
+            type={"main"}
+            openModal={handleOpenModal}
+          />
         </ul>
         {isVisible && modalIngredientDetails}
       </div>

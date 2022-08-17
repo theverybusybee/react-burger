@@ -3,19 +3,24 @@ import {
   Counter,
   CurrencyIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import PropTypes from 'prop-types';
+import PropTypes from "prop-types";
 import { ingredientType } from "../../utils/types";
 
-export default function IngredientCard({ingredient, openModal}) {
+export default function IngredientCard({ ingredient, openModal }) {
   return (
-    <li className={IngredientCardStyles.card} onClick={(() => openModal(ingredient))}>
+    <li
+      className={IngredientCardStyles.card}
+      onClick={() => openModal(ingredient)}
+    >
       <img
         className={IngredientCardStyles.image}
         src={ingredient.image}
         alt={ingredient.name}
       />
       <div className={IngredientCardStyles.costContainer}>
-        <p className={`${IngredientCardStyles.cost} text text_type_digits-default`}>
+        <p
+          className={`${IngredientCardStyles.cost} text text_type_digits-default`}
+        >
           {ingredient.price}
         </p>
         <CurrencyIcon
@@ -38,4 +43,4 @@ export default function IngredientCard({ingredient, openModal}) {
 IngredientCard.propTypes = {
   ingredient: PropTypes.shape(ingredientType),
   openModal: PropTypes.func.isRequired,
-}; 
+};

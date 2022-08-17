@@ -213,6 +213,4 @@ export const burgerIngredientsData = [
   },
 ];
 
-export const urlLink = 'https://norma.nomoreparties.space/api/ingredients';
-
 export const modalsRoot = document.querySelector('#react-modals');

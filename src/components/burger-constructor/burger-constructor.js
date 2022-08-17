@@ -8,7 +8,6 @@ import PropTypes from "prop-types";
 import BunElements from "../bun-elements/bun-elements";
 import StuffElements from "../stuff-elements/stuff-elements";
 import Modal from "../modal/modal";
-import ModalOverlay from "../modal-overlay/modal-overlay";
 import OrderDetails from "../order-details/order-details";
 
 export default function BurgerConstructor({ ingredients }) {
@@ -23,17 +22,15 @@ export default function BurgerConstructor({ ingredients }) {
   }
 
   const modalOrderDetails = (
-    <ModalOverlay onClose={handleCloseModal}>
-      <Modal onClose={handleCloseModal}>
-        <OrderDetails />
-      </Modal>
-    </ModalOverlay>
+    <Modal onClose={handleCloseModal} isOpened={isVisible}>
+      <OrderDetails />
+    </Modal>
   );
 
   const stuffing = ingredients.filter(
     (ingredient) => ingredient.type !== "bun"
   );
-  
+
   return (
     <section className={BurgerConstructorStyles.main}>
       <BunElements>

@@ -1,8 +1,8 @@
 import detailsStyles from "./ingredient-details.module.css";
-import PropTypes from 'prop-types';
+import PropTypes from "prop-types";
 import { ingredientType } from "../../utils/types";
 
-export default function IngredientDetails({ingredient}) {
+export default function IngredientDetails({ ingredient }) {
   return (
     <div className={detailsStyles.main}>
       <h2 className={`${detailsStyles.title} text text_type_main-large`}>
