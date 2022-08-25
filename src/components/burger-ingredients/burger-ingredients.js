@@ -1,16 +1,35 @@
+import { useState } from "react";
 import BurgerIngredientsStyles from "./burger-ingredients.module.css";
-import IngredientCard from "../ingredient-card/ingredient-card";
-import PropTypes from 'prop-types';
+import PropTypes from "prop-types";
 import Tabs from "../tabs/tabs";
+import Modal from "../modal/modal";
+import IngredientDetails from "../ingredient-details/ingredient-details";
+import IngredientsFilter from "../ingredients-filter/ingredients-filter";
 
-export default function BurgerIngredients({ingredients}) {
-  const buns = ingredients.filter((bun) => bun.type === "bun");
-  const sauces = ingredients.filter((sauce) => sauce.type === "sauce");
-  const main = ingredients.filter((main) => main.type === "main");
+export default function BurgerIngredients({ ingredients }) {
+  const [isVisible, setVisability] = useState(false);
+  const [cardIngredient, setcardIngredient] = useState(null);
+
+  function handleOpenModal(ingredient) {
+    setcardIngredient(ingredient);
+    setVisability(true);
+  }
+
+  function handleCloseModal() {
+    setVisability(false);
+  }
+
+  const modalIngredientDetails = (
+    <Modal onClose={handleCloseModal} isOpened={isVisible}>
+      <IngredientDetails ingredient={cardIngredient} />
+    </Modal>
+  );
 
   return (
     <section className={BurgerIngredientsStyles.main}>
-      <h1 className={`${BurgerIngredientsStyles.title} text text_type_main-large`}>
+      <h1
+        className={`${BurgerIngredientsStyles.title} text text_type_main-large`}
+      >
         Соберите бургер
       </h1>
       <Tabs />
@@ -22,9 +41,11 @@ export default function BurgerIngredients({ingredients}) {
           Булки
         </h2>
         <ul className={BurgerIngredientsStyles.cardsContainer}>
-          {buns.map((ingredient) => {
-            return <IngredientCard ingredient={ingredient} key={ingredient._id} />;
-          })}
+          <IngredientsFilter
+            ingredients={ingredients}
+            type={"bun"}
+            openModal={handleOpenModal}
+          />
         </ul>
 
         <h2
@@ -34,9 +55,11 @@ export default function BurgerIngredients({ingredients}) {
           Соусы
         </h2>
         <ul className={BurgerIngredientsStyles.cardsContainer}>
-          {sauces.map((ingredient) => {
-            return <IngredientCard ingredient={ingredient} key={ingredient._id} />;
-          })}
+          <IngredientsFilter
+            ingredients={ingredients}
+            type={"sauce"}
+            openModal={handleOpenModal}
+          />
         </ul>
 
         <h2
@@ -46,15 +69,18 @@ export default function BurgerIngredients({ingredients}) {
           Начинки
         </h2>
         <ul className={BurgerIngredientsStyles.cardsContainer}>
-          {main.map((ingredient) => {
-            return <IngredientCard ingredient={ingredient} key={ingredient._id} />;
-          })}
+          <IngredientsFilter
+            ingredients={ingredients}
+            type={"main"}
+            openModal={handleOpenModal}
+          />
         </ul>
+        {isVisible && modalIngredientDetails}
       </div>
     </section>
   );
 }
 
 BurgerIngredients.propTypes = {
-  ingredients:  PropTypes.arrayOf(PropTypes.object).isRequired,
-}; 
+  ingredients: PropTypes.arrayOf(PropTypes.object).isRequired,
+};

@@ -17,5 +17,5 @@ export default function StuffElements({ ingredients }) {
 }
 
 StuffElements.propTypes = {
-  ingredients: PropTypes.shape(ingredientType),
+  ingredients: PropTypes.shape(ingredientType).isRequired,
 }; 

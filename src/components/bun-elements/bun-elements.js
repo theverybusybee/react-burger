@@ -1,35 +1,34 @@
 import { ConstructorElement } from "@ya.praktikum/react-developer-burger-ui-components";
-import PropTypes from 'prop-types';
-import BunElementsStyles from './bun-elements.module.css'
-import { ingredientType } from "../../utils/types";
+import PropTypes from "prop-types";
+import BunElementsStyles from "./bun-elements.module.css";
 
-export default function BunElements(props) {
+export default function BunElements({ children }) {
   return (
     <div className={BunElementsStyles.dragContainer}>
       <div className={BunElementsStyles.elementWrapper}>
-        <ConstructorElement className={BunElementsStyles.dragContainer}
-        type="top"
-        isLocked={true}
-        text={`${props.ingredients.name} (верх)`}
-        price={props.ingredients.price}
-        thumbnail={props.ingredients.image}
-      />
+        <ConstructorElement
+          className={BunElementsStyles.dragContainer}
+          type="top"
+          isLocked={true}
+          text="Краторная булка N-200i(верх)"
+          price={1255}
+          thumbnail="https://code.s3.yandex.net/react/code/bun-02.png"
+        />
       </div>
-      {props.children}
+      {children}
       <div className={BunElementsStyles.elementWrapper}>
         <ConstructorElement
-        type="bottom"
-        isLocked={true}
-        text={`${props.ingredients.name} (низ)`}
-        price={props.ingredients.price}
-        thumbnail={props.ingredients.image}
-      />
+          type="bottom"
+          isLocked={true}
+          text="Краторная булка N-200i(низ)"
+          price={1255}
+          thumbnail="https://code.s3.yandex.net/react/code/bun-02.png"
+        />
       </div>
     </div>
   );
 }
 
 BunElements.propTypes = {
-  children: PropTypes.element,
-  ingredients: PropTypes.shape(ingredientType),
-}; 
+  children: PropTypes.element.isRequired,
+};

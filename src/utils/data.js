@@ -212,3 +212,5 @@ export const burgerIngredientsData = [
     __v: 0,
   },
 ];
+
+export const modalsRoot = document.querySelector('#react-modals');
