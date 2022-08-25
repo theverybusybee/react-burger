@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import BurgerConstructorStyles from "./burger-constructor.module.css";
 import {
   CurrencyIcon,
@@ -9,9 +9,11 @@ import BunElements from "../bun-elements/bun-elements";
 import StuffElements from "../stuff-elements/stuff-elements";
 import Modal from "../modal/modal";
 import OrderDetails from "../order-details/order-details";
+import { ApiContext } from "../../services/api-context";
 
-export default function BurgerConstructor({ ingredients }) {
+export default function BurgerConstructor() {
   const [isVisible, setVisability] = useState(false);
+  const ingredients = useContext(ApiContext);
 
   function handleOpenModal() {
     setVisability(true);
@@ -36,7 +38,7 @@ export default function BurgerConstructor({ ingredients }) {
       <BunElements>
         <div className={BurgerConstructorStyles.stuff}>
           {stuffing.map((stuff) => {
-            return <StuffElements ingredients={stuff} key={stuff._id} />;
+            return <StuffElements ingredient={stuff} key={stuff._id} />;
           })}
         </div>
       </BunElements>
@@ -54,6 +56,3 @@ export default function BurgerConstructor({ ingredients }) {
   );
 }
 
-BurgerConstructor.propTypes = {
-  ingredients: PropTypes.arrayOf(PropTypes.object).isRequired,
-};

@@ -6,7 +6,7 @@ import Modal from "../modal/modal";
 import IngredientDetails from "../ingredient-details/ingredient-details";
 import IngredientsFilter from "../ingredients-filter/ingredients-filter";
 
-export default function BurgerIngredients({ ingredients }) {
+export default function BurgerIngredients() {
   const [isVisible, setVisability] = useState(false);
   const [cardIngredient, setcardIngredient] = useState(null);
 
@@ -42,7 +42,6 @@ export default function BurgerIngredients({ ingredients }) {
         </h2>
         <ul className={BurgerIngredientsStyles.cardsContainer}>
           <IngredientsFilter
-            ingredients={ingredients}
             type={"bun"}
             openModal={handleOpenModal}
           />
@@ -56,7 +55,6 @@ export default function BurgerIngredients({ ingredients }) {
         </h2>
         <ul className={BurgerIngredientsStyles.cardsContainer}>
           <IngredientsFilter
-            ingredients={ingredients}
             type={"sauce"}
             openModal={handleOpenModal}
           />
@@ -70,7 +68,6 @@ export default function BurgerIngredients({ ingredients }) {
         </h2>
         <ul className={BurgerIngredientsStyles.cardsContainer}>
           <IngredientsFilter
-            ingredients={ingredients}
             type={"main"}
             openModal={handleOpenModal}
           />
@@ -80,7 +77,3 @@ export default function BurgerIngredients({ ingredients }) {
     </section>
   );
 }
-
-BurgerIngredients.propTypes = {
-  ingredients: PropTypes.arrayOf(PropTypes.object).isRequired,
-};

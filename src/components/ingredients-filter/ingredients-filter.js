@@ -1,7 +1,10 @@
+import { useContext } from "react";
+import { ApiContext } from "../../services/api-context";
 import IngredientCard from "../ingredient-card/ingredient-card";
 import PropTypes from "prop-types";
 
-export default function IngredientsFilter({ ingredients, type, openModal }) {
+export default function IngredientsFilter({ type, openModal }) {
+  const ingredients = useContext(ApiContext);
   const filteredIngredients = ingredients.filter(
     (ingredient) => ingredient.type === type
   );
@@ -22,7 +25,6 @@ export default function IngredientsFilter({ ingredients, type, openModal }) {
 }
 
 IngredientsFilter.propTypes = {
-  ingredients: PropTypes.arrayOf(PropTypes.object).isRequired,
   type: PropTypes.string.isRequired,
   openModal: PropTypes.func.isRequired,
 };

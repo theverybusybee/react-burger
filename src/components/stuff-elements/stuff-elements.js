@@ -3,19 +3,19 @@ import PropTypes from 'prop-types';
 import StuffElementsStyles from './stuff-elements.module.css';
 import { ingredientType } from "../../utils/types";
 
-export default function StuffElements({ ingredients }) {
+export default function StuffElements({ ingredient }) {
   return (
     <div className={StuffElementsStyles.container}>
       <DragIcon />
       <ConstructorElement
-        text={ingredients.name}
-        price={ingredients.price}
-        thumbnail={ingredients.image}
+        text={ingredient.name}
+        price={ingredient.price}
+        thumbnail={ingredient.image}
       />
     </div>
   );
 }
 
 StuffElements.propTypes = {
-  ingredients: PropTypes.shape(ingredientType).isRequired,
+  ingredient: PropTypes.shape(ingredientType).isRequired,
 }; 
