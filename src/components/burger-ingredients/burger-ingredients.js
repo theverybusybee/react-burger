@@ -1,6 +1,5 @@
 import { useState } from "react";
 import BurgerIngredientsStyles from "./burger-ingredients.module.css";
-import PropTypes from "prop-types";
 import Tabs from "../tabs/tabs";
 import Modal from "../modal/modal";
 import IngredientDetails from "../ingredient-details/ingredient-details";
@@ -42,8 +41,9 @@ export default function BurgerIngredients() {
         </h2>
         <ul className={BurgerIngredientsStyles.cardsContainer}>
           <IngredientsFilter
-            type={"bun"}
+            type="bun"
             openModal={handleOpenModal}
+            qty={1}
           />
         </ul>
 
@@ -57,6 +57,7 @@ export default function BurgerIngredients() {
           <IngredientsFilter
             type={"sauce"}
             openModal={handleOpenModal}
+            qty={1}
           />
         </ul>
 
@@ -70,6 +71,7 @@ export default function BurgerIngredients() {
           <IngredientsFilter
             type={"main"}
             openModal={handleOpenModal}
+            qty={1}
           />
         </ul>
         {isVisible && modalIngredientDetails}

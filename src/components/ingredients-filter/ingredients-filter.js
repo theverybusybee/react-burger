@@ -3,12 +3,11 @@ import { ApiContext } from "../../services/api-context";
 import IngredientCard from "../ingredient-card/ingredient-card";
 import PropTypes from "prop-types";
 
-export default function IngredientsFilter({ type, openModal }) {
+export default function IngredientsFilter({ type, openModal, qty }) {
   const ingredients = useContext(ApiContext);
   const filteredIngredients = ingredients.filter(
     (ingredient) => ingredient.type === type
   );
-
   return (
     <>
       {filteredIngredients.map((ingredient) => {
@@ -17,6 +16,7 @@ export default function IngredientsFilter({ type, openModal }) {
             ingredient={ingredient}
             key={ingredient._id}
             openModal={openModal}
+            qty={qty}
           />
         );
       })}

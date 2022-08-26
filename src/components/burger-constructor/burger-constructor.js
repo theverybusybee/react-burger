@@ -4,9 +4,7 @@ import {
   CurrencyIcon,
   Button,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import PropTypes from "prop-types";
-import BunElements from "../bun-elements/bun-elements";
-import StuffElements from "../stuff-elements/stuff-elements";
+import ConstructorElements from "../constructor-elements/constructor-elements";
 import Modal from "../modal/modal";
 import OrderDetails from "../order-details/order-details";
 import { ApiContext } from "../../services/api-context";
@@ -23,6 +21,10 @@ export default function BurgerConstructor() {
     setVisability(false);
   }
 
+  function getTotalPrice() {
+    
+  }
+
   const modalOrderDetails = (
     <Modal onClose={handleCloseModal} isOpened={isVisible}>
       <OrderDetails />
@@ -33,15 +35,21 @@ export default function BurgerConstructor() {
     (ingredient) => ingredient.type !== "bun"
   );
 
+  const buns = ingredients.filter(
+    (ingredient) => ingredient.type === 'bun'
+  )
+
   return (
     <section className={BurgerConstructorStyles.main}>
-      <BunElements>
+      <div className={BurgerConstructorStyles.dragContainer}>
+        <ConstructorElements type="top" ingredient={buns[0]} isLocked={true} />
         <div className={BurgerConstructorStyles.stuff}>
           {stuffing.map((stuff) => {
-            return <StuffElements ingredient={stuff} key={stuff._id} />;
+            return <ConstructorElements ingredient={stuff} key={stuff._id} type='stuffing' isLocked={false}/>;
           })}
         </div>
-      </BunElements>
+        <ConstructorElements type="bottom" ingredient={buns[0]} isLocked={true} />
+      </div>
       <div className={BurgerConstructorStyles.orderContainer}>
         <div className={BurgerConstructorStyles.priceContainer}>
           <p className="text text_type_digits-medium">620</p>
@@ -55,4 +63,3 @@ export default function BurgerConstructor() {
     </section>
   );
 }
-
