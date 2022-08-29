@@ -1,3 +1,4 @@
+import React from "react";
 import IngredientCardStyles from "./ingredient-card.module.css";
 import {
   Counter,
@@ -6,8 +7,8 @@ import {
 import PropTypes from "prop-types";
 import { ingredientType } from "../../utils/types";
 
-export default function IngredientCard({ ingredient, openModal, qty }) {
-  console.log(qty===5)
+const IngredientCard = React.memo(({ ingredient, openModal, qty }) => {
+
   return (
     <li
       className={IngredientCardStyles.card}
@@ -41,9 +42,11 @@ export default function IngredientCard({ ingredient, openModal, qty }) {
       )}
     </li>
   );
-}
+})
 
 IngredientCard.propTypes = {
   ingredient: PropTypes.shape(ingredientType).isRequired,
   openModal: PropTypes.func.isRequired,
 };
+
+export default IngredientCard

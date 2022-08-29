@@ -5,7 +5,6 @@ export default function reducer(state, action) {
         ...state,
         isLoading: true,
         hasError: false,
-        data: [],
       };
     }
     case "FETCH_API_SUCCESS": {

@@ -1,10 +1,23 @@
+import React, { useContext, useEffect } from "react";
 import {
   ConstructorElement,
   DragIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import ConstructorElementsStyles from "./constructor-elements.module.css";
+import { OrderContext } from "../../services/api-context";
 
-export default function ConstructorElements({ ingredient, type, isLocked }) {
+const ConstructorElements = React.memo(({ ingredient, type, isLocked }) => {
+  const { order, orderDispatcher } = useContext(OrderContext);
+
+  useEffect(() => {
+    orderDispatcher({
+      type: "ADD",
+      payload: ingredient.price,
+    });
+  }, []);
+
+  console.log(ingredient.price);
+
   if (type === "top") {
     return (
       <div className={ConstructorElementsStyles.elementWrapper}>
@@ -42,7 +55,9 @@ export default function ConstructorElements({ ingredient, type, isLocked }) {
       </div>
     );
   }
-}
+});
+
+export default ConstructorElements;
 
 /* 
 ConstructorElements.propTypes = {

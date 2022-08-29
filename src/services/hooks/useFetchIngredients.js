@@ -8,10 +8,7 @@ const useFetchIngredients = (urlLink) => {
     data: [],
   };
 
-  const [apiIngredientsState, apiDispatcher] = useReducer(
-    reducer,
-    initialState
-  );
+  const [apiIngredientsState, apiDispatcher] = useReducer(reducer, initialState);
 
   useEffect(() => {
     const getData = async () => {
