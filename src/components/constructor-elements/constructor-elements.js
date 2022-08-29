@@ -7,7 +7,7 @@ import ConstructorElementsStyles from "./constructor-elements.module.css";
 import { OrderContext } from "../../services/api-context";
 
 const ConstructorElements = React.memo(({ ingredient, type, isLocked }) => {
-  const { order, orderDispatcher } = useContext(OrderContext);
+  const { orderDispatcher } = useContext(OrderContext);
 
   useEffect(() => {
     orderDispatcher({
@@ -15,8 +15,6 @@ const ConstructorElements = React.memo(({ ingredient, type, isLocked }) => {
       payload: ingredient.price,
     });
   }, []);
-
-  console.log(ingredient.price);
 
   if (type === "top") {
     return (

@@ -3,7 +3,6 @@ import React, {
   useContext,
   useReducer,
   useEffect,
-  useCallback,
 } from "react";
 import BurgerConstructorStyles from "./burger-constructor.module.css";
 import {
@@ -23,18 +22,20 @@ import { OrderContext } from "../../services/api-context";
 const BurgerConstructor = React.memo(() => {
   const ingredients = useContext(ApiContext);
 
-  const { data } = useFetchOrderDetails(
-    "https://norma.nomoreparties.space/api/orders"
-  );
-
   const [isVisible, setVisability] = useState(false);
-
   const [order, orderDispatcher] = useReducer(orderReducer, orderInitialState);
 
   const stuffing = ingredients.filter(
     (ingredient) => ingredient.type !== "bun"
   );
   const buns = ingredients.filter((ingredient) => ingredient.type === "bun");
+
+  useEffect(
+    () => {
+      orderDispatcher({ type: "SET_BUNS", payload: buns[0] });
+    },
+    []
+  );
 
   function handleOpenModal() {
     setVisability(true);
@@ -43,6 +44,10 @@ const BurgerConstructor = React.memo(() => {
   function handleCloseModal() {
     setVisability(false);
   }
+
+  const { data } = useFetchOrderDetails(
+    "https://norma.nomoreparties.space/api/orders"
+  );
 
   const modalOrderDetails = (
     <Modal onClose={handleCloseModal} isOpened={isVisible}>
@@ -53,30 +58,32 @@ const BurgerConstructor = React.memo(() => {
   return (
     <section className={BurgerConstructorStyles.main}>
       <OrderContext.Provider value={{ order, orderDispatcher }}>
-        <div className={BurgerConstructorStyles.dragContainer}>
-          <ConstructorElements
-            type="top"
-            ingredient={buns[0]}
-            isLocked={true}
-          />
-          <div className={BurgerConstructorStyles.stuff}>
-            {stuffing.map((stuff) => {
-              return (
-                <ConstructorElements
-                  ingredient={stuff}
-                  key={stuff._id}
-                  type="stuffing"
-                  isLocked={false}
-                />
-              );
-            })}
+        {order.buns && (
+          <div className={BurgerConstructorStyles.dragContainer}>
+            <ConstructorElements
+              type="top"
+              ingredient={order.buns}
+              isLocked={true}
+            />
+            <div className={BurgerConstructorStyles.stuff}>
+              {stuffing.map((stuff) => {
+                return (
+                  <ConstructorElements
+                    ingredient={stuff}
+                    key={stuff._id}
+                    type="stuffing"
+                    isLocked={false}
+                  />
+                );
+              })}
+            </div>
+            <ConstructorElements
+              type="bottom"
+              ingredient={order.buns}
+              isLocked={true}
+            />
           </div>
-          <ConstructorElements
-            type="bottom"
-            ingredient={buns[0]}
-            isLocked={true}
-          />
-        </div>
+        )}
         <div className={BurgerConstructorStyles.orderContainer}>
           <div className={BurgerConstructorStyles.priceContainer}>
             <p className="text text_type_digits-medium">{order.totalPrice}</p>
