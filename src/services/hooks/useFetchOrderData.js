@@ -1,7 +1,7 @@
 import { useEffect, useReducer } from "react";
 import reducer from "../reducers/api-reducer";
 
-const useFetchOrderDetails = (urlLink) => {
+const useFetchOrderDetails = (urlLink, ingredients) => {
   const initialState = {
     isLoading: false,
     hasError: false,
@@ -10,12 +10,16 @@ const useFetchOrderDetails = (urlLink) => {
 
   const [postData, postDataDispatcher] = useReducer(reducer, initialState);
 
+  const ingridientsId = ingredients.map((ingredient) => {
+    return ingredient;
+  });
+
   useEffect(() => {
     const requestOptions = {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
-        ingredients: ["60d3b41abdacab0026a733cc", "60d3b41abdacab0026a733ce"],
+        ingredients: ingridientsId,
       }),
     };
 
@@ -38,6 +42,7 @@ const useFetchOrderDetails = (urlLink) => {
       }
     };
     getData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [urlLink]);
 
   return postData;

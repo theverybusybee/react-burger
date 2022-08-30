@@ -1,5 +1,5 @@
-export default function reducer(state, action) {
-  switch (action.type) {
+export default function reducer(state, { type, payload }) {
+  switch (type) {
     case "FETCH_API_REQUEST": {
       return {
         ...state,
@@ -12,14 +12,14 @@ export default function reducer(state, action) {
         ...state,
         isLoading: false,
         hasError: false,
-        data: action.payload,
+        data: payload,
       };
     }
     case "FETCH_API_ERROR": {
       return {
         ...state,
         isLoading: false,
-        hasError: action.payload,
+        hasError: payload,
       };
     }
     default:

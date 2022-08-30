@@ -40,11 +40,7 @@ export default function BurgerIngredients() {
           Булки
         </h2>
         <ul className={BurgerIngredientsStyles.cardsContainer}>
-          <IngredientsFilter
-            type="bun"
-            openModal={handleOpenModal}
-            qty={1}
-          />
+          <IngredientsFilter type="bun" openModal={handleOpenModal} qty={1} />
         </ul>
 
         <h2

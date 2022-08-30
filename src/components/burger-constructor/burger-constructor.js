@@ -1,9 +1,4 @@
-import React, {
-  useState,
-  useContext,
-  useReducer,
-  useEffect,
-} from "react";
+import React, { useState, useContext, useReducer, useEffect } from "react";
 import BurgerConstructorStyles from "./burger-constructor.module.css";
 import {
   CurrencyIcon,
@@ -30,12 +25,10 @@ const BurgerConstructor = React.memo(() => {
   );
   const buns = ingredients.filter((ingredient) => ingredient.type === "bun");
 
-  useEffect(
-    () => {
-      orderDispatcher({ type: "SET_BUNS", payload: buns[0] });
-    },
-    []
-  );
+  useEffect(() => {
+    orderDispatcher({ type: "SET_BUNS", payload: buns[0] });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   function handleOpenModal() {
     setVisability(true);
@@ -46,7 +39,8 @@ const BurgerConstructor = React.memo(() => {
   }
 
   const { data } = useFetchOrderDetails(
-    "https://norma.nomoreparties.space/api/orders"
+    "https://norma.nomoreparties.space/api/orders",
+    ingredients
   );
 
   const modalOrderDetails = (

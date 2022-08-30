@@ -3,6 +3,8 @@ import orderStyles from "./order-details.module.css";
 import { CheckMarkIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 
 const OrderDetails = React.memo(({ orderData }) => {
+  console.log(orderData);
+
   return (
     <div className={orderStyles.container}>
       <p className={`${orderStyles.number} text text_type_digits-large`}>
@@ -26,6 +28,6 @@ const OrderDetails = React.memo(({ orderData }) => {
       </div>
     </div>
   );
-})
+});
 
 export default OrderDetails;

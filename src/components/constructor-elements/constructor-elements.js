@@ -14,6 +14,12 @@ const ConstructorElements = React.memo(({ ingredient, type, isLocked }) => {
       type: "ADD",
       payload: ingredient.price,
     });
+
+    orderDispatcher({
+      type: "SET_INGREDIENTS",
+      payload: ingredient._id,
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   if (type === "top") {

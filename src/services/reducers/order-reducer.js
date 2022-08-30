@@ -1,24 +1,30 @@
 export const orderInitialState = {
   totalPrice: 0,
-  stuffing: null,
+  ingredients: [],
   buns: null,
 };
 
-export default function orderReducer(state, action) {
-  switch (action.type) {
-    case "SET_STUFFING": {
-      return { ...state, stuffing: action.payload };
+export function init(orderInitialState) {
+  return {
+    ingredients: orderInitialState,
+  };
+}
+
+export default function orderReducer(state, { type, payload }, init) {
+  switch (type) {
+    case "SET_INGREDIENTS": {
+      return { ...state, ingredients: [...state.ingredients, payload] };
     }
     case "SET_BUNS": {
-      return { ...state, buns: action.payload };
+      return { ...state, buns: payload };
     }
     case "ADD": {
-      return { ...state, totalPrice: state.totalPrice + action.payload };
+      return { ...state, totalPrice: state.totalPrice + payload };
     }
     case "reset": {
       return { ...state, totalPrice: orderInitialState };
     }
     default:
-      throw new Error(`Wrong type of action: ${action.type}`);
+      throw new Error(`Wrong type of action: ${type}`);
   }
 }
