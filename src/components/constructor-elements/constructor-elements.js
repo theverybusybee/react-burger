@@ -62,9 +62,3 @@ const ConstructorElements = React.memo(({ ingredient, type, isLocked }) => {
 });
 
 export default ConstructorElements;
-
-/* 
-ConstructorElements.propTypes = {
-  ingredient: PropTypes.shape(ingredientType).isRequired,
-};
-*/
