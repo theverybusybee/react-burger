@@ -1,4 +1,10 @@
-import React, { useState, useContext, useReducer, useEffect } from "react";
+import React, {
+  useState,
+  useContext,
+  useReducer,
+  useEffect,
+  useMemo,
+} from "react";
 import BurgerConstructorStyles from "./burger-constructor.module.css";
 import {
   CurrencyIcon,
@@ -20,10 +26,13 @@ const BurgerConstructor = React.memo(() => {
   const [isVisible, setVisability] = useState(false);
   const [order, orderDispatcher] = useReducer(orderReducer, orderInitialState);
 
-  const stuffing = ingredients.filter(
-    (ingredient) => ingredient.type !== "bun"
-  );
-  const buns = ingredients.filter((ingredient) => ingredient.type === "bun");
+  const stuffing = useMemo(() => {
+    return ingredients.filter((ingredient) => ingredient.type !== "bun");
+  }, [ingredients]);
+
+  const buns = useMemo(() => {
+    return ingredients.filter((ingredient) => ingredient.type === "bun");
+  }, [ingredients]);
 
   useEffect(() => {
     orderDispatcher({ type: "SET_BUNS", payload: buns[0] });

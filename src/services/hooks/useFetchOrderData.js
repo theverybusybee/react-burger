@@ -1,8 +1,11 @@
-import { useEffect, useReducer } from "react";
+import { useEffect, useReducer, useMemo } from "react";
 import reducer from "../reducers/api-reducer";
-import { FETCH_API_REQUEST, FETCH_API_SUCCESS, FETCH_API_ERROR } from "../actions/actions";
+import {
+  FETCH_API_REQUEST,
+  FETCH_API_SUCCESS,
+  FETCH_API_ERROR,
+} from "../actions/actions";
 import { baseUrl } from "../../utils/constants";
-
 
 const useFetchOrderDetails = (ingredients) => {
   const initialState = {
@@ -13,9 +16,11 @@ const useFetchOrderDetails = (ingredients) => {
 
   const [postData, postDataDispatcher] = useReducer(reducer, initialState);
 
-  const ingridientsId = ingredients.map((ingredient) => {
-    return ingredient;
-  });
+  const ingridientsId = useMemo(() => {
+    return ingredients.map((ingredient) => {
+      return ingredient;
+    });
+  }, [ingredients]);
 
   useEffect(() => {
     const requestOptions = {

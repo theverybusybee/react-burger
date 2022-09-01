@@ -1,13 +1,13 @@
-import { useContext } from "react";
+import { useContext, useMemo } from "react";
 import { ApiContext } from "../../services/api-context";
 import IngredientCard from "../ingredient-card/ingredient-card";
 import PropTypes from "prop-types";
 
 export default function IngredientsFilter({ type, openModal, qty }) {
   const ingredients = useContext(ApiContext);
-  const filteredIngredients = ingredients.filter(
-    (ingredient) => ingredient.type === type
-  );
+  const filteredIngredients = useMemo(() => {
+    return ingredients.filter((ingredient) => ingredient.type === type);
+  }, [ingredients, type]);
 
   return filteredIngredients.map((ingredient) => {
     return (
