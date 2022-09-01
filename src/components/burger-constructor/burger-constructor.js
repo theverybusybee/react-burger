@@ -38,10 +38,7 @@ const BurgerConstructor = React.memo(() => {
     setVisability(false);
   }
 
-  const { data } = useFetchOrderDetails(
-    "https://norma.nomoreparties.space/api/orders",
-    ingredients
-  );
+  const { data } = useFetchOrderDetails(ingredients);
 
   const modalOrderDetails = (
     <Modal onClose={handleCloseModal} isOpened={isVisible}>

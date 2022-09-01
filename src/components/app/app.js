@@ -6,9 +6,7 @@ import { ApiContext } from "../../services/api-context";
 import useFetchIngredients from "../../services/hooks/useFetchIngredients";
 
 function App() {
-  const { hasError, isLoading, data } = useFetchIngredients(
-    "https://norma.nomoreparties.space/api/ingredients"
-  );
+  const { hasError, isLoading, data } = useFetchIngredients();
 
   if (hasError || isLoading || !data.length) {
     return (

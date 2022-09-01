@@ -1,7 +1,10 @@
 import { useEffect, useReducer } from "react";
 import reducer from "../reducers/api-reducer";
+import { FETCH_API_REQUEST, FETCH_API_SUCCESS, FETCH_API_ERROR } from "../actions/actions";
+import { baseUrl } from "../../utils/constants";
 
-const useFetchOrderDetails = (urlLink, ingredients) => {
+
+const useFetchOrderDetails = (ingredients) => {
   const initialState = {
     isLoading: false,
     hasError: false,
@@ -24,26 +27,26 @@ const useFetchOrderDetails = (urlLink, ingredients) => {
     };
 
     const getData = async () => {
-      postDataDispatcher({ type: "FETCH_API_REQUEST" });
+      postDataDispatcher({ type: FETCH_API_REQUEST });
       try {
-        const res = await fetch(urlLink, requestOptions);
+        const res = await fetch(`${baseUrl}/orders`, requestOptions);
         if (res.ok) {
           const data = await res.json();
           postDataDispatcher({
-            type: "FETCH_API_SUCCESS",
+            type: FETCH_API_SUCCESS,
             payload: data,
           });
         } else return Promise.reject(`Что-то пошло не так: ${res.status}`);
       } catch (error) {
         postDataDispatcher({
-          type: "FETCH_API_ERROR",
+          type: FETCH_API_ERROR,
           payload: error,
         });
       }
     };
     getData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [urlLink]);
+  }, []);
 
   return postData;
 };
