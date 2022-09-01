@@ -8,23 +8,21 @@ export default function IngredientsFilter({ type, openModal, qty }) {
   const filteredIngredients = ingredients.filter(
     (ingredient) => ingredient.type === type
   );
-  return (
-    <>
-      {filteredIngredients.map((ingredient) => {
-        return (
-          <IngredientCard
-            ingredient={ingredient}
-            key={ingredient._id}
-            openModal={openModal}
-            qty={qty}
-          />
-        );
-      })}
-    </>
-  );
+
+  return filteredIngredients.map((ingredient) => {
+    return (
+      <IngredientCard
+        ingredient={ingredient}
+        key={ingredient._id}
+        openModal={openModal}
+        qty={qty}
+      />
+    );
+  });
 }
 
 IngredientsFilter.propTypes = {
   type: PropTypes.string.isRequired,
   openModal: PropTypes.func.isRequired,
+  qty: PropTypes.number.isRequired,
 };

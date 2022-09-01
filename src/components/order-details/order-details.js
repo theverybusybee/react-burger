@@ -1,6 +1,7 @@
 import React from "react";
 import orderStyles from "./order-details.module.css";
 import { CheckMarkIcon } from "@ya.praktikum/react-developer-burger-ui-components";
+import PropTypes from "prop-types";
 
 const OrderDetails = React.memo(({ orderData }) => {
 
@@ -28,5 +29,8 @@ const OrderDetails = React.memo(({ orderData }) => {
     </div>
   );
 });
+OrderDetails.propTypes = {
+  orderData: PropTypes.object.isRequired,
+};
 
 export default OrderDetails;
