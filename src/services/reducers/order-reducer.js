@@ -4,13 +4,7 @@ export const orderInitialState = {
   buns: null,
 };
 
-export function init(orderInitialState) {
-  return {
-    ingredients: orderInitialState,
-  };
-}
-
-export default function orderReducer(state, { type, payload }, init) {
+export default function orderReducer(state, { type, payload }) {
   switch (type) {
     case "SET_INGREDIENTS": {
       return { ...state, ingredients: [...state.ingredients, payload] };

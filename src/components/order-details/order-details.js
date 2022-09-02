@@ -4,11 +4,10 @@ import { CheckMarkIcon } from "@ya.praktikum/react-developer-burger-ui-component
 import PropTypes from "prop-types";
 
 const OrderDetails = React.memo(({ orderData }) => {
-
   return (
     <div className={orderStyles.container}>
       <p className={`${orderStyles.number} text text_type_digits-large`}>
-        {orderData.order.number}
+        {orderData}
       </p>
       <p className={`${orderStyles.caption} text text_type_main-medium`}>
         идентификатор заказа
@@ -29,8 +28,9 @@ const OrderDetails = React.memo(({ orderData }) => {
     </div>
   );
 });
+
 OrderDetails.propTypes = {
-  orderData: PropTypes.object.isRequired,
+  orderData: PropTypes.number,
 };
 
 export default OrderDetails;

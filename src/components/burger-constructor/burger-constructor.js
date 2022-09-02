@@ -17,18 +17,63 @@ import { ApiContext } from "../../services/api-context";
 import orderReducer, {
   orderInitialState,
 } from "../../services/reducers/order-reducer";
-import useFetchOrderDetails from "../../services/hooks/useFetchOrderData";
+import fetchOrderDetails from "../../services/hooks/useFetchOrderData";
 import { OrderContext } from "../../services/api-context";
+import reducer from "../../services/reducers/api-reducer";
+import {
+  FETCH_API_REQUEST,
+  FETCH_API_SUCCESS,
+  FETCH_API_ERROR,
+} from "../../services/actions/actions";
 
 const BurgerConstructor = React.memo(() => {
   const ingredients = useContext(ApiContext);
 
   const [isVisible, setVisability] = useState(false);
   const [order, orderDispatcher] = useReducer(orderReducer, orderInitialState);
+  const apiInitialState = {
+    isLoading: false,
+    hasError: false,
+    data: null,
+  };
+  const [apiIngredientsState, apiDispatcher] = useReducer(
+    reducer,
+    apiInitialState
+  );
 
   const stuffing = useMemo(() => {
     return ingredients.filter((ingredient) => ingredient.type !== "bun");
   }, [ingredients]);
+
+  const postResult = useMemo(() => {
+    return function () {
+      apiDispatcher({ type: FETCH_API_REQUEST });
+      fetchOrderDetails(ingredients)
+        .then((res) => {
+          if (res && res.success) {
+            apiDispatcher({
+              type: FETCH_API_SUCCESS,
+              payload: res.order.number,
+            });
+          } else {
+            apiDispatcher({ type: FETCH_API_ERROR });
+          }
+        })
+        .catch((error) =>
+          apiDispatcher({
+            type: FETCH_API_ERROR,
+            payload: error,
+          })
+        );
+    };
+  }, [ingredients]);
+
+  const { data } = apiIngredientsState;
+
+  const setModal = () => {
+    postResult();
+    handleOpenModal();
+  };
 
   const buns = useMemo(() => {
     return ingredients.filter((ingredient) => ingredient.type === "bun");
@@ -46,8 +91,6 @@ const BurgerConstructor = React.memo(() => {
   function handleCloseModal() {
     setVisability(false);
   }
-
-  const { data } = useFetchOrderDetails(ingredients);
 
   const modalOrderDetails = (
     <Modal onClose={handleCloseModal} isOpened={isVisible}>
@@ -89,7 +132,7 @@ const BurgerConstructor = React.memo(() => {
             <p className="text text_type_digits-medium">{order.totalPrice}</p>
             <CurrencyIcon />
           </div>
-          <Button onClick={handleOpenModal} type="primary" size="large">
+          <Button onClick={setModal} type="primary" size="large">
             Оформить заказ
           </Button>
           {isVisible && modalOrderDetails}

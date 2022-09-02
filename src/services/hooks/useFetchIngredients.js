@@ -1,10 +1,14 @@
 import { useEffect, useReducer } from "react";
 import reducer from "../reducers/api-reducer";
-import { FETCH_API_REQUEST, FETCH_API_SUCCESS, FETCH_API_ERROR } from "../actions/actions";
+import {
+  FETCH_API_REQUEST,
+  FETCH_API_SUCCESS,
+  FETCH_API_ERROR,
+} from "../actions/actions";
 import { baseUrl } from "../../utils/constants";
 
 const useFetchIngredients = () => {
-  const initialState = {
+  const apiInitialState = {
     isLoading: false,
     hasError: false,
     data: [],
@@ -12,9 +16,8 @@ const useFetchIngredients = () => {
 
   const [apiIngredientsState, apiDispatcher] = useReducer(
     reducer,
-    initialState
+    apiInitialState
   );
-
 
   useEffect(() => {
     const getData = async () => {
