@@ -17,7 +17,7 @@ import { ApiContext } from "../../services/api-context";
 import orderReducer, {
   orderInitialState,
 } from "../../services/reducers/order-reducer";
-import fetchOrderDetails from "../../services/hooks/useFetchOrderData";
+import fetchOrderDetails from "../../utils/fetchOrderData";
 import { OrderContext } from "../../services/api-context";
 import reducer from "../../services/reducers/api-reducer";
 import {

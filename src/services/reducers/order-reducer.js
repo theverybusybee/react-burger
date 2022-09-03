@@ -1,3 +1,5 @@
+import { SET_INGREDIENTS, SET_BUNS, ADD, RESET } from "../actions/actions";
+
 export const orderInitialState = {
   totalPrice: 0,
   ingredients: [],
@@ -6,16 +8,16 @@ export const orderInitialState = {
 
 export default function orderReducer(state, { type, payload }) {
   switch (type) {
-    case "SET_INGREDIENTS": {
+    case SET_INGREDIENTS: {
       return { ...state, ingredients: [...state.ingredients, payload] };
     }
-    case "SET_BUNS": {
+    case SET_BUNS: {
       return { ...state, buns: payload };
     }
-    case "ADD": {
+    case ADD: {
       return { ...state, totalPrice: state.totalPrice + payload };
     }
-    case "reset": {
+    case RESET: {
       return { ...state, totalPrice: orderInitialState };
     }
     default:

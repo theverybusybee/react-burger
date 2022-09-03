@@ -1,4 +1,4 @@
-import { baseUrl, checkResponce } from "../../utils/constants";
+import { baseUrl, checkResponce } from "./constants";
 
 const fetchOrderDetails = (ingredients) => {
 
