@@ -1,13 +1,15 @@
-import { useContext, useMemo } from "react";
-import { ApiContext } from "../../services/api-context";
+import { useMemo } from "react";
 import IngredientCard from "../ingredient-card/ingredient-card";
 import PropTypes from "prop-types";
+import { useSelector } from "react-redux";
 
 export default function IngredientsFilter({ type, openModal, qty }) {
-  const ingredients = useContext(ApiContext);
+
+  const allIngredients = useSelector((state) => state.order.allIngredients);
+
   const filteredIngredients = useMemo(() => {
-    return ingredients.filter((ingredient) => ingredient.type === type);
-  }, [ingredients, type]);
+    return allIngredients.filter((ingredient) => ingredient.type === type);
+  }, [allIngredients, type]);
 
   return filteredIngredients.map((ingredient) => {
     return (

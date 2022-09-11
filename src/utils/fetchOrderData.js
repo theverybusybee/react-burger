@@ -11,4 +11,15 @@ const fetchOrderDetails = (ingredients) => {
   return fetch(`${baseUrl}/orders`, requestOptions).then(checkResponce);
 };
 
+export const fetchIngredients = () => {
+
+  const requestOptions = {
+    method: "GET",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(),
+  };
+  
+  return fetch(`${baseUrl}/ingredients`, requestOptions).then(checkResponce);
+}
+
 export default fetchOrderDetails;
