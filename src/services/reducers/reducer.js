@@ -27,7 +27,7 @@ const initialState = {
   createdOrderNumberRequest: false,
   createdOrderNumberFailed: false,
 
-  buns: null,
+  buns: [],
 };
 
 const reducer = (state = initialState, action) => {

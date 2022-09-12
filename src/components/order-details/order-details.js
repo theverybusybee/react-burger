@@ -9,8 +9,6 @@ const OrderDetails = React.memo(() => {
     (state) => state.reducer.createdOrderNumber
   );
 
-  console.log(createdOrderNumber)
-
   return (
     <div className={orderStyles.container}>
       <p className={`${orderStyles.number} text text_type_digits-large`}>

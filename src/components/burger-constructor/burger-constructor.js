@@ -21,11 +21,12 @@ import { OrderContext } from "../../services/api-context";
 import {
   getOrderNumber
 } from "../../services/actions/actions";
-import { useDispatch } from "react-redux";
-import { RESET_ORDER_NUMBER } from "../../services/actions/actions";
+import { useDispatch, useSelector } from "react-redux";
+import { RESET_ORDER_NUMBER, SET_BUNS } from "../../services/actions/actions";
 
 const BurgerConstructor = React.memo(() => {
-  const ingredients = useContext(ApiContext);
+  const allIngredients = useSelector(state => state.reducer.allIngredients)
+  const buns = useSelector(state => state.reducer.buns)
 
   const dispatch = useDispatch();
 
@@ -33,26 +34,26 @@ const BurgerConstructor = React.memo(() => {
   const [order, orderDispatcher] = useReducer(orderReducer, orderInitialState);
 
   const stuffing = useMemo(() => {
-    return ingredients.filter((ingredient) => ingredient.type !== "bun");
-  }, [ingredients]);
+    return allIngredients.filter((ingredient) => ingredient.type !== "bun");
+  }, [allIngredients]);
 
   const postResult = (ingredients) => {
     dispatch(getOrderNumber(ingredients));
   };
 
   const setModal = () => {
-    postResult(ingredients);
+    postResult(allIngredients);
     handleOpenModal();
   };
 
-  const buns = useMemo(() => {
-    return ingredients.filter((ingredient) => ingredient.type === "bun");
-  }, [ingredients]);
+  const bunsFilter = useMemo(() => {
+    return allIngredients.filter((ingredient) => ingredient.type === "bun");
+  }, [allIngredients]);
 
   useEffect(() => {
-    orderDispatcher({ type: "SET_BUNS", payload: buns[0] });
+    dispatch({ type: SET_BUNS, payload: bunsFilter[0] });
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [allIngredients]);
 
   function handleOpenModal() {
     setVisability(true);
@@ -72,11 +73,11 @@ const BurgerConstructor = React.memo(() => {
   return (
     <section className={BurgerConstructorStyles.main}>
       <OrderContext.Provider value={{ order, orderDispatcher }}>
-        {order.buns && (
-          <div className={BurgerConstructorStyles.dragContainer}>
+        { (buns) && 
+          (<div className={BurgerConstructorStyles.dragContainer}>
             <ConstructorElements
               type="top"
-              ingredient={order.buns}
+              ingredient={buns}
               isLocked={true}
             />
             <div className={BurgerConstructorStyles.stuff}>
@@ -93,14 +94,14 @@ const BurgerConstructor = React.memo(() => {
             </div>
             <ConstructorElements
               type="bottom"
-              ingredient={order.buns}
+              ingredient={buns}
               isLocked={true}
             />
-          </div>
-        )}
+          </div>)
+        }
         <div className={BurgerConstructorStyles.orderContainer}>
           <div className={BurgerConstructorStyles.priceContainer}>
-            <p className="text text_type_digits-medium">{order.totalPrice}</p>
+            <p className="text text_type_digits-medium">0</p>
             <CurrencyIcon />
           </div>
           <Button onClick={setModal} type="primary" size="large">

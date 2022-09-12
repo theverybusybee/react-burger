@@ -59,7 +59,6 @@ export function getOrderNumber(ingredients) {
     fetchOrderDetails(ingredients)
       .then((res) => {
         if (res && res.success) {
-          console.log(res.order.number);
           dispatch({
             type: GET_ORDER_NUMBER_SUCCESS,
             payload: res.order.number,

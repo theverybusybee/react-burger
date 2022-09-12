@@ -16,7 +16,6 @@ export default function BurgerIngredients() {
   const currentModalIngredient = useSelector(
     (state) => state.reducer.currentModalIngredient
   );
-  console.log(currentModalIngredient);
 
   const dispatch = useDispatch();
 
