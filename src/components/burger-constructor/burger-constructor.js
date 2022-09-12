@@ -17,61 +17,31 @@ import { ApiContext } from "../../services/api-context";
 import orderReducer, {
   orderInitialState,
 } from "../../services/reducers/order-reducer";
-import fetchOrderDetails from "../../utils/fetchOrderData";
 import { OrderContext } from "../../services/api-context";
-import reducer from "../../services/reducers/api-reducer";
 import {
-  FETCH_API_REQUEST,
-  FETCH_API_SUCCESS,
-  FETCH_API_ERROR,
+  getOrderNumber
 } from "../../services/actions/actions";
+import { useDispatch } from "react-redux";
+import { RESET_ORDER_NUMBER } from "../../services/actions/actions";
 
 const BurgerConstructor = React.memo(() => {
   const ingredients = useContext(ApiContext);
 
+  const dispatch = useDispatch();
+
   const [isVisible, setVisability] = useState(false);
   const [order, orderDispatcher] = useReducer(orderReducer, orderInitialState);
-  const apiInitialState = {
-    isLoading: false,
-    hasError: false,
-    data: null,
-  };
-  const [apiIngredientsState, apiDispatcher] = useReducer(
-    reducer,
-    apiInitialState
-  );
 
   const stuffing = useMemo(() => {
     return ingredients.filter((ingredient) => ingredient.type !== "bun");
   }, [ingredients]);
 
-  const postResult = useMemo(() => {
-    return function () {
-      apiDispatcher({ type: FETCH_API_REQUEST });
-      fetchOrderDetails(ingredients)
-        .then((res) => {
-          if (res && res.success) {
-            apiDispatcher({
-              type: FETCH_API_SUCCESS,
-              payload: res.order.number,
-            });
-          } else {
-            apiDispatcher({ type: FETCH_API_ERROR });
-          }
-        })
-        .catch((error) =>
-          apiDispatcher({
-            type: FETCH_API_ERROR,
-            payload: error,
-          })
-        );
-    };
-  }, [ingredients]);
-
-  const { data } = apiIngredientsState;
+  const postResult = (ingredients) => {
+    dispatch(getOrderNumber(ingredients));
+  };
 
   const setModal = () => {
-    postResult();
+    postResult(ingredients);
     handleOpenModal();
   };
 
@@ -90,11 +60,12 @@ const BurgerConstructor = React.memo(() => {
 
   function handleCloseModal() {
     setVisability(false);
+    dispatch({ type: RESET_ORDER_NUMBER })
   }
 
   const modalOrderDetails = (
     <Modal onClose={handleCloseModal} isOpened={isVisible}>
-      <OrderDetails orderData={data} />
+      <OrderDetails />
     </Modal>
   );
 

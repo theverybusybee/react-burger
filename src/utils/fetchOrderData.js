@@ -1,6 +1,6 @@
 import { baseUrl, checkResponce } from "./constants";
 
-const fetchOrderDetails = (ingredients) => {
+export const fetchOrderDetails = (ingredients) => {
 
   const requestOptions = {
     method: "POST",
@@ -21,5 +21,3 @@ export const fetchIngredients = () => {
   
   return fetch(`${baseUrl}/ingredients`, requestOptions).then(checkResponce);
 }
-
-export default fetchOrderDetails;

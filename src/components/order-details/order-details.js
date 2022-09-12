@@ -2,12 +2,19 @@ import React from "react";
 import orderStyles from "./order-details.module.css";
 import { CheckMarkIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import PropTypes from "prop-types";
+import { useSelector } from "react-redux";
 
-const OrderDetails = React.memo(({ orderData }) => {
+const OrderDetails = React.memo(() => {
+  const createdOrderNumber = useSelector(
+    (state) => state.reducer.createdOrderNumber
+  );
+
+  console.log(createdOrderNumber)
+
   return (
     <div className={orderStyles.container}>
       <p className={`${orderStyles.number} text text_type_digits-large`}>
-        {orderData}
+        {createdOrderNumber}
       </p>
       <p className={`${orderStyles.caption} text text_type_main-medium`}>
         идентификатор заказа

@@ -6,12 +6,17 @@ import Modal from "../modal/modal";
 import IngredientDetails from "../ingredient-details/ingredient-details";
 import IngredientsFilter from "../ingredients-filter/ingredients-filter";
 import { useSelector } from "react-redux";
-import { getIngredients,DELETE_MODAL_INGREDIENT, SET_MODAL_INGREDIENT } from "../../services/actions/actions";
+import {
+  getIngredients,
+  RESET_MODAL_INGREDIENT,
+  SET_MODAL_INGREDIENT,
+} from "../../services/actions/actions";
 
 export default function BurgerIngredients() {
-
-  const currentModalIngredient = useSelector(state => state.reducer.currentModalIngredient)
-  console.log(currentModalIngredient)
+  const currentModalIngredient = useSelector(
+    (state) => state.reducer.currentModalIngredient
+  );
+  console.log(currentModalIngredient);
 
   const dispatch = useDispatch();
 
@@ -22,13 +27,13 @@ export default function BurgerIngredients() {
   const [isVisible, setVisability] = useState(false);
 
   function handleOpenModal(ingredient) {
-    dispatch({ type: SET_MODAL_INGREDIENT, payload: ingredient })
+    dispatch({ type: SET_MODAL_INGREDIENT, payload: ingredient });
     setVisability(true);
   }
 
   function handleCloseModal() {
     setVisability(false);
-    dispatch({ type: DELETE_MODAL_INGREDIENT });
+    dispatch({ type: RESET_MODAL_INGREDIENT });
   }
 
   const modalIngredientDetails = (

@@ -7,7 +7,11 @@ import {
   SET_CURRENT_CONSTRUCTOR_INGREDIENTS,
   SET_BUNS,
   SET_MODAL_INGREDIENT,
-  DELETE_MODAL_INGREDIENT
+  RESET_MODAL_INGREDIENT,
+  GET_ORDER_NUMBER_REQUEST,
+  GET_ORDER_NUMBER_SUCCESS,
+  GET_ORDER_NUMBER_FAILED,
+  RESET_ORDER_NUMBER
 } from "../actions/actions";
 
 const initialState = {
@@ -19,7 +23,9 @@ const initialState = {
 
   currentModalIngredient: {},
 
-  createdOrder: {},
+  createdOrderNumber: null,
+  createdOrderNumberRequest: false,
+  createdOrderNumberFailed: false,
 
   buns: null,
 };
@@ -47,8 +53,24 @@ const reducer = (state = initialState, action) => {
       case SET_MODAL_INGREDIENT:
       return { ...state, currentModalIngredient: action.payload };
 
-      case DELETE_MODAL_INGREDIENT: 
+      case RESET_MODAL_INGREDIENT: 
       return { ...state, currentModalIngredient: {} }
+
+      case GET_ORDER_NUMBER_REQUEST: {
+        return { ...state, createdOrderNumberRequest: true }
+      }
+
+      case GET_ORDER_NUMBER_SUCCESS: {
+        return { ...state, createdOrderNumberRequest: false, createdOrderNumberFailed: false, createdOrderNumber: action.payload }
+      }
+
+      case GET_ORDER_NUMBER_FAILED: {
+        return { ...state, createdOrderNumberFailed: true }
+      }
+
+      case RESET_ORDER_NUMBER: {
+        return { ...state, createdOrderNumber: null }
+      }
 
     default:
       return state;
