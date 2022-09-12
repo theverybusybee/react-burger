@@ -8,7 +8,7 @@ import {
   SET_BUNS,
   SET_MODAL_INGREDIENT,
   DELETE_MODAL_INGREDIENT
-} from "../actions/order";
+} from "../actions/actions";
 
 const initialState = {
   allIngredients: [],
@@ -56,5 +56,5 @@ const reducer = (state = initialState, action) => {
 };
 
 export const rootReducer = combineReducers({
-  order: reducer,
+  reducer: reducer,
 });
