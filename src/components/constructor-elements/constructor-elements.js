@@ -1,25 +1,22 @@
-import React, { useContext, useEffect } from "react";
+import React, { useEffect } from "react";
 import {
   ConstructorElement,
   DragIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import ConstructorElementsStyles from "./constructor-elements.module.css";
-import { OrderContext } from "../../services/api-context";
+import { useDispatch } from "react-redux";
+import { ADD_TO_PRICE } from "../../services/actions/actions";
 
 const ConstructorElements = React.memo(({ ingredient, type, isLocked }) => {
-  const { orderDispatcher } = useContext(OrderContext);
+
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    orderDispatcher({
-      type: "ADD",
+    dispatch({
+      type: ADD_TO_PRICE,
       payload: ingredient.price,
     });
-
-    orderDispatcher({
-      type: "SET_INGREDIENTS",
-      payload: ingredient._id,
-    });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   if (type === "top") {

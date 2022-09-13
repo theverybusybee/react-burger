@@ -18,7 +18,7 @@ export default function orderReducer(state, { type, payload }) {
       return { ...state, totalPrice: state.totalPrice + payload };
     }
     case RESET: {
-      return { ...state, totalPrice: orderInitialState };
+      return { ...state, totalPrice: orderInitialState.totalPrice };
     }
     default:
       throw new Error(`Wrong type of action: ${type}`);

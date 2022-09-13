@@ -1,7 +1,5 @@
 import React, {
   useState,
-  useContext,
-  useReducer,
   useEffect,
   useMemo,
 } from "react";
@@ -13,25 +11,19 @@ import {
 import ConstructorElements from "../constructor-elements/constructor-elements";
 import Modal from "../modal/modal";
 import OrderDetails from "../order-details/order-details";
-import { ApiContext } from "../../services/api-context";
-import orderReducer, {
-  orderInitialState,
-} from "../../services/reducers/order-reducer";
-import { OrderContext } from "../../services/api-context";
-import {
-  getOrderNumber
-} from "../../services/actions/actions";
+import { getOrderNumber } from "../../services/actions/actions";
 import { useDispatch, useSelector } from "react-redux";
 import { RESET_ORDER_NUMBER, SET_BUNS } from "../../services/actions/actions";
 
 const BurgerConstructor = React.memo(() => {
-  const allIngredients = useSelector(state => state.reducer.allIngredients)
-  const buns = useSelector(state => state.reducer.buns)
+  const allIngredients = useSelector((state) => state.reducer.allIngredients);
+  const buns = useSelector((state) => state.reducer.buns);
 
   const dispatch = useDispatch();
 
+  const totalPrice = useSelector((state) => state.reducer.totalPrice)
+
   const [isVisible, setVisability] = useState(false);
-  const [order, orderDispatcher] = useReducer(orderReducer, orderInitialState);
 
   const stuffing = useMemo(() => {
     return allIngredients.filter((ingredient) => ingredient.type !== "bun");
@@ -61,7 +53,7 @@ const BurgerConstructor = React.memo(() => {
 
   function handleCloseModal() {
     setVisability(false);
-    dispatch({ type: RESET_ORDER_NUMBER })
+    dispatch({ type: RESET_ORDER_NUMBER });
   }
 
   const modalOrderDetails = (
@@ -72,14 +64,9 @@ const BurgerConstructor = React.memo(() => {
 
   return (
     <section className={BurgerConstructorStyles.main}>
-      <OrderContext.Provider value={{ order, orderDispatcher }}>
-        { (buns) && 
-          (<div className={BurgerConstructorStyles.dragContainer}>
-            <ConstructorElements
-              type="top"
-              ingredient={buns}
-              isLocked={true}
-            />
+        {buns && (
+          <div className={BurgerConstructorStyles.dragContainer}>
+            <ConstructorElements type="top" ingredient={buns} isLocked={true} />
             <div className={BurgerConstructorStyles.stuff}>
               {stuffing.map((stuff) => {
                 return (
@@ -97,11 +84,11 @@ const BurgerConstructor = React.memo(() => {
               ingredient={buns}
               isLocked={true}
             />
-          </div>)
-        }
+          </div>
+        )}
         <div className={BurgerConstructorStyles.orderContainer}>
           <div className={BurgerConstructorStyles.priceContainer}>
-            <p className="text text_type_digits-medium">0</p>
+            <p className="text text_type_digits-medium">{totalPrice}</p>
             <CurrencyIcon />
           </div>
           <Button onClick={setModal} type="primary" size="large">
@@ -109,7 +96,6 @@ const BurgerConstructor = React.memo(() => {
           </Button>
           {isVisible && modalOrderDetails}
         </div>
-      </OrderContext.Provider>
     </section>
   );
 });

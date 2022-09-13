@@ -31,6 +31,9 @@ export const RESET_MODAL_INGREDIENT = "SET_MODAL_INGREDIENT";
 
 export const RESET_ORDER_NUMBER = 'RESET_ORDER_NUMBER';
 
+export const ADD_TO_PRICE = 'ADD_TO_PRICE';
+export const RESET_PRICE = 'RESET_PRICE';
+
 export function getIngredients() {
   return function (dispatch) {
     dispatch({ type: GET_INGREDIENTS_REQUEST });
