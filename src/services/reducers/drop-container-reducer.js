@@ -6,7 +6,7 @@ import {
   RESET_TOTAL_PRICE,
   SET_BUNS,
   SET_ORDER_INGREDIENTS,
-} from "../actions/draggable-ingredient";
+} from "../actions/drop-container";
 
 const initialState = {
   constructorElements: [],

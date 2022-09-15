@@ -5,7 +5,7 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import ConstructorElementsStyles from "./constructor-elements.module.css";
 import { useDispatch } from "react-redux";
-import { REMOVE_CONSTRUCTOR_ELEMENT } from "../../services/actions/draggable-ingredient";
+import { REMOVE_CONSTRUCTOR_ELEMENT } from "../../services/actions/drop-container";
 import { useMotionValue, Reorder } from "framer-motion";
 
 const ConstructorElements = React.memo(({ ingredient, type, isLocked }) => {

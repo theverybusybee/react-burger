@@ -18,7 +18,7 @@ import {
   RESET_TOTAL_PRICE,
   SET_BUNS,
   SET_ORDER_INGREDIENTS
-} from "../../services/actions/draggable-ingredient";
+} from "../../services/actions/drop-container";
 import { Reorder } from "framer-motion";
 
 
