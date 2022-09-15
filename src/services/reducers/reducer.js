@@ -30,8 +30,6 @@ const initialState = {
   createdOrderNumberFailed: false,
 
   buns: [],
-
-  totalPrice: 0,
 };
 
 const reducer = (state = initialState, { type, payload }) => {
@@ -82,13 +80,6 @@ const reducer = (state = initialState, { type, payload }) => {
 
     case RESET_ORDER_NUMBER: {
       return { ...state, createdOrderNumber: initialState.createdOrderNumber };
-    }
-
-    case ADD_TO_PRICE: {
-      return { ...state, totalPrice: state.totalPrice + payload };
-    }
-    case RESET_PRICE: {
-      return { ...state, totalPrice: initialState.totalPrice };
     }
 
     default:

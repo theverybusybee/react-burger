@@ -1,24 +1,16 @@
-import React, { useEffect } from "react";
+import React, { useMemo } from "react";
 import {
   ConstructorElement,
   DragIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import ConstructorElementsStyles from "./constructor-elements.module.css";
 import { useDispatch } from "react-redux";
-import { ADD_TO_PRICE } from "../../services/actions/actions";
-import { REMOVE_CONSTRUCTOR_ELEMENT } from "../../services/actions/drop-container";
+import { SET_TOTAL_PRICE } from "../../services/actions/draggable-ingredient";
+import { REMOVE_CONSTRUCTOR_ELEMENT } from "../../services/actions/draggable-ingredient";
 
 const ConstructorElements = React.memo(({ ingredient, type, isLocked }) => {
 
   const dispatch = useDispatch();
-
-  useEffect(() => {
-    dispatch({
-      type: ADD_TO_PRICE,
-      payload: ingredient.price,
-    });
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
 
   const handleClose = () => {
     dispatch({ type: REMOVE_CONSTRUCTOR_ELEMENT, id: ingredient._id })

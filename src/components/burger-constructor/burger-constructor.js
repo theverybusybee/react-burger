@@ -13,7 +13,11 @@ import { RESET_ORDER_NUMBER, SET_BUNS } from "../../services/actions/actions";
 import { useDrop } from "react-dnd";
 import {
   SET_CONSTRUCTOR_ELEMENT,
-} from "../../services/actions/drop-container";
+  FILTER_INGREDIENTS,
+  FILTER_BUNS,
+  SET_TOTAL_PRICE,
+  RESET_TOTAL_PRICE
+} from "../../services/actions/draggable-ingredient";
 
 const BurgerConstructor = React.memo(() => {
   const dispatch = useDispatch();
@@ -31,9 +35,27 @@ const BurgerConstructor = React.memo(() => {
   const constructorElements = useSelector(
     (state) => state.dropContainerReducer.constructorElements
   );
-  console.log(constructorElements);
 
-  const totalPrice = useSelector((state) => state.reducer.totalPrice);
+  useMemo(() => {
+    dispatch({ type: FILTER_INGREDIENTS });
+    dispatch({ type: FILTER_BUNS });
+    if (constructorElements.length) {
+      dispatch({
+      type: SET_TOTAL_PRICE,
+      payload: constructorElements,
+    })}
+     else {
+      dispatch({
+      type: RESET_TOTAL_PRICE,
+      payload: constructorElements,
+    })
+    }
+    
+  }, [dispatch, constructorElements]);
+
+  const totalPrice = useSelector(
+    (state) => state.dropContainerReducer.totalPrice
+  );
 
   const [isVisible, setVisability] = useState(false);
 

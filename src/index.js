@@ -6,7 +6,7 @@ import { combineReducers } from 'redux';
 import reportWebVitals from './reportWebVitals';
 import { configureStore } from '@reduxjs/toolkit'
 import reducer from "./services/reducers/reducer";
-import dropContainerReducer from "./services/reducers/drop-container-reducer";
+import dropContainerReducer from "./services/reducers/draggable-ingredient-reducer";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root")
