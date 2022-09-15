@@ -20,7 +20,7 @@ const IngredientCard = React.memo(({ ingredient, openModal }) => {
 
   const qty = useSelector(
     (state) =>
-      state.dropContainerReducer.constructorElements.filter(
+      state.dropContainerReducer.orderIngredients.filter(
         (item) => item._id === ingredient._id
       ).length
   );

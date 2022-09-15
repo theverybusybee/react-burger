@@ -1,20 +1,20 @@
-import React, { useMemo } from "react";
+import React from "react";
 import {
   ConstructorElement,
   DragIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import ConstructorElementsStyles from "./constructor-elements.module.css";
 import { useDispatch } from "react-redux";
-import { SET_TOTAL_PRICE } from "../../services/actions/draggable-ingredient";
 import { REMOVE_CONSTRUCTOR_ELEMENT } from "../../services/actions/draggable-ingredient";
+import { useMotionValue, Reorder } from "framer-motion";
 
 const ConstructorElements = React.memo(({ ingredient, type, isLocked }) => {
-
   const dispatch = useDispatch();
+  const y = useMotionValue(0);
 
   const handleClose = () => {
-    dispatch({ type: REMOVE_CONSTRUCTOR_ELEMENT, id: ingredient._id })
-  }
+    dispatch({ type: REMOVE_CONSTRUCTOR_ELEMENT, id: ingredient._id });
+  };
 
   if (type === "top") {
     return (
@@ -25,7 +25,6 @@ const ConstructorElements = React.memo(({ ingredient, type, isLocked }) => {
           text={`${ingredient.name} (верх)`}
           price={ingredient.price}
           thumbnail={ingredient.image}
-          handleClose={handleClose}
         />
       </div>
     );
@@ -38,22 +37,27 @@ const ConstructorElements = React.memo(({ ingredient, type, isLocked }) => {
           text={`${ingredient.name} (низ)`}
           price={ingredient.price}
           thumbnail={ingredient.image}
-          handleClose={handleClose}
         />
       </div>
     );
   } else if (type === "stuffing") {
     return (
-      <div className={ConstructorElementsStyles.container}>
-        <DragIcon />
-        <ConstructorElement
-          text={ingredient.name}
-          price={ingredient.price}
-          thumbnail={ingredient.image}
-          isLocked={isLocked}
-          handleClose={handleClose}
-        />
-      </div>
+      <Reorder.Item
+        value={ingredient}
+        id={Date.now()}
+        style={{ y }}
+      >
+        <div className={ConstructorElementsStyles.container}>
+          <DragIcon />
+          <ConstructorElement
+            text={ingredient.name}
+            price={ingredient.price}
+            thumbnail={ingredient.image}
+            isLocked={isLocked}
+            handleClose={handleClose}
+          />
+        </div>
+      </Reorder.Item>
     );
   }
 });

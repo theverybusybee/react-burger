@@ -1,19 +1,15 @@
-import { combineReducers } from "redux";
-
 import {
   GET_INGREDIENTS_REQUEST,
   GET_INGREDIENTS_SUCCESS,
   GET_INGREDIENTS_FAILED,
   SET_CURRENT_CONSTRUCTOR_INGREDIENTS,
-  SET_BUNS,
   SET_MODAL_INGREDIENT,
   RESET_MODAL_INGREDIENT,
   GET_ORDER_NUMBER_REQUEST,
   GET_ORDER_NUMBER_SUCCESS,
   GET_ORDER_NUMBER_FAILED,
   RESET_ORDER_NUMBER,
-  ADD_TO_PRICE,
-  RESET_PRICE,
+  TAB_SWITCH,
 } from "../actions/actions";
 
 const initialState = {
@@ -29,10 +25,10 @@ const initialState = {
   createdOrderNumberRequest: false,
   createdOrderNumberFailed: false,
 
-  buns: [],
+  currentTab: "Булки",
 };
 
-const reducer = (state = initialState, { type, payload }) => {
+const reducer = (state = initialState, { type, payload, value }) => {
   switch (type) {
     case GET_INGREDIENTS_REQUEST:
       return { ...state, allIngredientsRequest: true };
@@ -48,9 +44,6 @@ const reducer = (state = initialState, { type, payload }) => {
 
     case SET_CURRENT_CONSTRUCTOR_INGREDIENTS:
       return { ...state, currentConstructorIngredients: payload };
-
-    case SET_BUNS:
-      return { ...state, buns: payload };
 
     case SET_MODAL_INGREDIENT:
       return { ...state, currentModalIngredient: payload };
@@ -80,6 +73,13 @@ const reducer = (state = initialState, { type, payload }) => {
 
     case RESET_ORDER_NUMBER: {
       return { ...state, createdOrderNumber: initialState.createdOrderNumber };
+    }
+
+    case TAB_SWITCH: {
+      return {
+        ...state,
+        currentTab: value,
+      };
     }
 
     default:

@@ -34,6 +34,10 @@ export const RESET_ORDER_NUMBER = 'RESET_ORDER_NUMBER';
 export const ADD_TO_PRICE = 'ADD_TO_PRICE';
 export const RESET_PRICE = 'RESET_PRICE';
 
+export const TAB_SWITCH = 'TAB_SWITCH'
+
+export const TAB_NAME = {BUN: 'Булки', SAUCE: 'Соусы', STUFFING: 'Начинки'} 
+
 export function getIngredients() {
   return function (dispatch) {
     dispatch({ type: GET_INGREDIENTS_REQUEST });
