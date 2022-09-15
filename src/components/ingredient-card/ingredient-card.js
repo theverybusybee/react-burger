@@ -1,3 +1,4 @@
+import React from "react";
 import IngredientCardStyles from "./ingredient-card.module.css";
 import {
   Counter,
@@ -6,7 +7,7 @@ import {
 import PropTypes from "prop-types";
 import { ingredientType } from "../../utils/types";
 
-export default function IngredientCard({ ingredient, openModal }) {
+const IngredientCard = React.memo(({ ingredient, openModal, qty }) => {
   return (
     <li
       className={IngredientCardStyles.card}
@@ -31,16 +32,20 @@ export default function IngredientCard({ ingredient, openModal }) {
       <h2 className={`${IngredientCardStyles.name} text text_type_main-small`}>
         {ingredient.name}
       </h2>
-      <Counter
-        className={IngredientCardStyles.counter}
-        count={1}
-        size="default"
-      />
+      {qty && (
+        <Counter
+          className={IngredientCardStyles.counter}
+          count={qty}
+          size="default"
+        />
+      )}
     </li>
   );
-}
+});
 
 IngredientCard.propTypes = {
   ingredient: PropTypes.shape(ingredientType).isRequired,
   openModal: PropTypes.func.isRequired,
 };
+
+export default IngredientCard;
