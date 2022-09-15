@@ -96,6 +96,4 @@ const reducer = (state = initialState, { type, payload }) => {
   }
 };
 
-export const rootReducer = combineReducers({
-  reducer: reducer,
-});
+export default reducer;

@@ -57,7 +57,7 @@ export default function BurgerIngredients() {
           Булки
         </h2>
         <ul className={BurgerIngredientsStyles.cardsContainer}>
-          <IngredientsFilter type="bun" openModal={handleOpenModal} qty={1} />
+          <IngredientsFilter type="bun" openModal={handleOpenModal} />
         </ul>
 
         <h2
@@ -70,7 +70,6 @@ export default function BurgerIngredients() {
           <IngredientsFilter
             type={"sauce"}
             openModal={handleOpenModal}
-            qty={1}
           />
         </ul>
 
@@ -84,7 +83,6 @@ export default function BurgerIngredients() {
           <IngredientsFilter
             type={"main"}
             openModal={handleOpenModal}
-            qty={1}
           />
         </ul>
         {isVisible && modalIngredientDetails}

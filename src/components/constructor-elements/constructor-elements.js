@@ -6,6 +6,7 @@ import {
 import ConstructorElementsStyles from "./constructor-elements.module.css";
 import { useDispatch } from "react-redux";
 import { ADD_TO_PRICE } from "../../services/actions/actions";
+import { REMOVE_CONSTRUCTOR_ELEMENT } from "../../services/actions/drop-container";
 
 const ConstructorElements = React.memo(({ ingredient, type, isLocked }) => {
 
@@ -19,6 +20,10 @@ const ConstructorElements = React.memo(({ ingredient, type, isLocked }) => {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  const handleClose = () => {
+    dispatch({ type: REMOVE_CONSTRUCTOR_ELEMENT, id: ingredient._id })
+  }
+
   if (type === "top") {
     return (
       <div className={ConstructorElementsStyles.elementWrapper}>
@@ -28,6 +33,7 @@ const ConstructorElements = React.memo(({ ingredient, type, isLocked }) => {
           text={`${ingredient.name} (верх)`}
           price={ingredient.price}
           thumbnail={ingredient.image}
+          handleClose={handleClose}
         />
       </div>
     );
@@ -40,6 +46,7 @@ const ConstructorElements = React.memo(({ ingredient, type, isLocked }) => {
           text={`${ingredient.name} (низ)`}
           price={ingredient.price}
           thumbnail={ingredient.image}
+          handleClose={handleClose}
         />
       </div>
     );
@@ -52,6 +59,7 @@ const ConstructorElements = React.memo(({ ingredient, type, isLocked }) => {
           price={ingredient.price}
           thumbnail={ingredient.image}
           isLocked={isLocked}
+          handleClose={handleClose}
         />
       </div>
     );

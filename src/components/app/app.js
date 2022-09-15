@@ -3,6 +3,8 @@ import AppHeader from "../app-header/app-header";
 import BurgerIngredients from "../burger-ingredients/burger-ingredients";
 import BurgerConstructor from "../burger-constructor/burger-constructor";
 import useFetchIngredients from "../../services/hooks/useFetchIngredients";
+import { DndProvider } from "react-dnd";
+import { HTML5Backend } from "react-dnd-html5-backend";
 
 function App() {
   const { hasError, isLoading, data } = useFetchIngredients();
@@ -21,9 +23,11 @@ function App() {
   } else
     return (
       <div className={AppStyle.main}>
-          <AppHeader />
+        <AppHeader />
+        <DndProvider backend={HTML5Backend}>
           <BurgerIngredients />
           <BurgerConstructor />
+        </DndProvider>
       </div>
     );
 }

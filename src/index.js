@@ -2,25 +2,20 @@ import ReactDOM from "react-dom/client";
 import "./index.css";
 import App from "./components/app/app";
 import { Provider } from "react-redux";
-import { rootReducer } from "./services/reducers/reducer"; 
-import { compose, applyMiddleware } from 'redux';
+import { combineReducers } from 'redux';
 import reportWebVitals from './reportWebVitals';
-import thunk from 'redux-thunk';
 import { configureStore } from '@reduxjs/toolkit'
+import reducer from "./services/reducers/reducer";
+import dropContainerReducer from "./services/reducers/drop-container-reducer";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root")
 );
-/*
 
-const composeEnhancers =
-  typeof window === 'object' && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
-    ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({})
-    : compose;
-
-    const enhancer = composeEnhancers(applyMiddleware(thunk));
-
-*/
+const rootReducer = combineReducers({
+  reducer: reducer,
+  dropContainerReducer: dropContainerReducer,
+});
 
 const store = configureStore({ reducer: rootReducer })
 

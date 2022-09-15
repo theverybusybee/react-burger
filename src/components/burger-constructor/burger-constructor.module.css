@@ -10,9 +10,12 @@
 .stuff {
   overflow-y: scroll;
   max-height: 37vh;
+  min-height: 37vh;
+  width: 580px;
   display: flex;
   flex-direction: column;
   gap: 16px;
+  border: 1px dashed magenta;
 }
 .stuff::-webkit-scrollbar {
   width: 8px;
