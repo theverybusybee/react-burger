@@ -52,33 +52,33 @@ export default function BurgerIngredients() {
   const sauceRef = useRef();
   const stuffingRef = useRef();
 
-  function changeTab() {
-    const viewportCoords = document
-      .getElementById("scroll")
-      .getBoundingClientRect();
-    getDistanceBetweenPoints(bunRef.current, viewportCoords) <
-    getDistanceBetweenPoints(sauceRef.current, viewportCoords)
-      ? dispatch({
-          type: TAB_SWITCH,
-          value: TAB_NAME.BUN,
-        })
-      : getDistanceBetweenPoints(sauceRef.current, viewportCoords) <
-        getDistanceBetweenPoints(stuffingRef.current, viewportCoords)
-      ? dispatch({
-          type: TAB_SWITCH,
-          value: TAB_NAME.SAUCE,
-        })
-      : dispatch({
-          type: TAB_SWITCH,
-          value: TAB_NAME.STUFFING,
-        });
-  }
-
   useEffect(() => {
+    function changeTab() {
+      const viewportCoords = document
+        .getElementById("scroll")
+        .getBoundingClientRect();
+      getDistanceBetweenPoints(bunRef.current, viewportCoords) <
+      getDistanceBetweenPoints(sauceRef.current, viewportCoords)
+        ? dispatch({
+            type: TAB_SWITCH,
+            value: TAB_NAME.BUN,
+          })
+        : getDistanceBetweenPoints(sauceRef.current, viewportCoords) <
+          getDistanceBetweenPoints(stuffingRef.current, viewportCoords)
+        ? dispatch({
+            type: TAB_SWITCH,
+            value: TAB_NAME.SAUCE,
+          })
+        : dispatch({
+            type: TAB_SWITCH,
+            value: TAB_NAME.STUFFING,
+          });
+    }
+
     const scrollSection = document.getElementById("scroll");
     scrollSection.addEventListener("scroll", changeTab);
     return () => scrollSection.removeEventListener("scroll", changeTab);
-  }, []);
+  }, [dispatch]);
 
   const onTabClick = (evt) => {
     dispatch({
