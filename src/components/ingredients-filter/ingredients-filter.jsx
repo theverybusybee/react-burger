@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 import { useSelector } from "react-redux";
 
 export default function IngredientsFilter({ type, openModal }) {
-  const allIngredients = useSelector((state) => state.reducer.allIngredients);
+  const allIngredients = useSelector((state) => state.apiDataReducer.allIngredients);
 
   const filteredIngredients = useMemo(() => {
     return allIngredients.filter((ingredient) => ingredient.type === type);

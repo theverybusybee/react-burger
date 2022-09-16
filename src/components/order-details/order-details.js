@@ -6,7 +6,7 @@ import { useSelector } from "react-redux";
 
 const OrderDetails = React.memo(() => {
   const createdOrderNumber = useSelector(
-    (state) => state.reducer.createdOrderNumber
+    (state) => state.apiDataReducer.createdOrderNumber
   );
 
   return (

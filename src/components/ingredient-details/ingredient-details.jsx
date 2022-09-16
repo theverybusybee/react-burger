@@ -4,7 +4,7 @@ import { useSelector } from "react-redux";
 export default function IngredientDetails() {
   
   const currentModalIngredient = useSelector(
-    (state) => state.reducer.currentModalIngredient
+    (state) => state.modalReducer.currentModalIngredient
   );
 
   return (

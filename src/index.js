@@ -5,16 +5,20 @@ import { Provider } from "react-redux";
 import { combineReducers } from 'redux';
 import reportWebVitals from './reportWebVitals';
 import { configureStore } from '@reduxjs/toolkit'
-import reducer from "./services/reducers/reducer";
+import tabReducer from "./services/reducers/tab";
 import dropContainerReducer from "./services/reducers/drop-container-reducer";
+import apiDataReducer from "./services/reducers/api-data";
+import modalReducer from "./services/reducers/modal";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root")
 );
 
 const rootReducer = combineReducers({
-  reducer: reducer,
+  tabReducer: tabReducer,
   dropContainerReducer: dropContainerReducer,
+  apiDataReducer: apiDataReducer,
+  modalReducer: modalReducer,
 });
 
 const store = configureStore({ reducer: rootReducer })

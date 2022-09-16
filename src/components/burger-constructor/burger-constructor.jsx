@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from "react";
+import React, { useState, useEffect } from "react";
 import BurgerConstructorStyles from "./burger-constructor.module.css";
 import {
   CurrencyIcon,
@@ -7,9 +7,9 @@ import {
 import ConstructorElements from "../constructor-elements/constructor-elements";
 import Modal from "../modal/modal";
 import OrderDetails from "../order-details/order-details";
-import { getOrderNumber } from "../../services/actions/actions";
+import { getOrderNumber } from "../../services/actions/api-data";
 import { useDispatch, useSelector } from "react-redux";
-import { RESET_ORDER_NUMBER } from "../../services/actions/actions";
+import { RESET_ORDER_NUMBER } from "../../services/actions/modal";
 import { useDrop } from "react-dnd";
 import {
   SET_CONSTRUCTOR_ELEMENT,
@@ -43,9 +43,9 @@ const BurgerConstructor = React.memo(() => {
     (state) => state.dropContainerReducer.constructorElements
   );
 
-  const [items, setItems] = useState(constructorElements);
+  const [items, setItems] = useState(constructorElements); // данный стейт используется для пропсов коипонентов библиотеки, которую я использую для перетаскивания ингредиентов внутри конструктора
 
-  useMemo(() => {
+  useEffect(() => {
     dispatch({ type: FILTER_BUNS });
     if (buns.length || constructorElements.length) {
       dispatch({

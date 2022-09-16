@@ -1,34 +1,26 @@
 import {
+  FETCH_API_REQUEST,
+  FETCH_API_SUCCESS,
+  FETCH_API_ERROR,
   GET_INGREDIENTS_REQUEST,
   GET_INGREDIENTS_SUCCESS,
   GET_INGREDIENTS_FAILED,
-  SET_CURRENT_CONSTRUCTOR_INGREDIENTS,
-  SET_MODAL_INGREDIENT,
-  RESET_MODAL_INGREDIENT,
   GET_ORDER_NUMBER_REQUEST,
   GET_ORDER_NUMBER_SUCCESS,
   GET_ORDER_NUMBER_FAILED,
-  RESET_ORDER_NUMBER,
-  TAB_SWITCH,
-} from "../actions/actions";
+} from "../actions/api-data";
 
 const initialState = {
   allIngredients: [],
   allIngredientsRequest: false,
   allIngredientsFailed: false,
 
-  currentConstructorIngredients: [],
-
-  currentModalIngredient: {},
-
   createdOrderNumber: null,
   createdOrderNumberRequest: false,
   createdOrderNumberFailed: false,
-
-  currentTab: "Булки",
 };
 
-const reducer = (state = initialState, { type, payload, value }) => {
+const apiDataReducer = (state = initialState, { type, payload }) => {
   switch (type) {
     case GET_INGREDIENTS_REQUEST:
       return { ...state, allIngredientsRequest: true };
@@ -41,18 +33,6 @@ const reducer = (state = initialState, { type, payload, value }) => {
       };
     case GET_INGREDIENTS_FAILED:
       return { ...state, allIngredientsFailed: true };
-
-    case SET_CURRENT_CONSTRUCTOR_INGREDIENTS:
-      return { ...state, currentConstructorIngredients: payload };
-
-    case SET_MODAL_INGREDIENT:
-      return { ...state, currentModalIngredient: payload };
-
-    case RESET_MODAL_INGREDIENT:
-      return {
-        ...state,
-        currentModalIngredient: initialState.currentModalIngredient,
-      };
 
     case GET_ORDER_NUMBER_REQUEST: {
       return { ...state, createdOrderNumberRequest: true };
@@ -71,20 +51,38 @@ const reducer = (state = initialState, { type, payload, value }) => {
       return { ...state, createdOrderNumberFailed: true };
     }
 
-    case RESET_ORDER_NUMBER: {
-      return { ...state, createdOrderNumber: initialState.createdOrderNumber };
-    }
-
-    case TAB_SWITCH: {
-      return {
-        ...state,
-        currentTab: value,
-      };
-    }
-
     default:
       return state;
   }
 };
 
-export default reducer;
+export default apiDataReducer;
+
+export function apiReducer(state, { type, payload }) {
+  switch (type) {
+    case FETCH_API_REQUEST: {
+      return {
+        ...state,
+        isLoading: true,
+        hasError: false,
+      };
+    }
+    case FETCH_API_SUCCESS: {
+      return {
+        ...state,
+        isLoading: false,
+        hasError: false,
+        data: payload,
+      };
+    }
+    case FETCH_API_ERROR: {
+      return {
+        ...state,
+        isLoading: false,
+        hasError: payload,
+      };
+    }
+    default:
+      return state;
+  }
+}

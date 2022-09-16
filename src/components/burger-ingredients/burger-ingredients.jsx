@@ -7,15 +7,15 @@ import IngredientDetails from "../ingredient-details/ingredient-details";
 import IngredientsFilter from "../ingredients-filter/ingredients-filter.jsx";
 import { useSelector } from "react-redux";
 import {
-  getIngredients,
   RESET_MODAL_INGREDIENT,
   SET_MODAL_INGREDIENT,
-} from "../../services/actions/actions";
-import { TAB_NAME, TAB_SWITCH } from "../../services/actions/actions";
+} from "../../services/actions/modal";
+import { getIngredients } from "../../services/actions/api-data";
+import { TAB_NAME, TAB_SWITCH } from "../../services/actions/tab";
 
 export default function BurgerIngredients() {
   const currentModalIngredient = useSelector(
-    (state) => state.reducer.currentModalIngredient
+    (state) => state.modalReducer.currentModalIngredient
   );
 
   const dispatch = useDispatch();
@@ -42,16 +42,16 @@ export default function BurgerIngredients() {
     </Modal>
   );
 
-    function getDistanceBetweenPoints(element, viewportCoords) {
-  const coordsChild = element.getBoundingClientRect();
-  return Math.abs(viewportCoords.top - coordsChild.top) ;
-}
+  function getDistanceBetweenPoints(element, viewportCoords) {
+    const coordsChild = element.getBoundingClientRect();
+    return Math.abs(viewportCoords.top - coordsChild.top);
+  }
 
-const currentTab = useSelector((state) => state.reducer.currentTab);
+  const currentTab = useSelector((state) => state.tabReducer.currentTab);
   const bunRef = useRef();
   const sauceRef = useRef();
   const stuffingRef = useRef();
-  
+
   function changeTab() {
     const viewportCoords = document
       .getElementById("scroll")
@@ -73,10 +73,11 @@ const currentTab = useSelector((state) => state.reducer.currentTab);
           value: TAB_NAME.STUFFING,
         });
   }
+
   useEffect(() => {
     const scrollSection = document.getElementById("scroll");
     scrollSection.addEventListener("scroll", changeTab);
-    return (() => scrollSection.removeEventListener("scroll", changeTab)) 
+    return () => scrollSection.removeEventListener("scroll", changeTab);
   }, []);
 
   const onTabClick = (evt) => {
@@ -89,14 +90,17 @@ const currentTab = useSelector((state) => state.reducer.currentTab);
   };
 
   return (
-    <section className={BurgerIngredientsStyles.main} >
+    <section className={BurgerIngredientsStyles.main}>
       <h1
         className={`${BurgerIngredientsStyles.title} text text_type_main-large`}
       >
         Соберите бургер
       </h1>
-      <Tabs currentTab={currentTab} onTabClick={onTabClick}/>
-      <div className={` ${BurgerIngredientsStyles.ingredientsContainer} custom-scroll`} id="scroll">
+      <Tabs currentTab={currentTab} onTabClick={onTabClick} />
+      <div
+        className={` ${BurgerIngredientsStyles.ingredientsContainer} custom-scroll`}
+        id="scroll"
+      >
         <h2
           className={`${BurgerIngredientsStyles.ingredientSectionName} text text_type_main-medium`}
           id={TAB_NAME.BUN}
@@ -116,10 +120,7 @@ const currentTab = useSelector((state) => state.reducer.currentTab);
           Соусы
         </h2>
         <ul className={BurgerIngredientsStyles.cardsContainer}>
-          <IngredientsFilter
-            type={"sauce"}
-            openModal={handleOpenModal}
-          />
+          <IngredientsFilter type={"sauce"} openModal={handleOpenModal} />
         </ul>
 
         <h2
@@ -130,10 +131,7 @@ const currentTab = useSelector((state) => state.reducer.currentTab);
           Начинки
         </h2>
         <ul className={BurgerIngredientsStyles.cardsContainer}>
-          <IngredientsFilter
-            type={"main"}
-            openModal={handleOpenModal}
-          />
+          <IngredientsFilter type={"main"} openModal={handleOpenModal} />
         </ul>
         {isVisible && modalIngredientDetails}
       </div>

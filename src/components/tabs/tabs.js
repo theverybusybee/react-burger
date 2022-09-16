@@ -1,6 +1,6 @@
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import tabsStyles from './tabs.module.css'
-import { TAB_NAME } from '../../services/actions/actions'
+import { TAB_NAME } from '../../services/actions/tab'
 
 export default function Tabs({ currentTab, onTabClick }) {
 
