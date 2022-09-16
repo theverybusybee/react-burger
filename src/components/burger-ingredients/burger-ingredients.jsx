@@ -4,7 +4,7 @@ import BurgerIngredientsStyles from "./burger-ingredients.module.css";
 import Tabs from "../tabs/tabs";
 import Modal from "../modal/modal";
 import IngredientDetails from "../ingredient-details/ingredient-details";
-import IngredientsFilter from "../ingredients-filter/ingredients-filter";
+import IngredientsFilter from "../ingredients-filter/ingredients-filter.jsx";
 import { useSelector } from "react-redux";
 import {
   getIngredients,

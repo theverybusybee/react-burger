@@ -44,7 +44,7 @@ const ConstructorElements = React.memo(({ ingredient, type, isLocked }) => {
     return (
       <Reorder.Item
         value={ingredient}
-        id={Date.now()}
+        id={ingredient}
         style={{ y }}
       >
         <div className={ConstructorElementsStyles.container}>

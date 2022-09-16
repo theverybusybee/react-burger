@@ -34,6 +34,7 @@ const dropContainerReducer = (state = initialState, { type, payload, id }) => {
 
     case SET_BUNS:
       return { ...state, buns: [payload] };
+
     case REMOVE_CONSTRUCTOR_ELEMENT:
       return {
         ...state,
@@ -46,9 +47,9 @@ const dropContainerReducer = (state = initialState, { type, payload, id }) => {
         ...state,
         totalPrice: state.constructorElements.length
           ? [...state.constructorElements]
-              .map((el) => el.price)
-              .reduce((a, b) => a + b) +
-            state.buns[0].price * 2
+            .map((el) => el.price)
+            .reduce((a, b) => a + b) +
+          state.buns[0].price * 2
           : state.buns[0].price * 2,
       };
 
@@ -59,12 +60,12 @@ const dropContainerReducer = (state = initialState, { type, payload, id }) => {
       };
     }
 
-    case SET_ORDER_INGREDIENTS: 
-    return {
-      ...state,
-      orderIngredients: state.constructorElements.concat(state.buns, state.buns)
-    }
-      
+    case SET_ORDER_INGREDIENTS:
+      return {
+        ...state,
+        orderIngredients: state.constructorElements.concat(state.buns, state.buns)
+      }
+
     default:
       return state;
   }
