@@ -17,16 +17,14 @@ import {
   SET_TOTAL_PRICE,
   RESET_TOTAL_PRICE,
   SET_BUNS,
-  SET_ORDER_INGREDIENTS
+  SET_ORDER_INGREDIENTS,
 } from "../../services/actions/drop-container";
 import { Reorder } from "framer-motion";
 
-
 const BurgerConstructor = React.memo(() => {
   const dispatch = useDispatch();
-  const buns = useSelector((state) => state.dropContainerReducer.buns);
-    const totalPrice = useSelector(
-    (state) => state.dropContainerReducer.totalPrice
+  const { buns, totalPrice } = useSelector(
+    (state) => state.dropContainerReducer
   );
 
   const [, dropTarget] = useDrop({
@@ -47,28 +45,29 @@ const BurgerConstructor = React.memo(() => {
 
   useEffect(() => {
     dispatch({ type: FILTER_BUNS });
-    if (buns.length || constructorElements.length) {
-      dispatch({
-        type: SET_TOTAL_PRICE,
-        payload: constructorElements,
-      });
-    } else {
-      dispatch({
-        type: RESET_TOTAL_PRICE,
-        payload: constructorElements,
-      });
-    }
+    buns.length || constructorElements.length
+      ? dispatch({
+          type: SET_TOTAL_PRICE,
+          payload: constructorElements,
+        })
+      : dispatch({
+          type: RESET_TOTAL_PRICE,
+          payload: constructorElements,
+        });
+
     setItems(constructorElements);
-    dispatch({ type: SET_ORDER_INGREDIENTS })
+    dispatch({ type: SET_ORDER_INGREDIENTS });
   }, [dispatch, constructorElements, buns]);
 
   const [isVisible, setVisability] = useState(false);
 
   const postResult = (ingredients) => {
     dispatch(getOrderNumber(ingredients));
-  };  
+  };
 
-  const orderIngredients = useSelector(state => state.dropContainerReducer.orderIngredients)
+  const orderIngredients = useSelector(
+    (state) => state.dropContainerReducer.orderIngredients
+  );
 
   const setModal = () => {
     postResult(orderIngredients);
