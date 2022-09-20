@@ -110,7 +110,7 @@ const BurgerConstructor = React.memo(() => {
                   return (
                     <ConstructorElements
                       ingredient={stuff}
-                      key={stuff._id}
+                      key={stuff.uuid}
                       type="stuffing"
                       isLocked={false}
                     />

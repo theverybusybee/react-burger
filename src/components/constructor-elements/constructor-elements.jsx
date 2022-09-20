@@ -13,7 +13,7 @@ const ConstructorElements = React.memo(({ ingredient, type, isLocked }) => {
   const y = useMotionValue(0);
 
   const handleClose = () => {
-    dispatch({ type: REMOVE_CONSTRUCTOR_ELEMENT, id: ingredient._id });
+    dispatch({ type: REMOVE_CONSTRUCTOR_ELEMENT, uuid: ingredient.uuid });
   };
 
   if (type === "top") {
@@ -41,10 +41,11 @@ const ConstructorElements = React.memo(({ ingredient, type, isLocked }) => {
       </div>
     );
   } else if (type === "stuffing") {
+    console.log(ingredient)
     return (
       <Reorder.Item
         value={ingredient}
-        id={ingredient}
+        id={ingredient.uuid}
         style={{ y }}
       >
         <div className={ConstructorElementsStyles.container}>
