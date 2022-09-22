@@ -1,6 +1,4 @@
-import {
-  TAB_SWITCH,
-} from "../actions/tab";
+import { TAB_SWITCH } from "../actions/tab";
 
 const initialState = {
   currentTab: "Булки",
@@ -8,7 +6,6 @@ const initialState = {
 
 const tabReducer = (state = initialState, { type, payload, value }) => {
   switch (type) {
-
     case TAB_SWITCH: {
       return {
         ...state,

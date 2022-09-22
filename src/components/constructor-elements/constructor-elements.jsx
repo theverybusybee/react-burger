@@ -41,13 +41,8 @@ const ConstructorElements = React.memo(({ ingredient, type, isLocked }) => {
       </div>
     );
   } else if (type === "stuffing") {
-    console.log(ingredient)
     return (
-      <Reorder.Item
-        value={ingredient}
-        id={ingredient.uuid}
-        style={{ y }}
-      >
+      <Reorder.Item value={ingredient} id={ingredient.uuid} style={{ y }}>
         <div className={ConstructorElementsStyles.container}>
           <DragIcon />
           <ConstructorElement

@@ -2,7 +2,6 @@ import detailsStyles from "./ingredient-details.module.css";
 import { useSelector } from "react-redux";
 
 export default function IngredientDetails() {
-  
   const currentModalIngredient = useSelector(
     (state) => state.modalReducer.currentModalIngredient
   );

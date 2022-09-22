@@ -1,4 +1,8 @@
-import { SET_MODAL_INGREDIENT, RESET_MODAL_INGREDIENT, RESET_ORDER_NUMBER } from "../actions/modal";
+import {
+  SET_MODAL_INGREDIENT,
+  RESET_MODAL_INGREDIENT,
+  RESET_ORDER_NUMBER,
+} from "../actions/modal";
 
 const initialState = {
   currentModalIngredient: {},
@@ -24,4 +28,4 @@ const modalReducer = (state = initialState, { type, payload }) => {
   }
 };
 
-export default modalReducer
+export default modalReducer;
