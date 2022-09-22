@@ -5,7 +5,7 @@ import {
   Button,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import ConstructorElements from "../constructor-elements/constructor-elements";
-import Modal from "../modal/modal";
+import Modal from "../modal/modal.jsx";
 import OrderDetails from "../order-details/order-details";
 import { getOrderNumber } from "../../services/actions/api-data";
 import { useDispatch, useSelector } from "react-redux";
@@ -41,7 +41,7 @@ const BurgerConstructor = React.memo(() => {
     (state) => state.dropContainerReducer.constructorElements
   );
 
-  const [items, setItems] = useState(constructorElements); // данный стейт используется для пропсов коипонентов библиотеки, которую я использую для перетаскивания ингредиентов внутри конструктора
+  const [items, setItems] = useState(constructorElements); // данный стейт используется для пропсов компонентов библиотеки, которую я использую для перетаскивания ингредиентов внутри конструктора
 
   useEffect(() => {
     dispatch({ type: FILTER_BUNS });
@@ -59,7 +59,7 @@ const BurgerConstructor = React.memo(() => {
     dispatch({ type: SET_ORDER_INGREDIENTS });
   }, [dispatch, constructorElements, buns]);
 
-  const [isVisible, setVisability] = useState(false);
+  const [isVisible, setVisibility] = useState(false);
 
   const postResult = (ingredients) => {
     dispatch(getOrderNumber(ingredients));
@@ -75,11 +75,11 @@ const BurgerConstructor = React.memo(() => {
   };
 
   function handleOpenModal() {
-    setVisability(true);
+    setVisibility(true);
   }
 
   function handleCloseModal() {
-    setVisability(false);
+    setVisibility(false);
     dispatch({ type: RESET_ORDER_NUMBER });
   }
 

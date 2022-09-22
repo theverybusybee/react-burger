@@ -13,12 +13,10 @@ export default function Modal({ children, onClose, isOpened }) {
         onClose();
       }
     };
-    if (isOpened) {
-      document.addEventListener("keydown", handleEscClose);
-      return () => {
-        document.removeEventListener("keydown", handleEscClose);
-      };
-    }
+    document.addEventListener("keydown", handleEscClose);
+    return () => {
+      document.removeEventListener("keydown", handleEscClose);
+    };
   }, [isOpened, onClose]);
 
   return createPortal(

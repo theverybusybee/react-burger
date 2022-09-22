@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from "react";
 import { useDispatch } from "react-redux";
 import BurgerIngredientsStyles from "./burger-ingredients.module.css";
 import Tabs from "../tabs/tabs";
-import Modal from "../modal/modal";
+import Modal from "../modal/modal.jsx";
 import IngredientDetails from "../ingredient-details/ingredient-details";
 import IngredientsFilter from "../ingredients-filter/ingredients-filter.jsx";
 import { useSelector } from "react-redux";
@@ -24,15 +24,15 @@ export default function BurgerIngredients() {
     dispatch(getIngredients());
   }, [dispatch]);
 
-  const [isVisible, setVisability] = useState(false);
+  const [isVisible, setVisibility] = useState(false);
 
   function handleOpenModal(ingredient) {
     dispatch({ type: SET_MODAL_INGREDIENT, payload: ingredient });
-    setVisability(true);
+    setVisibility(true);
   }
 
   function handleCloseModal() {
-    setVisability(false);
+    setVisibility(false);
     dispatch({ type: RESET_MODAL_INGREDIENT });
   }
 
