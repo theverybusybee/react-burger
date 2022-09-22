@@ -1,7 +1,6 @@
 import { baseUrl, checkResponce } from "./constants";
 
-const fetchOrderDetails = (ingredients) => {
-
+export const fetchOrderDetails = (ingredients) => {
   const requestOptions = {
     method: "POST",
     headers: { "Content-Type": "application/json" },
@@ -11,4 +10,12 @@ const fetchOrderDetails = (ingredients) => {
   return fetch(`${baseUrl}/orders`, requestOptions).then(checkResponce);
 };
 
-export default fetchOrderDetails;
+export const fetchIngredients = () => {
+  const requestOptions = {
+    method: "GET",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(),
+  };
+
+  return fetch(`${baseUrl}/ingredients`, requestOptions).then(checkResponce);
+};

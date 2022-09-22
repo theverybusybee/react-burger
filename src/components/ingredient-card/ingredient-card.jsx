@@ -6,10 +6,29 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import PropTypes from "prop-types";
 import { ingredientType } from "../../utils/types";
+import { useDrag } from "react-dnd";
+import { useSelector } from "react-redux";
 
-const IngredientCard = React.memo(({ ingredient, openModal, qty }) => {
+const IngredientCard = React.memo(({ ingredient, openModal }) => {
+  const [{ opacity }, dragRef] = useDrag({
+    type: "items",
+    item: ingredient,
+    collect: (monitor) => ({
+      opacity: monitor.isDragging() ? 0.5 : 1,
+    }),
+  });
+
+  const qty = useSelector(
+    (state) =>
+      state.dropContainerReducer.orderIngredients.filter(
+        (item) => item._id === ingredient._id
+      ).length
+  );
+
   return (
     <li
+      ref={dragRef}
+      style={{ opacity }}
       className={IngredientCardStyles.card}
       onClick={() => openModal(ingredient)}
     >
@@ -32,13 +51,13 @@ const IngredientCard = React.memo(({ ingredient, openModal, qty }) => {
       <h2 className={`${IngredientCardStyles.name} text text_type_main-small`}>
         {ingredient.name}
       </h2>
-      {qty && (
+      {qty ? (
         <Counter
           className={IngredientCardStyles.counter}
           count={qty}
           size="default"
         />
-      )}
+      ) : null}
     </li>
   );
 });

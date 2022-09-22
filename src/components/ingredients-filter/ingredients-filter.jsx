@@ -1,13 +1,16 @@
-import { useContext, useMemo } from "react";
-import { ApiContext } from "../../services/api-context";
+import { useMemo } from "react";
 import IngredientCard from "../ingredient-card/ingredient-card";
 import PropTypes from "prop-types";
+import { useSelector } from "react-redux";
 
-export default function IngredientsFilter({ type, openModal, qty }) {
-  const ingredients = useContext(ApiContext);
+export default function IngredientsFilter({ type, openModal }) {
+  const allIngredients = useSelector(
+    (state) => state.apiDataReducer.allIngredients
+  );
+
   const filteredIngredients = useMemo(() => {
-    return ingredients.filter((ingredient) => ingredient.type === type);
-  }, [ingredients, type]);
+    return allIngredients.filter((ingredient) => ingredient.type === type);
+  }, [allIngredients, type]);
 
   return filteredIngredients.map((ingredient) => {
     return (
@@ -15,7 +18,6 @@ export default function IngredientsFilter({ type, openModal, qty }) {
         ingredient={ingredient}
         key={ingredient._id}
         openModal={openModal}
-        qty={qty}
       />
     );
   });
@@ -24,5 +26,4 @@ export default function IngredientsFilter({ type, openModal, qty }) {
 IngredientsFilter.propTypes = {
   type: PropTypes.string.isRequired,
   openModal: PropTypes.func.isRequired,
-  qty: PropTypes.number.isRequired,
 };

@@ -5,3 +5,5 @@ export const checkResponce = (res) => {
   }
   return Promise.reject(`Ошибка ${res.status}`);
 };
+
+export const modalsRoot = document.querySelector('#react-modals');
