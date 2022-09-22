@@ -28,7 +28,7 @@ const ConstructorElements = React.memo(({ ingredient, type, isLocked }) => {
         />
       </div>
     );
-  } else if (type === "bottom") {
+  }  if (type === "bottom") {
     return (
       <div className={ConstructorElementsStyles.elementWrapper}>
         <ConstructorElement
@@ -40,7 +40,7 @@ const ConstructorElements = React.memo(({ ingredient, type, isLocked }) => {
         />
       </div>
     );
-  } else if (type === "stuffing") {
+  }  if (type === "stuffing") {
     return (
       <Reorder.Item value={ingredient} id={ingredient.uuid} style={{ y }}>
         <div className={ConstructorElementsStyles.container}>
