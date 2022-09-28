@@ -6,6 +6,9 @@ import useFetchIngredients from "../../services/hooks/useFetchIngredients";
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 import ApiLoader from "../api-loader/api-loader";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import Home from "../../pages/home/home";
+import RegisterPage from "../../pages/register-page/register-page";
 
 function App() {
   const { hasError, isLoading, data } = useFetchIngredients();
@@ -14,13 +17,21 @@ function App() {
   ) : (
     <div className={AppStyle.main}>
       <AppHeader />
+
       {isLoading ? (
         <ApiLoader />
       ) : (
-        <DndProvider backend={HTML5Backend}>
-          <BurgerIngredients />
-          <BurgerConstructor />
-        </DndProvider>
+        <Router>
+          <Switch>
+            <Route path='/' exact='true'>
+              {/* <DndProvider backend={HTML5Backend}>
+                <Home />
+              </DndProvider> */}
+              <RegisterPage />
+            </Route>
+            <Route path='/login' exact='true'></Route>
+          </Switch>
+        </Router>
       )}
     </div>
   );
