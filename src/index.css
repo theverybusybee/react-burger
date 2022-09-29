@@ -18,3 +18,7 @@ body {
 .input__container .input_size_default {
   width: 480px;
 }
+
+.button__button .button_button_size_medium {
+  width: 100px;
+}

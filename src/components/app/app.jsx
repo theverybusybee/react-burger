@@ -5,7 +5,7 @@ import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 import ApiLoader from "../api-loader/api-loader";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import { Home, RegisterPage, ResetPasswordPage, ForgotPasswordPage } from '../../pages/index'
+import { Home, RegisterPage, ResetPasswordPage, ForgotPasswordPage, LoginPage } from '../../pages/index'
 
 function App() {
   const { hasError, isLoading, data } = useFetchIngredients();
@@ -24,7 +24,7 @@ function App() {
               {/* <DndProvider backend={HTML5Backend}>
                 <Home />
               </DndProvider> */}
-             <RegisterPage />
+             <LoginPage />
             </Route>
             <Route path='/login' exact={true}></Route>
           </Switch>
