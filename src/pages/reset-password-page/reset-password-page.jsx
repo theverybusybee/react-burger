@@ -15,12 +15,18 @@ function ResetPasswordPage() {
           Восстановление пароля
         </h1>
         <Input
-          type="email"
-          placeholder="Укажите e-mail"
+          type="password"
+          placeholder="Введите новый пароль"
+          disabled={false}
+          icon='ShowIcon'
+        />
+        <Input
+          type="text"
+          placeholder="Введите код из письма"
           disabled={false}
         />
         <Button type="primary" size="medium">
-          Восстановить
+          Сохранить
         </Button>
       </form>
       <p
