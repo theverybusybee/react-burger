@@ -24,7 +24,7 @@ function App() {
               {/* <DndProvider backend={HTML5Backend}>
                 <Home />
               </DndProvider> */}
-             <ResetPasswordPage />
+             <RegisterPage />
             </Route>
             <Route path='/login' exact={true}></Route>
           </Switch>

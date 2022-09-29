@@ -2,7 +2,6 @@ import {
   Button,
   Input,
   PasswordInput,
-  EmailInput,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { Link } from "react-router-dom";
 import registerStyles from "./register-page.module.css";
@@ -16,7 +15,6 @@ function RegisterPage() {
         Регистрация
       </h1>
       <form className={registerStyles.authForm}>
-        <label>
           <Input
             type={"text"}
             placeholder={"Имя"}
@@ -25,15 +23,10 @@ function RegisterPage() {
             errorText={"Ошибка"}
             size={"default"}
           ></Input>
-        </label>
 
-        <label>
-          <EmailInput name={"email"} />
-        </label>
+          <Input name={"email"} icon='undefined' placeholder="E-mail"/>
 
-        <label>
           <PasswordInput name={"password"} />
-        </label>
 
         <Button type="primary" size="medium">
           Зарегистрироваться
