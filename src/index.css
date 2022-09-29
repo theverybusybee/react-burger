@@ -14,3 +14,7 @@ body {
   display: flex;
   justify-content: center;
 }
+
+.input__container .input_size_default {
+  width: 480px;
+}

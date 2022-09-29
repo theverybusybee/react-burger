@@ -1,14 +1,11 @@
 import AppStyle from "./app.module.css";
 import AppHeader from "../app-header/app-header";
-import BurgerIngredients from "../burger-ingredients/burger-ingredients";
-import BurgerConstructor from "../burger-constructor/burger-constructor";
 import useFetchIngredients from "../../services/hooks/useFetchIngredients";
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 import ApiLoader from "../api-loader/api-loader";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import Home from "../../pages/home/home";
-import RegisterPage from "../../pages/register-page/register-page";
+import { Home, RegisterPage, ResetPasswordPage } from '../../pages/index'
 
 function App() {
   const { hasError, isLoading, data } = useFetchIngredients();
@@ -23,13 +20,13 @@ function App() {
       ) : (
         <Router>
           <Switch>
-            <Route path='/' exact='true'>
+            <Route path='/' exact={true}>
               {/* <DndProvider backend={HTML5Backend}>
                 <Home />
               </DndProvider> */}
-              <RegisterPage />
+              <ResetPasswordPage />
             </Route>
-            <Route path='/login' exact='true'></Route>
+            <Route path='/login' exact={true}></Route>
           </Switch>
         </Router>
       )}
