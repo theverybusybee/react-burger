@@ -5,7 +5,14 @@ import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 import ApiLoader from "../api-loader/api-loader";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import { Home, RegisterPage, ResetPasswordPage, ForgotPasswordPage, LoginPage } from '../../pages/index'
+import {
+  Home,
+  RegisterPage,
+  ResetPasswordPage,
+  ForgotPasswordPage,
+  LoginPage,
+  Profile,
+} from "../../pages/index";
 
 function App() {
   const { hasError, isLoading, data } = useFetchIngredients();
@@ -20,13 +27,13 @@ function App() {
       ) : (
         <Router>
           <Switch>
-            <Route path='/' exact={true}>
+            <Route path="/" exact={true}>
               {/* <DndProvider backend={HTML5Backend}>
                 <Home />
               </DndProvider> */}
-             <LoginPage />
+              <Profile />
             </Route>
-            <Route path='/login' exact={true}></Route>
+            <Route path="/login" exact={true}></Route>
           </Switch>
         </Router>
       )}
