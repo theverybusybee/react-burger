@@ -36,7 +36,7 @@ function RegisterPage() {
         className={`${registerStyles.alreadyRegister} text text_type_main-default text_color_inactive`}
       >
         Уже зарегистрированы?{" "}
-        <Link className={registerStyles.loginLink}>Войти</Link>
+        <Link className={registerStyles.loginLink} to='/login'>Войти</Link>
       </p>
     </div>
   );

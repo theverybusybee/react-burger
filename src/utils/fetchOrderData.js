@@ -1,4 +1,4 @@
-import { baseUrl, checkResponce } from "./constants";
+import { baseUrl, checkResponse as checkResponse } from "./constants";
 
 export const fetchOrderDetails = (ingredients) => {
   const requestOptions = {
@@ -7,7 +7,7 @@ export const fetchOrderDetails = (ingredients) => {
     body: JSON.stringify({ ingredients }),
   };
 
-  return fetch(`${baseUrl}/orders`, requestOptions).then(checkResponce);
+  return fetch(`${baseUrl}/orders`, requestOptions).then(checkResponse);
 };
 
 export const fetchIngredients = () => {
@@ -17,5 +17,15 @@ export const fetchIngredients = () => {
     body: JSON.stringify(),
   };
 
-  return fetch(`${baseUrl}/ingredients`, requestOptions).then(checkResponce);
+  return fetch(`${baseUrl}/ingredients`, requestOptions).then(checkResponse);
+};
+
+export const fetchForgotPassword = (state) => {
+  const requestOptions = {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(state),
+  };
+
+  return fetch(`${baseUrl}/password-reset`, requestOptions).then(checkResponse);
 };

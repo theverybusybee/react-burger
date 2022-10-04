@@ -32,7 +32,7 @@ function ResetPasswordPage() {
       <p
         className={`${resetStyles.recallPassword} text text_type_main-default text_color_inactive`}
       >
-        Вспомнили пароль? <Link className={resetStyles.loginLink}>Войти</Link>
+        Вспомнили пароль? <Link className={resetStyles.loginLink} to='/login'>Войти</Link>
       </p>
     </div>
   );

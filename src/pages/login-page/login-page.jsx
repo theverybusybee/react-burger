@@ -4,9 +4,21 @@ import {
   Input,
   PasswordInput,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import { Link } from "react-router-dom";
+import { Link, BrowserRouter } from "react-router-dom";
+import { useState } from "react";
+
 
 function LoginPage() {
+
+  const [userState, setUserState] = useState({
+    'email': '',
+    'password': '',
+    'name': '',
+  })
+
+  const test = BrowserRouter
+  console.log(test)
+
   return (
     <div className={loginStyles.authContainer}>
       <h1 className={`${loginStyles.title} title text text_type_main-medium`}>
@@ -25,13 +37,13 @@ function LoginPage() {
         className={`${loginStyles.paragraph} text text_type_main-default text_color_inactive`}
       >
         Вы — новый пользователь?{" "}
-        <Link className={loginStyles.link}>Зарегистрироваться</Link>
+        <Link className={loginStyles.link} to='/register'>Зарегистрироваться</Link>
       </p>
       <p
         className={`${loginStyles.paragraph} text text_type_main-default text_color_inactive`}
       >
         Забыли пароль?{" "}
-        <Link className={loginStyles.link}>Восстановить пароль</Link>
+        <Link className={loginStyles.link} to='/forgot-password'>Восстановить пароль</Link>
       </p>
     </div>
   );

@@ -28,12 +28,25 @@ function App() {
         <Router>
           <Switch>
             <Route path="/" exact={true}>
-              {/* <DndProvider backend={HTML5Backend}>
+              <DndProvider backend={HTML5Backend}>
                 <Home />
-              </DndProvider> */}
+              </DndProvider>
+            </Route>
+            <Route path="/login" exact={true}>
+              <LoginPage />
+            </Route>
+            <Route path="/register" exact={true}>
+              <RegisterPage />
+            </Route>
+            <Route path="/forgot-password" exact={true}>
+              <ForgotPasswordPage />
+            </Route>
+            <Route path="/reset-password" exact={true}>
+              <ResetPasswordPage />
+            </Route>
+            <Route path="/profile" exact={true}>
               <Profile />
             </Route>
-            <Route path="/login" exact={true}></Route>
           </Switch>
         </Router>
       )}

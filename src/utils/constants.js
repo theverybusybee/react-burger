@@ -1,5 +1,5 @@
 export const baseUrl = "https://norma.nomoreparties.space/api";
-export const checkResponce = (res) => {
+export const checkResponse = (res) => {
   if (res.ok) {
     return res.json();
   }
