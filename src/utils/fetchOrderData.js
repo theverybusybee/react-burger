@@ -20,19 +20,18 @@ export const fetchIngredients = () => {
   return fetch(`${baseUrl}/ingredients`, requestOptions).then(checkResponse);
 };
 
-
 export const fetchForgotPassword = (form) => {
-  const requestOptions = {  
-    method: 'POST',
-    mode: 'cors',
-    cache: 'no-cache',
-    credentials: 'same-origin',
+  const requestOptions = {
+    method: "POST",
+    mode: "cors",
+    cache: "no-cache",
+    credentials: "same-origin",
     headers: {
-      'Content-Type': 'application/json'
+      "Content-Type": "application/json",
     },
-    redirect: 'follow',
-    referrerPolicy: 'no-referrer',
-    body: JSON.stringify(form)
+    redirect: "follow",
+    referrerPolicy: "no-referrer",
+    body: JSON.stringify(form),
   };
 
   return fetch(`${baseUrl}/password-reset`, requestOptions).then(checkResponse);
@@ -40,17 +39,36 @@ export const fetchForgotPassword = (form) => {
 
 export const fetchRegister = (form) => {
   const requestOptions = {
-     method: 'POST',
-    mode: 'cors',
-    cache: 'no-cache',
-    credentials: 'same-origin',
+    method: "POST",
+    mode: "cors",
+    cache: "no-cache",
+    credentials: "same-origin",
     headers: {
-      'Content-Type': 'application/json'
+      "Content-Type": "application/json",
     },
-    redirect: 'follow',
-    referrerPolicy: 'no-referrer',
-    body: JSON.stringify(form)
+    redirect: "follow",
+    referrerPolicy: "no-referrer",
+    body: JSON.stringify(form),
   };
 
   return fetch(`${baseAuthUrl}/register`, requestOptions).then(checkResponse);
+};
+
+export const fetchResetPassword = (form) => {
+  const requestOptions = {
+    method: "POST",
+    mode: "cors",
+    cache: "no-cache",
+    credentials: "same-origin",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    redirect: "follow",
+    referrerPolicy: "no-referrer",
+    body: JSON.stringify(form),
+  };
+
+  return fetch(`${baseUrl}/password-reset/reset`, requestOptions).then(
+    checkResponse
+  );
 };

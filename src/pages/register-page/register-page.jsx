@@ -22,7 +22,7 @@ function RegisterPage() {
   });
 
   const registerUser = async (form) => {
-    const data = await fetchRegister(form).then((data) => data).then((data) => console.log(data))
+    const data = await fetchRegister(form).then((data) => data);
     if (data.success) {
       setApiState({ ...apiState, data: {user: data.user, accessToken: data.accessToken} });
     }

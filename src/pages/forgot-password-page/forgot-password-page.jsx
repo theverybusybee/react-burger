@@ -29,8 +29,6 @@ function ForgotPasswordPage() {
     }
   };
 
-  console.log(apiState);
-
   let push = useCallback(
     (e) => {
       e.preventDefault();

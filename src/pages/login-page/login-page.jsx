@@ -4,13 +4,12 @@ import {
   Input,
   PasswordInput,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import { Link, BrowserRouter, Redirect } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 import { useState, useCallback } from "react";
 import { useAuth } from "../../services/hooks/auth";
 
 function LoginPage() {
   const auth = useAuth();
-  console.log(auth);
 
   const [form, setValue] = useState({
     email: "",
@@ -38,9 +37,6 @@ function LoginPage() {
       />
     );
   }
-
-  const test = BrowserRouter;
-  console.log(test);
 
   return (
     <div className={loginStyles.authContainer}>
