@@ -3,8 +3,8 @@ import {
   Input,
   Button,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import { Link } from "react-router-dom";
-import { useState } from "react";
+import { Link, Redirect } from "react-router-dom";
+import { useState, useCallback } from "react";
 import { fetchForgotPassword } from "../../utils/fetchOrderData";
 
 function ForgotPasswordPage() {
@@ -14,46 +14,53 @@ function ForgotPasswordPage() {
     data: [],
   });
 
-  function getMail(mail) {
-    return function () {
-      setApiState({ ...apiState, isLoading: true });
-      fetchForgotPassword(mail)
-        .then((res) => {
-          if (res && res.success) {
-            setApiState({ ...apiState, data: res.message });
-            console.log(res);
-          } else {
-            setApiState({ ...apiState, hasError: true });
-          }
-        })
-        .catch(() => setApiState({ ...apiState, hasError: true }));
-    };
-  }
-
-  const [mailState, setMailState] = useState({
+  const [formState, setFormState] = useState({
     email: "",
   });
 
   const onInputChange = (e) => {
-    const target = e.target;
-    setMailState({ ...mailState, [target.type]: target.value });
+    setFormState({ ...formState, [e.target.name]: e.target.value });
   };
+
+  const resetPassword = async (form) => {
+    const data = await fetchForgotPassword(form).then((data) => data);
+    if (data.success) {
+      setApiState({ ...apiState, data: data });
+    }
+  };
+
+  console.log(apiState);
+
+  let push = useCallback(
+    (e) => {
+      e.preventDefault();
+      resetPassword(formState);
+    },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [formState]
+  );
+
+  if (apiState.data.success) {
+    return <Redirect to="/reset-password" />;
+  }
 
   return (
     <div className={forgotPasswordStyles.container}>
-      <form className={forgotPasswordStyles.form} action="">
+      <form className={forgotPasswordStyles.form}>
         <h1
           className={`${forgotPasswordStyles.title} text text_type_main-medium`}
         >
           Восстановление пароля
         </h1>
         <Input
+          value={formState.email}
+          name="email"
           type="email"
           placeholder="Укажите e-mail"
           disabled={false}
           onChange={onInputChange}
         />
-        <Button type="primary" size="medium" onClick={getMail(mailState)}>
+        <Button type="primary" size="medium" onClick={push}>
           Восстановить
         </Button>
       </form>
@@ -61,7 +68,9 @@ function ForgotPasswordPage() {
         className={`${forgotPasswordStyles.recallPassword} text text_type_main-default text_color_inactive`}
       >
         Вспомнили пароль?{" "}
-        <Link to='/login' className={forgotPasswordStyles.loginLink}>Войти</Link>
+        <Link to="/login" className={forgotPasswordStyles.loginLink}>
+          Войти
+        </Link>
       </p>
     </div>
   );

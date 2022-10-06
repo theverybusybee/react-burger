@@ -5,7 +5,6 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { Link } from "react-router-dom";
 
-console.log(resetStyles);
 
 function ResetPasswordPage() {
   return (

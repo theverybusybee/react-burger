@@ -13,6 +13,7 @@ import {
   LoginPage,
   Profile,
 } from "../../pages/index";
+import { ProvideAuth } from "../../services/hooks/auth";
 
 function App() {
   const { hasError, isLoading, data } = useFetchIngredients();
@@ -25,30 +26,32 @@ function App() {
       {isLoading ? (
         <ApiLoader />
       ) : (
-        <Router>
-          <Switch>
-            <Route path="/" exact={true}>
-              <DndProvider backend={HTML5Backend}>
-                <Home />
-              </DndProvider>
-            </Route>
-            <Route path="/login" exact={true}>
-              <LoginPage />
-            </Route>
-            <Route path="/register" exact={true}>
-              <RegisterPage />
-            </Route>
-            <Route path="/forgot-password" exact={true}>
-              <ForgotPasswordPage />
-            </Route>
-            <Route path="/reset-password" exact={true}>
-              <ResetPasswordPage />
-            </Route>
-            <Route path="/profile" exact={true}>
-              <Profile />
-            </Route>
-          </Switch>
-        </Router>
+        <ProvideAuth>
+          <Router>
+            <Switch>
+              <Route path="/" exact={true}>
+                <DndProvider backend={HTML5Backend}>
+                  <Home />
+                </DndProvider>
+              </Route>
+              <Route path="/login" exact={true}>
+                <LoginPage />
+              </Route>
+              <Route path="/register" exact={true}>
+                <RegisterPage />
+              </Route>
+              <Route path="/forgot-password" exact={true}>
+                <ForgotPasswordPage />
+              </Route>
+              <Route path="/reset-password" exact={true}>
+                <ResetPasswordPage />
+              </Route>
+              <Route path="/profile" exact={true}>
+                <Profile />
+              </Route>
+            </Switch>
+          </Router>
+        </ProvideAuth>
       )}
     </div>
   );

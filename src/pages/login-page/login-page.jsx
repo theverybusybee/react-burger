@@ -4,20 +4,43 @@ import {
   Input,
   PasswordInput,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import { Link, BrowserRouter } from "react-router-dom";
-import { useState } from "react";
-
+import { Link, BrowserRouter, Redirect } from "react-router-dom";
+import { useState, useCallback } from "react";
+import { useAuth } from "../../services/hooks/auth";
 
 function LoginPage() {
+  const auth = useAuth();
+  console.log(auth);
 
-  const [userState, setUserState] = useState({
-    'email': '',
-    'password': '',
-    'name': '',
-  })
+  const [form, setValue] = useState({
+    email: "",
+    password: "",
+  });
 
-  const test = BrowserRouter
-  console.log(test)
+  const onChange = (e) => {
+    setValue({ ...form, [e.target.name]: e.target.value });
+  };
+
+  let login = useCallback(
+    (e) => {
+      e.preventDefault();
+      auth.signIn(form);
+    },
+    [auth, form]
+  );
+
+  if (auth.user) {
+    return (
+      <Redirect
+        to={{
+          pathname: "/",
+        }}
+      />
+    );
+  }
+
+  const test = BrowserRouter;
+  console.log(test);
 
   return (
     <div className={loginStyles.authContainer}>
@@ -25,11 +48,16 @@ function LoginPage() {
         Вход
       </h1>
       <form className={loginStyles.authForm}>
-        <Input name={"email"} icon="undefined" placeholder="E-mail" />
+        <Input
+          name={"email"}
+          icon="undefined"
+          placeholder="E-mail"
+          onChange={onChange}
+        />
 
-        <PasswordInput name={"password"} />
+        <PasswordInput name={"password"} onChange={onChange} />
 
-        <Button type="primary" size="medium">
+        <Button type="primary" size="medium" onClick={login}>
           Войти
         </Button>
       </form>
@@ -37,13 +65,17 @@ function LoginPage() {
         className={`${loginStyles.paragraph} text text_type_main-default text_color_inactive`}
       >
         Вы — новый пользователь?{" "}
-        <Link className={loginStyles.link} to='/register'>Зарегистрироваться</Link>
+        <Link className={loginStyles.link} to="/register">
+          Зарегистрироваться
+        </Link>
       </p>
       <p
         className={`${loginStyles.paragraph} text text_type_main-default text_color_inactive`}
       >
         Забыли пароль?{" "}
-        <Link className={loginStyles.link} to='/forgot-password'>Восстановить пароль</Link>
+        <Link className={loginStyles.link} to="/forgot-password">
+          Восстановить пароль
+        </Link>
       </p>
     </div>
   );

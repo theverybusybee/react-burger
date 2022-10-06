@@ -1,4 +1,4 @@
-import { baseUrl, checkResponse as checkResponse } from "./constants";
+import { baseUrl, checkResponse, baseAuthUrl } from "./constants";
 
 export const fetchOrderDetails = (ingredients) => {
   const requestOptions = {
@@ -20,12 +20,37 @@ export const fetchIngredients = () => {
   return fetch(`${baseUrl}/ingredients`, requestOptions).then(checkResponse);
 };
 
-export const fetchForgotPassword = (state) => {
-  const requestOptions = {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(state),
+
+export const fetchForgotPassword = (form) => {
+  const requestOptions = {  
+    method: 'POST',
+    mode: 'cors',
+    cache: 'no-cache',
+    credentials: 'same-origin',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    redirect: 'follow',
+    referrerPolicy: 'no-referrer',
+    body: JSON.stringify(form)
   };
 
   return fetch(`${baseUrl}/password-reset`, requestOptions).then(checkResponse);
+};
+
+export const fetchRegister = (form) => {
+  const requestOptions = {
+     method: 'POST',
+    mode: 'cors',
+    cache: 'no-cache',
+    credentials: 'same-origin',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    redirect: 'follow',
+    referrerPolicy: 'no-referrer',
+    body: JSON.stringify(form)
+  };
+
+  return fetch(`${baseAuthUrl}/register`, requestOptions).then(checkResponse);
 };
