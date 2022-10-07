@@ -6,26 +6,21 @@ import {
 import { Link } from "react-router-dom";
 import registerStyles from "./register-page.module.css";
 import { useState, useCallback } from "react";
-import { fetchRegister } from "../../utils/fetchOrderData";
+import { useDispatch } from "react-redux";
+import { setRegister } from "../../services/actions/auth";
 
 function RegisterPage() {
+
+  const dispatch = useDispatch();
+
   const [formState, setFormState] = useState({
     email: "",
     name: "",
     password: "",
   });
 
-  const [apiState, setApiState] = useState({
-    isLoading: false,
-    hasError: false,
-    data: [],
-  });
-
-  const registerUser = async (form) => {
-    const data = await fetchRegister(form).then((data) => data);
-    if (data.success) {
-      setApiState({ ...apiState, data: {user: data.user, accessToken: data.accessToken} });
-    }
+  const registerUser = (form) => {
+    dispatch(setRegister(form));
   };
 
   const onInputChange = (e) => {

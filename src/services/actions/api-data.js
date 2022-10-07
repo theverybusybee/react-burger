@@ -3,10 +3,6 @@ import {
   fetchOrderDetails,
 } from "../../utils/fetchOrderData";
 
-export const FETCH_API_REQUEST = "FETCH_API_REQUEST";
-export const FETCH_API_SUCCESS = "FETCH_API_SUCCESS";
-export const FETCH_API_ERROR = "FETCH_API_ERROR";
-
 export const GET_INGREDIENTS_REQUEST = "GET_INGREDIENTS_REQUEST";
 export const GET_INGREDIENTS_SUCCESS = "GET_INGREDIENTS_SUCCESS";
 export const GET_INGREDIENTS_FAILED = "GET_INGREDIENTS_FAILED";

@@ -9,6 +9,7 @@ import tabReducer from "./services/reducers/tab";
 import dropContainerReducer from "./services/reducers/drop-container-reducer";
 import apiDataReducer from "./services/reducers/api-data";
 import modalReducer from "./services/reducers/modal";
+import authUserReducer from "./services/reducers/auth-reducer";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root")
@@ -19,6 +20,7 @@ const rootReducer = combineReducers({
   dropContainerReducer: dropContainerReducer,
   apiDataReducer: apiDataReducer,
   modalReducer: modalReducer,
+  authUserReducer: authUserReducer,
 });
 
 const store = configureStore({ reducer: rootReducer })

@@ -1,7 +1,4 @@
 import {
-  FETCH_API_REQUEST,
-  FETCH_API_SUCCESS,
-  FETCH_API_ERROR,
   GET_INGREDIENTS_REQUEST,
   GET_INGREDIENTS_SUCCESS,
   GET_INGREDIENTS_FAILED,
@@ -57,32 +54,3 @@ const apiDataReducer = (state = initialState, { type, payload }) => {
 };
 
 export default apiDataReducer;
-
-export function apiReducer(state, { type, payload }) {
-  switch (type) {
-    case FETCH_API_REQUEST: {
-      return {
-        ...state,
-        isLoading: true,
-        hasError: false,
-      };
-    }
-    case FETCH_API_SUCCESS: {
-      return {
-        ...state,
-        isLoading: false,
-        hasError: false,
-        data: payload,
-      };
-    }
-    case FETCH_API_ERROR: {
-      return {
-        ...state,
-        isLoading: false,
-        hasError: payload,
-      };
-    }
-    default:
-      return state;
-  }
-}
