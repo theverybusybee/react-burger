@@ -19,10 +19,13 @@
 }
 
 .button {
+  text-decoration: none;
   cursor: pointer;
-  border: none;
   height: 64px;
-  background-color: transparent;
+}
+
+.selected {
+  color: #fff;
 }
 
 .button:hover {

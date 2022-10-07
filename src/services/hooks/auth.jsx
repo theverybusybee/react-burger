@@ -1,5 +1,5 @@
 import { useContext, useState, createContext } from 'react'; 
-import { baseUrl, baseAuthUrl } from '../../utils/constants';
+import { baseAuthUrl } from '../../utils/constants';
 
 const loginRequest = async form => {
   return await fetch(`${baseAuthUrl}/login`, {

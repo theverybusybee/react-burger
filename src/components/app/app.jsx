@@ -18,16 +18,17 @@ import { ProvideAuth } from "../../services/hooks/auth";
 function App() {
   const { hasError, isLoading, data } = useFetchIngredients();
   return hasError || isLoading || !data.length ? (
-    <ApiLoader />
+    <Router>
+      <ApiLoader />
+    </Router>
   ) : (
-    <div className={AppStyle.main}>
-      <AppHeader />
-
-      {isLoading ? (
-        <ApiLoader />
-      ) : (
-        <ProvideAuth>
-          <Router>
+    <ProvideAuth>
+      <Router>
+        <div className={AppStyle.main}>
+          <AppHeader />
+          {isLoading ? (
+            <ApiLoader />
+          ) : (
             <Switch>
               <Route path="/" exact={true}>
                 <DndProvider backend={HTML5Backend}>
@@ -50,10 +51,10 @@ function App() {
                 <Profile />
               </Route>
             </Switch>
-          </Router>
-        </ProvideAuth>
-      )}
-    </div>
+          )}
+        </div>
+      </Router>
+    </ProvideAuth>
   );
 }
 

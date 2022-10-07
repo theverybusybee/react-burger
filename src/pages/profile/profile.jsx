@@ -1,34 +1,40 @@
-import profileStyles from "./profile.module.css";
+import ProfileStyles from "./profile.module.css";
 import { Input } from "@ya.praktikum/react-developer-burger-ui-components";
+import { NavLink } from 'react-router-dom'
 
 function Profile() {
   return (
-    <div className={profileStyles.container}>
-      <div className={profileStyles.buttonsContainer}>
-        <button
-          className={`${profileStyles.button} text text_type_main-medium text_color_inactive`}
+    <div className={ProfileStyles.container}>
+      <div className={ProfileStyles.buttonsContainer}>
+        <NavLink
+          className={`${ProfileStyles.button} text text_type_main-medium text_color_inactive`}
           type="secondary"
           size="large"
+          activeClassName={ProfileStyles.selected}
+          to={{ pathname: '/profile' }}
         >
           Профиль
-        </button>
-        <button
-          className={`${profileStyles.button} text text_type_main-medium text_color_inactive`}
+        </NavLink>
+        <NavLink
+          className={`${ProfileStyles.button} text text_type_main-medium text_color_inactive`}
           type="secondary"
           size="large"
+          activeClassName={ProfileStyles.selected}
+          to={{ pathname: '/profile/orders' }}
         >
           История заказов
-        </button>
-        <button
-          className={`${profileStyles.button} text text_type_main-medium text_color_inactive`}
+        </NavLink>
+        <a
+          className={`${ProfileStyles.button} text text_type_main-medium text_color_inactive`}
           type="secondary"
           size="large"
+          href='/index.html'
         >
           Выход
-        </button>
+        </a>
       </div>
 
-      <form className={profileStyles.userData}>
+      <form className={ProfileStyles.userData}>
         <Input
           type={"text"}
           placeholder={"Имя"}
@@ -59,11 +65,10 @@ function Profile() {
           icon="EditIcon"
         ></Input>
 
-        <profileStyles name={"password"} />
       </form>
 
       <p
-        className={`${profileStyles.paragraph} text text_type_main-default text_color_inactive`}
+        className={`${ProfileStyles.paragraph} text text_type_main-default text_color_inactive`}
       >
         В этом разделе вы можете изменить&nbsp;свои персональные данные
       </p>
