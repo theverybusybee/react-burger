@@ -29,7 +29,7 @@ function LoginPage() {
     },
      [dispatch, form]
   );
-console.log(userInfo.user)
+
   if (userInfo.user) {
     return (
       <Redirect

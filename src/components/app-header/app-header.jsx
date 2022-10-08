@@ -5,7 +5,7 @@ import {
   ProfileIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import AppHeaderStyle from "./app-header.module.css";
-import { NavLink } from "react-router-dom";
+import { NavLink, Link } from "react-router-dom";
 
 export default function AppHeader() {
   return (
@@ -34,9 +34,9 @@ export default function AppHeader() {
         <li
           className={`${AppHeaderStyle.navbarItem} ${AppHeaderStyle.navbarItem_type_logo}`}
         >
-          <a className={AppHeaderStyle.link} href="index.html">
+          <Link to='/' className={AppHeaderStyle.link} href="index.html">
             <Logo />
-          </a>
+          </Link>
         </li>
 
         <li
