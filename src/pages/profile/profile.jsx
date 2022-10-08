@@ -1,8 +1,12 @@
 import ProfileStyles from "./profile.module.css";
 import { Input } from "@ya.praktikum/react-developer-burger-ui-components";
 import { NavLink } from 'react-router-dom'
+import { useSelector } from "react-redux";
 
 function Profile() {
+
+  const userInfo = useSelector(state => state.authUserReducer.userInfo)
+  console.log(userInfo)
   return (
     <div className={ProfileStyles.container}>
       <div className={ProfileStyles.buttonsContainer}>
@@ -43,6 +47,7 @@ function Profile() {
           errorText={"Ошибка"}
           size={"default"}
           icon="EditIcon"
+          value={userInfo.user.name}
         ></Input>
 
         <Input
@@ -53,6 +58,7 @@ function Profile() {
           errorText={"Ошибка"}
           size={"default"}
           icon="EditIcon"
+          value={userInfo.user.email}
         ></Input>
 
         <Input
