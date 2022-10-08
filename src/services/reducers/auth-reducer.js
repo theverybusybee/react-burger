@@ -24,7 +24,7 @@ const authUserReducer = (state = initialState, { type, payload }) => {
         ...state,
         isLoading: false,
         hasError: false,
-        userInfo: payload,
+        userInfo: {user: payload.user, accessToken: payload.accessToken, refreshToken: payload.refreshToken } ,
       };
     }
     case FETCH_AUTH_ERROR: {

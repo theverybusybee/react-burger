@@ -13,7 +13,8 @@ import {
   LoginPage,
   Profile,
 } from "../../pages/index";
-import { ProvideAuth } from "../../services/hooks/auth";
+
+console.log(LoginPage)
 
 function App() {
   const { hasError, isLoading, data } = useFetchIngredients();
@@ -22,7 +23,6 @@ function App() {
       <ApiLoader />
     </Router>
   ) : (
-    <ProvideAuth>
       <Router>
         <div className={AppStyle.main}>
           <AppHeader />
@@ -54,7 +54,6 @@ function App() {
           )}
         </div>
       </Router>
-    </ProvideAuth>
   );
 }
 

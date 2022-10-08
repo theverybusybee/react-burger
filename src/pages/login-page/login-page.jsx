@@ -6,10 +6,12 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { Link, Redirect } from "react-router-dom";
 import { useState, useCallback } from "react";
-import { useAuth } from "../../services/hooks/auth";
+import { useDispatch, useSelector } from "react-redux";
+import { authenticateUser } from '../../services/actions/auth'
 
 function LoginPage() {
-  const auth = useAuth();
+  const dispatch = useDispatch();
+  const userInfo = useSelector(state => state.authUserReducer.userInfo);
 
   const [form, setValue] = useState({
     email: "",
@@ -23,12 +25,12 @@ function LoginPage() {
   let login = useCallback(
     (e) => {
       e.preventDefault();
-      auth.signIn(form);
+      dispatch(authenticateUser(form))
     },
-    [auth, form]
+     [dispatch, form]
   );
-
-  if (auth.user) {
+console.log(userInfo.user)
+  if (userInfo.user) {
     return (
       <Redirect
         to={{
@@ -77,4 +79,4 @@ function LoginPage() {
   );
 }
 
-export default LoginPage;
+export default LoginPage

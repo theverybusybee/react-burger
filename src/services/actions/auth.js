@@ -1,4 +1,4 @@
-import { fetchRegister } from "../../utils/fetchOrderData";
+import { fetchRegister, fetchLogin } from "../../utils/fetchOrderData";
 
 export const SET_USER_INFO = "SET_USERNAME";
 export const FETCH_AUTH_REQUEST = "FETCH_AUTH_REQUEST";
@@ -27,10 +27,10 @@ export function setRegister(form) {
   };
 }
 
-export function authenticateUser() {
+export function authenticateUser(form) {
   return function (dispatch) {
     dispatch({ type: FETCH_AUTH_REQUEST });
-    fetchRegister()
+    fetchLogin(form)
       .then((res) => {
         if (res && res.success) {
           dispatch({
