@@ -1,30 +1,60 @@
 import ProfileStyles from "./profile.module.css";
-import { Input } from "@ya.praktikum/react-developer-burger-ui-components";
+import {
+  Input,
+  Button,
+} from "@ya.praktikum/react-developer-burger-ui-components";
 import { NavLink, Redirect } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { logoutFromAccount } from "../../services/actions/auth";
-import { useCallback } from "react";
+import { logoutFromAccount, updateData } from "../../services/actions/auth";
+import { useCallback, useState } from "react";
+import { deleteCookie, getCookie } from '../../utils/cookie'
 
 function Profile() {
   const dispatch = useDispatch();
   const { refreshToken, userInfo } = useSelector(
     (state) => state.authUserReducer
   );
+  const [form, setForm] = useState({
+    email: "",
+    name: "",
+    password: "",
+  });
 
   const logoutUser = (form) => {
     dispatch(logoutFromAccount(form));
   };
 
-  console.log(refreshToken);
+  console.log(document.cookie)
+
+  const updateUser = ( form ) => {
+    dispatch(updateData(form))
+  }
+
+  const updateUserData = useCallback((e) => {
+    e.preventDefault();
+    updateUser(form);
+  }, [form])
+
+  const onInputChange = (e) => {
+    e.preventDefault();
+    setForm({ ...form, [e.target.name]: e.target.value });
+  };
+
+  console.log(form)
 
   const logout = useCallback(
     (e) => {
       console.log("click");
       e.preventDefault();
       logoutUser({ token: refreshToken });
+      deleteCookie('token')
     },
     [refreshToken]
   );
+
+  const resetForm = () => {
+    setForm({ email: '', name:'', password:'' });
+  }
 
   if (!userInfo) {
     return (
@@ -38,7 +68,7 @@ function Profile() {
 
   return (
     <div className={ProfileStyles.container}>
-      <div className={ProfileStyles.buttonsContainer}>
+      <div className={ProfileStyles.linksContainer}>
         <NavLink
           className={`${ProfileStyles.link} text text_type_main-medium text_color_inactive`}
           type="secondary"
@@ -69,7 +99,8 @@ function Profile() {
 
       <form className={ProfileStyles.userData}>
         <Input
-          // value={userInfo.name}
+          onChange={onInputChange}
+          value={form.name}
           type={"text"}
           placeholder={"Имя"}
           name={"name"}
@@ -81,10 +112,11 @@ function Profile() {
         ></Input>
 
         <Input
-          // value={userInfo.email}
+          onChange={onInputChange}
+          value={form.email}
           type={"text"}
           placeholder={"Логин"}
-          name={"name"}
+          name={"email"}
           error={false}
           errorText={"Ошибка"}
           size={"default"}
@@ -93,9 +125,11 @@ function Profile() {
         ></Input>
 
         <Input
+          value={form.password}
+          onChange={onInputChange}
           type={"password"}
           placeholder={"Пароль"}
-          name={"name"}
+          name={"password"}
           error={false}
           errorText={"Ошибка"}
           size={"default"}
@@ -108,6 +142,16 @@ function Profile() {
       >
         В этом разделе вы можете изменить&nbsp;свои персональные данные
       </p>
+      {form.email || form.name || form.password ? (
+        <div className={ProfileStyles.buttonsContainer}>
+          <Button type="secondary" size="medium" onClick={resetForm}>
+            Отмена
+          </Button>
+          <Button type="primary" size="medium" onClick={updateUserData}>
+            Сохранить
+          </Button>
+        </div>
+      ) : null}
     </div>
   );
 }

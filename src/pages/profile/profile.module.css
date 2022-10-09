@@ -7,11 +7,11 @@
   grid-template-columns: 320px 480px;
   grid-template-areas:
     "buttons userData"
-    "paragraph .";
+    "paragraph buttonsContainer";
   gap: 60px;
 }
 
-.buttonsContainer {
+.linksContainer {
   display: flex;
   flex-direction: column;
   grid-area: buttons;
@@ -35,7 +35,8 @@
   color: #fff;
 }
 
-.button:hover {
+.button:hover,
+.link:hover {
   color: #fff;
   transition: color 0.3s ease-in;
 }
@@ -51,4 +52,10 @@
 .paragraph {
   grid-area: paragraph;
   opacity: 0.4;
+}
+
+.buttonsContainer {
+  grid-area: buttonsContainer;
+  display: flex;
+  justify-content: flex-end;
 }

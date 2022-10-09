@@ -130,18 +130,38 @@ export const fetchToken = (token) => {
   return fetch(`${baseAuthUrl}/token`, requestOptions).then(checkResponse);
 };
 
-export const fetchUser = (token) => {
+export const updateUserData = (form) => {
+  const token = getCookie('token');
   const requestOptions = {
-    method: "POST",
+    method: "PATCH",
     mode: "cors",
     cache: "no-cache",
     credentials: "same-origin",
     headers: {
       "Content-Type": "application/json",
+      Authorization: token,
     },
     redirect: "follow",
     referrerPolicy: "no-referrer",
-    body: JSON.stringify(token),
+    body: JSON.stringify(form),
+  };
+
+  return fetch(`${baseAuthUrl}/user`, requestOptions).then(checkResponse);
+};
+
+export const getUserData = (token) => {
+  const requestOptions = {
+    method: "GET",
+    mode: "cors",
+    cache: "no-cache",
+    credentials: "same-origin",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: token,
+    },
+    redirect: "follow",
+    referrerPolicy: "no-referrer",
+    body: JSON.stringify(),
   };
 
   return fetch(`${baseAuthUrl}/user`, requestOptions).then(checkResponse);
