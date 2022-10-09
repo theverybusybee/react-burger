@@ -18,10 +18,17 @@
   align-items: flex-start;
 }
 
+.link {
+  text-decoration: none;
+  cursor: pointer;
+  height: 64px;
+}
+
 .button {
   text-decoration: none;
   cursor: pointer;
   height: 64px;
+  background-color: transparent;
 }
 
 .selected {

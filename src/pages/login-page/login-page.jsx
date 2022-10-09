@@ -7,11 +7,11 @@ import {
 import { Link, Redirect } from "react-router-dom";
 import { useState, useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { authenticateUser } from '../../services/actions/auth'
+import { authenticateUser } from "../../services/actions/auth";
 
 function LoginPage() {
   const dispatch = useDispatch();
-  const userInfo = useSelector(state => state.authUserReducer.userInfo);
+  const userInfo = useSelector((state) => state.authUserReducer.userInfo);
 
   const [form, setValue] = useState({
     email: "",
@@ -25,12 +25,12 @@ function LoginPage() {
   let login = useCallback(
     (e) => {
       e.preventDefault();
-      dispatch(authenticateUser(form))
+      dispatch(authenticateUser(form));
     },
-     [dispatch, form]
+    [dispatch, form]
   );
 
-  if (userInfo.user) {
+  if (userInfo.name) {
     return (
       <Redirect
         to={{
@@ -47,13 +47,18 @@ function LoginPage() {
       </h1>
       <form className={loginStyles.authForm}>
         <Input
+          value={form.email}
           name={"email"}
           icon="undefined"
           placeholder="E-mail"
           onChange={onChange}
         />
 
-        <PasswordInput name={"password"} onChange={onChange} />
+        <PasswordInput
+          value={form.password}
+          name={"password"}
+          onChange={onChange}
+        />
 
         <Button type="primary" size="medium" onClick={login}>
           Войти
@@ -79,4 +84,4 @@ function LoginPage() {
   );
 }
 
-export default LoginPage
+export default LoginPage;

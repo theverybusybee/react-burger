@@ -1,4 +1,10 @@
-import { baseUrl, checkResponse, baseAuthUrl } from "./constants";
+import {
+  baseUrl,
+  checkResponse,
+  baseAuthUrl,
+  checkAuthResponse,
+} from "./constants";
+import { getCookie } from "./cookie";
 
 export const fetchOrderDetails = (ingredients) => {
   const requestOptions = {
@@ -107,7 +113,7 @@ export const fetchLogout = (form) => {
   return fetch(`${baseAuthUrl}/logout`, requestOptions).then(checkResponse);
 };
 
-export const fetchToken = (form) => {
+export const fetchToken = (token) => {
   const requestOptions = {
     method: "POST",
     mode: "cors",
@@ -118,8 +124,25 @@ export const fetchToken = (form) => {
     },
     redirect: "follow",
     referrerPolicy: "no-referrer",
-    body: JSON.stringify(form),
+    body: JSON.stringify(token),
   };
 
   return fetch(`${baseAuthUrl}/token`, requestOptions).then(checkResponse);
+};
+
+export const fetchUser = (token) => {
+  const requestOptions = {
+    method: "POST",
+    mode: "cors",
+    cache: "no-cache",
+    credentials: "same-origin",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    redirect: "follow",
+    referrerPolicy: "no-referrer",
+    body: JSON.stringify(token),
+  };
+
+  return fetch(`${baseAuthUrl}/user`, requestOptions).then(checkResponse);
 };
