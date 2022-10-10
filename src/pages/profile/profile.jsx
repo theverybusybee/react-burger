@@ -5,7 +5,7 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { NavLink, Redirect } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { logoutFromAccount, updateData } from "../../services/actions/auth";
+import { getData, logoutFromAccount, updateData } from "../../services/actions/auth";
 import { useCallback, useState } from "react";
 import { deleteCookie, getCookie } from '../../utils/cookie'
 
@@ -30,6 +30,9 @@ function Profile() {
     dispatch(updateData(form))
   }
 
+  const getUser = (  ) => {
+    dispatch(getData())
+  }
   const updateUserData = useCallback((e) => {
     e.preventDefault();
     updateUser(form);

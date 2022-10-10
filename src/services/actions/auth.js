@@ -89,7 +89,28 @@ export function updateData(form) {
             type: FETCH_AUTH_SUCCESS,
             payload: res,
           });
-          setCookie("token", res.refreshToken);
+        } else {
+          dispatch({ type: FETCH_AUTH_ERROR });
+        }
+      })
+      .catch(() =>
+        dispatch({
+          type: FETCH_AUTH_ERROR,
+        })
+      );
+  };
+}
+
+export function getData() {
+  return function (dispatch) {
+    dispatch({ type: FETCH_AUTH_REQUEST });
+    updateUserData()
+      .then((res) => {
+        if (res && res.success) {
+          dispatch({
+            type: FETCH_AUTH_SUCCESS,
+            payload: res,
+          });
         } else {
           dispatch({ type: FETCH_AUTH_ERROR });
         }
