@@ -7,7 +7,7 @@ import { NavLink, Redirect } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { getData, logoutFromAccount, updateData } from "../../services/actions/auth";
 import { useCallback, useState } from "react";
-import { deleteCookie, getCookie } from '../../utils/cookie'
+import { deleteCookie } from '../../utils/cookie'
 
 function Profile() {
   const dispatch = useDispatch();
@@ -139,6 +139,7 @@ function Profile() {
           icon="EditIcon"
         ></Input>
       </form>
+
 
       <p
         className={`${ProfileStyles.paragraph} text text_type_main-default text_color_inactive`}
