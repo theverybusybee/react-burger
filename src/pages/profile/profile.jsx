@@ -33,6 +33,7 @@ function Profile() {
   const getUser = (  ) => {
     dispatch(getData())
   }
+  
   const updateUserData = useCallback((e) => {
     e.preventDefault();
     updateUser(form);

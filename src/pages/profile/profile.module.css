@@ -27,8 +27,8 @@
 .button {
   text-decoration: none;
   cursor: pointer;
-  height: 64px;
   background-color: transparent;
+  border: none;
 }
 
 .selected {

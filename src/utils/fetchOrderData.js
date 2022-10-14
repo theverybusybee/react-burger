@@ -97,6 +97,7 @@ export const fetchLogin = (form) => {
 };
 
 export const fetchLogout = (form) => {
+  const token = getCookie('token');
   const requestOptions = {
     method: "POST",
     mode: "cors",
@@ -104,6 +105,7 @@ export const fetchLogout = (form) => {
     credentials: "same-origin",
     headers: {
       "Content-Type": "application/json",
+      Authorization: token,
     },
     redirect: "follow",
     referrerPolicy: "no-referrer",
