@@ -3,6 +3,7 @@ import {
   FETCH_AUTH_SUCCESS,
   FETCH_AUTH_ERROR,
   SET_USER_NULL,
+  SET_LOGIN_STATUS,
 } from "../actions/auth";
 
 const initialState = {
@@ -11,6 +12,7 @@ const initialState = {
   userInfo: { name: "", email: "" },
   accessToken: "",
   refreshToken: "",
+  isLogin: false,
 };
 
 const authUserReducer = (state = initialState, { type, payload }) => {
@@ -46,6 +48,12 @@ const authUserReducer = (state = initialState, { type, payload }) => {
         userInfo: null,
         accessToken: null,
         refreshToken: null,
+      };
+    }
+    case SET_LOGIN_STATUS: {
+      return {
+        ...state,
+        isLogin: !initialState.isLogin,
       };
     }
 

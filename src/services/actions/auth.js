@@ -3,7 +3,7 @@ import {
   fetchRegister,
   fetchLogin,
   fetchLogout,
-  updateUserData
+  updateUserData,
 } from "../../utils/fetchOrderData";
 
 export const SET_USER_INFO = "SET_USERNAME";
@@ -11,6 +11,7 @@ export const FETCH_AUTH_REQUEST = "FETCH_AUTH_REQUEST";
 export const FETCH_AUTH_SUCCESS = "FETCH_AUTH_SUCCESS";
 export const FETCH_AUTH_ERROR = "FETCH_AUTH_ERROR";
 export const SET_USER_NULL = "SET_USER_NULL";
+export const SET_LOGIN_STATUS = "SET_LOGIN_STATUS";
 
 export function setRegister(form) {
   return function (dispatch) {
@@ -44,6 +45,9 @@ export function authenticateUser(form) {
             type: FETCH_AUTH_SUCCESS,
             payload: res,
           });
+          dispatch({
+            type: SET_LOGIN_STATUS,
+          });
           setCookie("token", res.accessToken);
         } else {
           dispatch({ type: FETCH_AUTH_ERROR });
@@ -66,6 +70,9 @@ export function logoutFromAccount(token) {
         if (res && res.success) {
           dispatch({
             type: SET_USER_NULL,
+          });
+          dispatch({
+            type: SET_LOGIN_STATUS,
           });
         } else {
           dispatch({ type: FETCH_AUTH_ERROR });

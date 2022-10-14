@@ -11,9 +11,11 @@ import { deleteCookie } from '../../utils/cookie'
 
 function Profile() {
   const dispatch = useDispatch();
-  const { refreshToken, userInfo } = useSelector(
+  const { refreshToken, userInfo, isLogin } = useSelector(
     (state) => state.authUserReducer
   );
+
+  console.log(isLogin)
   const [form, setForm] = useState({
     email: "",
     name: "",
@@ -24,16 +26,10 @@ function Profile() {
     dispatch(logoutFromAccount(form));
   };
 
-  console.log(document.cookie)
-
   const updateUser = ( form ) => {
     dispatch(updateData(form))
   }
 
-  const getUser = (  ) => {
-    dispatch(getData())
-  }
-  
   const updateUserData = useCallback((e) => {
     e.preventDefault();
     updateUser(form);
