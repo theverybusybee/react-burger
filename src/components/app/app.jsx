@@ -5,6 +5,7 @@ import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 import ApiLoader from "../api-loader/api-loader";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import {
   Home,
   RegisterPage,
@@ -13,47 +14,51 @@ import {
   LoginPage,
   Profile,
 } from "../../pages/index";
-
-console.log(LoginPage)
+import ProtectedRoute from "../protected-route/protected-route";
+import { useSelector } from "react-redux";
+console.log(LoginPage);
 
 function App() {
   const { hasError, isLoading, data } = useFetchIngredients();
+  const isLogin = useSelector(state => state.authUserReducer.isLogin)
+
   return hasError || isLoading || !data.length ? (
     <Router>
       <ApiLoader />
     </Router>
   ) : (
-      <Router>
-        <div className={AppStyle.main}>
-          <AppHeader />
-          {isLoading ? (
-            <ApiLoader />
-          ) : (
-            <Switch>
-              <Route path="/" exact={true}>
+    <Router>
+      <div className={AppStyle.main}>
+        <AppHeader />
+        {isLoading ? (
+          <ApiLoader />
+        ) : (
+          <Switch>
+            <ProtectedRoute path="/" anonymous={true} exact={true} onlyUnAuth={isLogin}>
                 <DndProvider backend={HTML5Backend}>
                   <Home />
                 </DndProvider>
-              </Route>
-              <Route path="/login" exact={true}>
-                <LoginPage />
-              </Route>
-              <Route path="/register" exact={true}>
-                <RegisterPage />
-              </Route>
-              <Route path="/forgot-password" exact={true}>
-                <ForgotPasswordPage />
-              </Route>
-              <Route path="/reset-password" exact={true}>
-                <ResetPasswordPage />
-              </Route>
-              <Route path="/profile" exact={true}>
+            </ProtectedRoute>
+            <ProtectedRoute path="/profile" anonymous={true} exact={true} onlyUnAuth={isLogin}>
                 <Profile />
-              </Route>
-            </Switch>
-          )}
-        </div>
-      </Router>
+            </ProtectedRoute>
+
+            <Route path="/login" exact={true}>
+              <LoginPage />
+            </Route>
+            <Route path="/register" exact={true}>
+              <RegisterPage />
+            </Route>
+            <Route path="/forgot-password" exact={true}>
+              <ForgotPasswordPage />
+            </Route>
+            <Route path="/reset-password" exact={true}>
+              <ResetPasswordPage />
+            </Route>
+          </Switch>
+        )}
+      </div>
+    </Router>
   );
 }
 
