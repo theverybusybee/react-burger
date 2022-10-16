@@ -66,7 +66,6 @@ export function logoutFromAccount(token) {
     dispatch({ type: FETCH_AUTH_REQUEST });
     fetchLogout(token)
       .then((res) => {
-        console.log(res);
         if (res && res.success) {
           dispatch({
             type: SET_USER_NULL,

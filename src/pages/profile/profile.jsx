@@ -15,7 +15,6 @@ function Profile() {
     (state) => state.authUserReducer
   );
 
-  console.log(isLogin)
   const [form, setForm] = useState({
     email: "",
     name: "",
@@ -40,11 +39,8 @@ function Profile() {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
-  console.log(form)
-
   const logout = useCallback(
     (e) => {
-      console.log("click");
       e.preventDefault();
       logoutUser({ token: refreshToken });
       deleteCookie('token')
