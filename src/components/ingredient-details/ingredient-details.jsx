@@ -3,10 +3,10 @@ import { useSelector } from "react-redux";
 
 export default function IngredientDetails() {
   const currentModalIngredient = useSelector(
-    (state) => state.modalReducer.currentModalIngredient
+    (state) => state.modalReducer?.currentModalIngredient
   );
 
-  return (
+  return currentModalIngredient ? (
     <div className={detailsStyles.main}>
       <h2 className={`${detailsStyles.title} text text_type_main-large`}>
         Детали ингредиента
@@ -45,5 +45,5 @@ export default function IngredientDetails() {
         </tbody>
       </table>
     </div>
-  );
+  ) : null;
 }

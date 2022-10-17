@@ -10,7 +10,7 @@ import dropContainerReducer from "./services/reducers/drop-container-reducer";
 import apiDataReducer from "./services/reducers/api-data";
 import modalReducer from "./services/reducers/modal";
 import authUserReducer from "./services/reducers/auth-reducer";
-import { BrowserRouter } from "react-router-dom";
+import { BrowserRouter as Router } from "react-router-dom";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
@@ -25,11 +25,11 @@ const rootReducer = combineReducers({
 const store = configureStore({ reducer: rootReducer });
 
 root.render(
-  <BrowserRouter>
+  <Router>
     <Provider store={store}>
       <App />
     </Provider>
-  </BrowserRouter>
+  </Router>
 );
 
 // If you want to start measuring performance in your app, pass a function
