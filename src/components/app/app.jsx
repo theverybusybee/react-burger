@@ -4,8 +4,8 @@ import useFetchIngredients from "../../services/hooks/useFetchIngredients";
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 import ApiLoader from "../api-loader/api-loader";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import { useLocation } from "react-router-dom";
+import { Route, Switch, useLocation, useHistory } from "react-router-dom";
+
 import {
   Home,
   RegisterPage,
@@ -15,50 +15,103 @@ import {
   Profile,
 } from "../../pages/index";
 import ProtectedRoute from "../protected-route/protected-route";
-import { useSelector } from "react-redux";
-console.log(LoginPage);
+import { useDispatch, useSelector } from "react-redux";
+import Modal from "../modal/modal";
+import IngredientDetails from "../ingredient-details/ingredient-details";
 
 function App() {
   const { hasError, isLoading, data } = useFetchIngredients();
-  const isLogin = useSelector(state => state.authUserReducer.isLogin)
+  const isLogin = useSelector((state) => state.authUserReducer.isLogin);
+  const { isVisible, currentModalIngredient } = useSelector(
+    (state) => state.modalReducer
+  );
+
+  const location = useLocation();
+  const background = location.state?.background;
+
+  
+  console.log(background);
+  console.log(location);
 
   return hasError || isLoading || !data.length ? (
-    <Router>
-      <ApiLoader />
-    </Router>
+    <ApiLoader />
   ) : (
-    <Router>
-      <div className={AppStyle.main}>
-        <AppHeader />
-        {isLoading ? (
-          <ApiLoader />
-        ) : (
-          <Switch>
-            <ProtectedRoute path="/" anonymous={true} exact={true} onlyUnAuth={isLogin}>
-                <DndProvider backend={HTML5Backend}>
-                  <Home />
-                </DndProvider>
-            </ProtectedRoute>
-            <ProtectedRoute path="/profile" anonymous={true} exact={true} onlyUnAuth={isLogin}>
-                <Profile />
-            </ProtectedRoute>
+    <div className={AppStyle.main}>
+      <AppHeader />
+      {isLoading ? (
+        <ApiLoader />
+      ) : (
+        <Switch location={background || location}>
+          <ProtectedRoute
+            path="/"
+            exact={true}
+            isAuth={isLogin}
+            anonymous={false}
+          >
+            <DndProvider backend={HTML5Backend}>
+              <Home />
+            </DndProvider>
+          </ProtectedRoute>
 
-            <Route path="/login" exact={true}>
-              <LoginPage />
-            </Route>
-            <Route path="/register" exact={true}>
-              <RegisterPage />
-            </Route>
-            <Route path="/forgot-password" exact={true}>
-              <ForgotPasswordPage />
-            </Route>
-            <Route path="/reset-password" exact={true}>
-              <ResetPasswordPage />
-            </Route>
-          </Switch>
-        )}
-      </div>
-    </Router>
+          <ProtectedRoute path="/profile" exact={true} isAuth={isLogin}>
+            <Profile />
+          </ProtectedRoute>
+
+          <ProtectedRoute
+            path="/login"
+            exact={true}
+            anonymous={true}
+            isAuth={isLogin}
+          >
+            <LoginPage />
+          </ProtectedRoute>
+
+          <ProtectedRoute
+            path="/register"
+            exact={true}
+            anonymous={true}
+            isAuth={isLogin}
+          >
+            <RegisterPage />
+          </ProtectedRoute>
+          <ProtectedRoute
+            path="/forgot-password"
+            exact={true}
+            anonymous={true}
+            isAuth={isLogin}
+          >
+            <ForgotPasswordPage />
+          </ProtectedRoute>
+          <ProtectedRoute
+            path="/reset-password"
+            exact={true}
+            anonymous={true}
+            isAuth={isLogin}
+          >
+            <ResetPasswordPage />
+          </ProtectedRoute>
+          <Route path="/ingredients/:id" exact={true}>
+            <IngredientDetails ingredient={currentModalIngredient} />
+          </Route>
+        </Switch>
+      )}
+      {isVisible ? (
+        <Modal isOpened={isVisible}>
+          <IngredientDetails ingredient={currentModalIngredient} />
+        </Modal>
+      ) : null}
+      {background && (
+        <Route
+          exact={true}
+          path="/ingredients/:id"
+          children={
+            <Modal isOpened={isVisible}>
+              <IngredientDetails ingredient={currentModalIngredient} />
+            </Modal>
+          }
+        />
+      )}
+    </div>
   );
 }
 
