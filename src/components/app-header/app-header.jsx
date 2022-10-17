@@ -25,7 +25,7 @@ export default function AppHeader() {
             className={`${AppHeaderStyle.navbarItem} text text_type_main-default text_color_inactive`}
           >
             <ListIcon type="secondary" />
-            <a className={AppHeaderStyle.link} href="index.html">
+            <a className={AppHeaderStyle.link} href="#">
               Лента заказов
             </a>
           </li>
@@ -34,7 +34,7 @@ export default function AppHeader() {
         <li
           className={`${AppHeaderStyle.navbarItem} ${AppHeaderStyle.navbarItem_type_logo}`}
         >
-          <Link to='/' className={AppHeaderStyle.link} href="index.html">
+          <Link to='/' className={AppHeaderStyle.link}>
             <Logo />
           </Link>
         </li>
