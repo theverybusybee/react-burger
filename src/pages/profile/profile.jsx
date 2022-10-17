@@ -5,15 +5,29 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { NavLink, Redirect } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { getData, logoutFromAccount, updateData } from "../../services/actions/auth";
+import {
+  logoutFromAccount,
+  updateData,
+} from "../../services/actions/auth";
 import { useCallback, useState } from "react";
-import { deleteCookie } from '../../utils/cookie'
+import { deleteCookie, getCookie } from "../../utils/cookie";
+import { useEffect } from "react";
+import { fetchToken } from "../../utils/fetchOrderData";
 
 function Profile() {
   const dispatch = useDispatch();
-  const { refreshToken, userInfo, isLogin } = useSelector(
-    (state) => state.authUserReducer
+  const refreshToken = useSelector(
+    (state) => state.authUserReducer.refreshToken
   );
+
+  //   useEffect(() => {
+  //   getData();
+  //   setForm({email: userInfo.email, name: userInfo.name})
+  // }, [userInfo]);
+
+  useEffect(() => {
+    fetchToken(getCookie("refreshToken"));
+  }, []);
 
   const [form, setForm] = useState({
     email: "",
@@ -25,14 +39,17 @@ function Profile() {
     dispatch(logoutFromAccount(form));
   };
 
-  const updateUser = ( form ) => {
-    dispatch(updateData(form))
-  }
+  const updateUser = (form) => {
+    dispatch(updateData(form));
+  };
 
-  const updateUserData = useCallback((e) => {
-    e.preventDefault();
-    updateUser(form);
-  }, [form])
+  const updateUserData = useCallback(
+    (e) => {
+      e.preventDefault();
+      updateUser(form);
+    },
+    [form]
+  );
 
   const onInputChange = (e) => {
     e.preventDefault();
@@ -43,24 +60,24 @@ function Profile() {
     (e) => {
       e.preventDefault();
       logoutUser({ token: refreshToken });
-      deleteCookie('token')
+      deleteCookie("token");
     },
     [refreshToken]
   );
 
   const resetForm = () => {
-    setForm({ email: '', name:'', password:'' });
-  }
+    setForm({ email: "", name: "", password: "" });
+  };
 
-  if (!userInfo) {
-    return (
-      <Redirect
-        to={{
-          pathname: "/",
-        }}
-      />
-    );
-  }
+  // if (!userInfo) {
+  //   return (
+  //     <Redirect
+  //       to={{
+  //         pathname: "/",
+  //       }}
+  //     />
+  //   );
+  // }
 
   return (
     <div className={ProfileStyles.container}>
@@ -132,7 +149,6 @@ function Profile() {
           icon="EditIcon"
         ></Input>
       </form>
-
 
       <p
         className={`${ProfileStyles.paragraph} text text_type_main-default text_color_inactive`}

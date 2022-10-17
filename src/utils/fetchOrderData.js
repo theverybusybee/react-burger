@@ -1,10 +1,7 @@
-import {
-  baseUrl,
-  checkResponse,
-  baseAuthUrl,
-  checkAuthResponse,
-} from "./constants";
+import { baseUrl, checkResponse, baseAuthUrl } from "./constants";
 import { getCookie } from "./cookie";
+import { fetchWithRefresh } from "../services/actions/auth";
+import { fetchWithRefreshToken } from "../services/actions/auth";
 
 export const fetchOrderDetails = (ingredients) => {
   const requestOptions = {
@@ -62,6 +59,25 @@ export const fetchResetPassword = (form) => {
   );
 };
 
+// export const fetchRegister = (form) => {
+//   const token = getCookie('token');
+//   const requestOptions = {
+//     method: "POST",
+//     mode: "cors",
+//     cache: "no-cache",
+//     credentials: "same-origin",
+//     headers: {
+//       "Content-type": "application/json",
+//       Authorization: token
+//     },
+//     redirect: "follow",
+//     referrerPolicy: "no-referrer",
+//     body: JSON.stringify(form),
+//   };
+
+//   return fetchWithRefresh(`${baseAuthUrl}/register`, requestOptions).then(checkResponse);
+// };
+
 export const fetchRegister = (form) => {
   const requestOptions = {
     method: "POST",
@@ -79,6 +95,24 @@ export const fetchRegister = (form) => {
   return fetch(`${baseAuthUrl}/register`, requestOptions).then(checkResponse);
 };
 
+// export const fetchLogin = (form) => {
+//   const token = getCookie('token');
+//   const requestOptions = {
+//     method: "POST",
+//     mode: "cors",
+//     cache: "no-cache",
+//     credentials: "same-origin",
+//     headers: {
+//       "Content-type": "application/json",
+//     },
+//     redirect: "follow",
+//     referrerPolicy: "no-referrer",
+//     body: JSON.stringify(form),
+//   };
+
+//   return fetchWithRefresh(`${baseAuthUrl}/login`, requestOptions).then(checkResponse);
+// };
+
 export const fetchLogin = (form) => {
   const requestOptions = {
     method: "POST",
@@ -95,9 +129,8 @@ export const fetchLogin = (form) => {
 
   return fetch(`${baseAuthUrl}/login`, requestOptions).then(checkResponse);
 };
-
 export const fetchLogout = (form) => {
-  const token = getCookie('token');
+  const token = getCookie("token");
   const requestOptions = {
     method: "POST",
     mode: "cors",
@@ -126,14 +159,15 @@ export const fetchToken = (token) => {
     },
     redirect: "follow",
     referrerPolicy: "no-referrer",
-    body: JSON.stringify(token),
+    body: JSON.stringify({
+      token: token,
+    }),
   };
 
   return fetch(`${baseAuthUrl}/token`, requestOptions).then(checkResponse);
 };
 
 export const updateUserData = (form) => {
-  const token = getCookie('token');
   const requestOptions = {
     method: "PATCH",
     mode: "cors",
@@ -141,14 +175,16 @@ export const updateUserData = (form) => {
     credentials: "same-origin",
     headers: {
       "Content-Type": "application/json",
-      Authorization: token,
+      Authorization: "Bearer " + getCookie("token"),
     },
     redirect: "follow",
     referrerPolicy: "no-referrer",
     body: JSON.stringify(form),
   };
 
-  return fetch(`${baseAuthUrl}/user`, requestOptions).then(checkResponse);
+  return fetchWithRefreshToken(`${baseAuthUrl}/user`, requestOptions).then(
+    checkResponse
+  );
 };
 
 export const getUserData = (token) => {
@@ -166,5 +202,7 @@ export const getUserData = (token) => {
     body: JSON.stringify(),
   };
 
-  return fetch(`${baseAuthUrl}/user`, requestOptions).then(checkResponse);
+  return fetchWithRefreshToken(`${baseAuthUrl}/user`, requestOptions).then(
+    checkResponse
+  );
 };
