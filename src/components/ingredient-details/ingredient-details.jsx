@@ -20,7 +20,6 @@ function IngredientDetails() {
     const data = await fetchIngredients().then((data) => data);
     if (data.success) {
       const currentIngredient = data.data.find((el) => el._id === id);
-      console.log("gfdgdd");
       setIngredient({
         image: currentIngredient.image_large,
         name: currentIngredient.name,

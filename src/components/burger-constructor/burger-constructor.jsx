@@ -9,7 +9,11 @@ import Modal from "../modal/modal.jsx";
 import OrderDetails from "../order-details/order-details";
 import { getOrderNumber } from "../../services/actions/api-data";
 import { useDispatch, useSelector } from "react-redux";
-import { RESET_ORDER_NUMBER } from "../../services/actions/modal";
+import {
+  REMOVE_ORDER_VISIBILITY,
+  RESET_ORDER_NUMBER,
+  SET_ORDER_VISIBILITY,
+} from "../../services/actions/modal";
 import { useDrop } from "react-dnd";
 import {
   SET_CONSTRUCTOR_ELEMENT,
@@ -26,6 +30,14 @@ const BurgerConstructor = React.memo(() => {
   const { buns, totalPrice } = useSelector(
     (state) => state.dropContainerReducer
   );
+
+  const isOrderVisible = useSelector(
+    (state) => state.modalReducer.isOrderVisible
+  );
+
+  const onClose = () => {
+    dispatch({ type: REMOVE_ORDER_VISIBILITY });
+  };
 
   const [, dropTarget] = useDrop({
     accept: "items",
@@ -59,8 +71,6 @@ const BurgerConstructor = React.memo(() => {
     dispatch({ type: SET_ORDER_INGREDIENTS });
   }, [dispatch, constructorElements, buns]);
 
-  const [isVisible, setVisibility] = useState(false);
-
   const postResult = (ingredients) => {
     dispatch(getOrderNumber(ingredients));
   };
@@ -75,16 +85,16 @@ const BurgerConstructor = React.memo(() => {
   };
 
   function handleOpenModal() {
-    setVisibility(true);
+    dispatch({ type: SET_ORDER_VISIBILITY });
   }
 
   function handleCloseModal() {
-    setVisibility(false);
+    dispatch({ type: REMOVE_ORDER_VISIBILITY });
     dispatch({ type: RESET_ORDER_NUMBER });
   }
 
   const modalOrderDetails = (
-    <Modal onClose={handleCloseModal} isOpened={isVisible}>
+    <Modal onClose={handleCloseModal} isOpened={isOrderVisible}>
       <OrderDetails />
     </Modal>
   );
@@ -146,7 +156,7 @@ const BurgerConstructor = React.memo(() => {
         <Button onClick={setModal} type="primary" size="large">
           Оформить заказ
         </Button>
-        {isVisible && modalOrderDetails}
+        {isOrderVisible && modalOrderDetails}
       </div>
     </section>
   );

@@ -5,18 +5,8 @@ import PropTypes from "prop-types";
 import { createPortal } from "react-dom";
 import ModalOverlay from "../modal-overlay/modal-overlay";
 import { modalsRoot } from "../../utils/constants";
-import { useHistory } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import { REMOVE_VISIBILITY } from "../../services/actions/modal";
 
-export default function Modal({ children, isOpened }) {
-  const history = useHistory();
-  const dispatch = useDispatch();
-
-  const onClose = () => {
-    history.goBack();
-    dispatch({ type: REMOVE_VISIBILITY });
-  };
+export default function Modal({ children, isOpened, onClose }) {
 
   useEffect(() => {
     const handleEscClose = (evt) => {
@@ -46,4 +36,5 @@ export default function Modal({ children, isOpened }) {
 Modal.propTypes = {
   children: PropTypes.element.isRequired,
   isOpened: PropTypes.bool.isRequired,
+  onClose: PropTypes.func.isRequired,
 };

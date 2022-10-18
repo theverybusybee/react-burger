@@ -4,7 +4,8 @@ import useFetchIngredients from "../../services/hooks/useFetchIngredients";
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 import ApiLoader from "../api-loader/api-loader";
-import { Route, Switch, useLocation } from "react-router-dom";
+import { Route, Switch, useLocation, useHistory } from "react-router-dom";
+import { REMOVE_VISIBILITY } from "../../services/actions/modal";
 
 import {
   Home,
@@ -15,18 +16,23 @@ import {
   Profile,
 } from "../../pages/index";
 import ProtectedRoute from "../protected-route/protected-route";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import Modal from "../modal/modal";
 import IngredientDetails from "../ingredient-details/ingredient-details";
 
 function App() {
+  const history = useHistory();
+  const dispatch = useDispatch();
   const { hasError, isLoading, data } = useFetchIngredients();
   const isLogin = useSelector((state) => state.authUserReducer.isLogin);
-  const { isVisible, currentModalIngredient } = useSelector(
-    (state) => state.modalReducer
-  );
+  const isVisible = useSelector((state) => state.modalReducer.isVisible);
   const location = useLocation();
   const background = location.state?.background;
+
+  const onClose = () => {
+    history.goBack();
+    dispatch({ type: REMOVE_VISIBILITY });
+  };
 
   return hasError || isLoading || !data.length ? (
     <ApiLoader />
@@ -40,8 +46,8 @@ function App() {
           <ProtectedRoute
             path="/"
             exact={true}
+            anonymous={true}
             isAuth={isLogin}
-            anonymous={false}
           >
             <DndProvider backend={HTML5Backend}>
               <Home />
@@ -86,13 +92,15 @@ function App() {
             <ResetPasswordPage />
           </ProtectedRoute>
           <Route path="/ingredients/:id" exact={true}>
-            <IngredientDetails  />
+            <div className={AppStyle.ingredient}>
+              <IngredientDetails />
+            </div>
           </Route>
         </Switch>
       )}
       {isVisible ? (
         <Modal isOpened={isVisible}>
-          <IngredientDetails  />
+          <IngredientDetails />
         </Modal>
       ) : null}
       {background && (
@@ -100,8 +108,8 @@ function App() {
           exact={true}
           path="/ingredients/:id"
           children={
-            <Modal isOpened={isVisible}>
-              <IngredientDetails  />
+            <Modal isOpened={isVisible} onClose={onClose}>
+              <IngredientDetails />
             </Modal>
           }
         />
