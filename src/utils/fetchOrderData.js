@@ -129,26 +129,8 @@ export const fetchLogin = (form) => {
 
   return fetch(`${baseAuthUrl}/login`, requestOptions).then(checkResponse);
 };
-export const fetchLogout = (form) => {
-  const token = getCookie("token");
-  const requestOptions = {
-    method: "POST",
-    mode: "cors",
-    cache: "no-cache",
-    credentials: "same-origin",
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: token,
-    },
-    redirect: "follow",
-    referrerPolicy: "no-referrer",
-    body: JSON.stringify(form),
-  };
 
-  return fetch(`${baseAuthUrl}/logout`, requestOptions).then(checkResponse);
-};
-
-export const fetchToken = (token) => {
+export const fetchLogout = () => {
   const requestOptions = {
     method: "POST",
     mode: "cors",
@@ -160,14 +142,33 @@ export const fetchToken = (token) => {
     redirect: "follow",
     referrerPolicy: "no-referrer",
     body: JSON.stringify({
-      token: token,
+      token: localStorage.getItem("refreshToken"),
+    }),
+  };
+
+  return fetch(`${baseAuthUrl}/logout`, requestOptions).then(checkResponse);
+};
+
+export const fetchToken = () => {
+  const requestOptions = {
+    method: "POST",
+    mode: "cors",
+    cache: "no-cache",
+    credentials: "same-origin",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    redirect: "follow",
+    referrerPolicy: "no-referrer",
+    body: JSON.stringify({
+      token: localStorage.getItem("refreshToken"),
     }),
   };
 
   return fetch(`${baseAuthUrl}/token`, requestOptions).then(checkResponse);
 };
 
-export const updateUserData = (form) => {
+export const updateUserData = (name, email) => {
   const requestOptions = {
     method: "PATCH",
     mode: "cors",
@@ -179,7 +180,10 @@ export const updateUserData = (form) => {
     },
     redirect: "follow",
     referrerPolicy: "no-referrer",
-    body: JSON.stringify(form),
+    body: JSON.stringify({
+      name: name,
+      email: email,
+    }),
   };
 
   return fetchWithRefreshToken(`${baseAuthUrl}/user`, requestOptions).then(

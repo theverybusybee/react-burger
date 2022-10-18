@@ -70,10 +70,10 @@ export function authenticateUser(form) {
   };
 }
 
-export function logoutFromAccount(token) {
+export function logoutFromAccount() {
   return function (dispatch) {
     dispatch({ type: FETCH_AUTH_REQUEST });
-    fetchLogout(token)
+    fetchLogout()
       .then((res) => {
         if (res && res.success) {
           dispatch({
@@ -94,10 +94,10 @@ export function logoutFromAccount(token) {
   };
 }
 
-export function updateData(form) {
+export function updateData(name, email) {
   return function (dispatch) {
     dispatch({ type: FETCH_AUTH_REQUEST });
-    updateUserData(form)
+    updateUserData(name, email)
       .then((res) => {
         if (res && res.success) {
           dispatch({
@@ -105,13 +105,12 @@ export function updateData(form) {
             payload: res,
           });
         } else {
-          dispatch({ type: FETCH_AUTH_ERROR });
+          throw res;
         }
       })
-      .catch(() =>
-        dispatch({
-          type: FETCH_AUTH_ERROR,
-        })
+      .catch((err) =>
+      console.log(err)
+       
       );
   };
 }
@@ -137,39 +136,6 @@ export function getData() {
       );
   };
 }
-
-// export const fetchWithRefresh = async (url, options) => {
-//   try {
-//     const res = await fetch(url, options);
-//     const data = await checkResponse(res);
-//     return data;
-//   } catch (err) {
-//     if (err.message === "jwt expired") {
-//       const refreshData = await fetchToken();
-//       if (!refreshData.success) {
-//         return Promise.reject(refreshData);
-//       }
-
-//       localStorage.setItem("refreshToken", refreshData.refreshToken);
-//       setCookie("token", refreshData.accessToken);
-
-//       options.headers.authorization = refreshData.accessToken;
-//       const res = await fetch(url, {
-//         ...options,
-//         headers: {
-//           ...options.headers,
-//           authorization: refreshData.accessToken
-//         }
-//       });
-
-//       const data = await checkResponse(res);
-
-//       return data;
-//     } else {
-//       return Promise.reject(err);
-//     }
-//   }
-// };
 
 export const fetchWithRefreshToken = (url, options) => {
   return fetch(url, options)
