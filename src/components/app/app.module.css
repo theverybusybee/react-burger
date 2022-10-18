@@ -6,5 +6,10 @@
   grid-template-areas: 
   'header header'
   'main main'
-  'loading loading';
+  'loading loading'
+  'ingredient ingredient'
+}
+
+.ingredient {
+  padding-top: 120px;
 }

@@ -4,7 +4,7 @@ import useFetchIngredients from "../../services/hooks/useFetchIngredients";
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 import ApiLoader from "../api-loader/api-loader";
-import { Route, Switch, useLocation, useHistory } from "react-router-dom";
+import { Route, Switch, useLocation } from "react-router-dom";
 
 import {
   Home,
@@ -15,7 +15,7 @@ import {
   Profile,
 } from "../../pages/index";
 import ProtectedRoute from "../protected-route/protected-route";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import Modal from "../modal/modal";
 import IngredientDetails from "../ingredient-details/ingredient-details";
 
@@ -25,13 +25,8 @@ function App() {
   const { isVisible, currentModalIngredient } = useSelector(
     (state) => state.modalReducer
   );
-
   const location = useLocation();
   const background = location.state?.background;
-
-  
-  console.log(background);
-  console.log(location);
 
   return hasError || isLoading || !data.length ? (
     <ApiLoader />
@@ -91,13 +86,13 @@ function App() {
             <ResetPasswordPage />
           </ProtectedRoute>
           <Route path="/ingredients/:id" exact={true}>
-            <IngredientDetails ingredient={currentModalIngredient} />
+            <IngredientDetails  />
           </Route>
         </Switch>
       )}
       {isVisible ? (
         <Modal isOpened={isVisible}>
-          <IngredientDetails ingredient={currentModalIngredient} />
+          <IngredientDetails  />
         </Modal>
       ) : null}
       {background && (
@@ -106,7 +101,7 @@ function App() {
           path="/ingredients/:id"
           children={
             <Modal isOpened={isVisible}>
-              <IngredientDetails ingredient={currentModalIngredient} />
+              <IngredientDetails  />
             </Modal>
           }
         />

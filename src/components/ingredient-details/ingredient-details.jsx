@@ -1,26 +1,52 @@
 import detailsStyles from "./ingredient-details.module.css";
-import { useSelector } from "react-redux";
+import { memo, useEffect, useState } from "react";
+import { fetchIngredients } from "../../utils/fetchOrderData";
+import { useParams } from "react-router-dom";
 
-export default function IngredientDetails() {
-  const currentModalIngredient = useSelector(
-    (state) => state.modalReducer?.currentModalIngredient
-  );
+function IngredientDetails() {
+  const [ingredient, setIngredient] = useState({
+    image: "",
+    name: "",
+    calories: "",
+    proteins: "",
+    fat: "",
+    carbohydrates: "",
+  });
 
-  return currentModalIngredient ? (
+  const { id } = useParams();
+  const { image, name, calories, proteins, fat, carbohydrates } = ingredient;
+
+  const get = async () => {
+    const data = await fetchIngredients().then((data) => data);
+    if (data.success) {
+      const currentIngredient = data.data.find((el) => el._id === id);
+      console.log("gfdgdd");
+      setIngredient({
+        image: currentIngredient.image_large,
+        name: currentIngredient.name,
+        calories: currentIngredient.calories,
+        proteins: currentIngredient.proteins,
+        fat: currentIngredient.fat,
+        carbohydrates: currentIngredient.carbohydrates,
+      });
+    }
+  };
+
+  useEffect(() => {
+    get();
+  }, [id]);
+
+  return (
     <div className={detailsStyles.main}>
       <h2 className={`${detailsStyles.title} text text_type_main-large`}>
         Детали ингредиента
       </h2>
       <figure className={detailsStyles.imgContainer}>
-        <img
-          className={detailsStyles.img}
-          src={currentModalIngredient.image_large}
-          alt={currentModalIngredient.name}
-        />
+        <img className={detailsStyles.img} src={image} alt={name} />
         <figcaption
           className={`${detailsStyles.caption} text text_type_main-medium`}
         >
-          {currentModalIngredient.name}
+          {name}
         </figcaption>
       </figure>
 
@@ -37,13 +63,15 @@ export default function IngredientDetails() {
         </thead>
         <tbody>
           <tr>
-            <td>{currentModalIngredient.calories}</td>
-            <td>{currentModalIngredient.proteins}</td>
-            <td>{currentModalIngredient.fat}</td>
-            <td>{currentModalIngredient.carbohydrates}</td>
+            <td>{calories}</td>
+            <td>{proteins}</td>
+            <td>{fat}</td>
+            <td>{carbohydrates}</td>
           </tr>
         </tbody>
       </table>
     </div>
-  ) : null;
+  );
 }
+
+export default memo(IngredientDetails);
