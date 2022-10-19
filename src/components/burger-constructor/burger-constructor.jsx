@@ -24,10 +24,11 @@ import {
   SET_ORDER_INGREDIENTS,
 } from "../../services/actions/drop-container";
 import { Reorder } from "framer-motion";
-import { Redirect, useLocation } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 
 const BurgerConstructor = React.memo(() => {
   const dispatch = useDispatch();
+  const history = useHistory();
   const { buns, totalPrice } = useSelector(
     (state) => state.dropContainerReducer
   );
@@ -52,7 +53,7 @@ const BurgerConstructor = React.memo(() => {
 
   const isLogin = useSelector((state) => state.authUserReducer.isLogin);
 
-  const [items, setItems] = useState(constructorElements); // данный стейт используется для пропсов компонентов библиотеки, которую я использую для перетаскивания ингредиентов внутри конструктора
+  const [items, setItems] = useState(constructorElements);
 
   useEffect(() => {
     dispatch({ type: FILTER_BUNS });
@@ -83,15 +84,14 @@ const BurgerConstructor = React.memo(() => {
     handleOpenModal();
   };
 
-  const location = useLocation();
-
-  const onButtonClick = () => {
+  const onButtonClick = (e) => {
     if (!isLogin) {
-      return (<Redirect to={{ pathname: "/login", from: location}} />);
-    } else setModal();
+      e.preventDefault();
+      history.push("/login");
+    } else {
+      setModal();
+    }
   };
-
-  
 
   function handleOpenModal() {
     dispatch({ type: SET_ORDER_VISIBILITY });

@@ -23,7 +23,7 @@ import IngredientDetails from "../ingredient-details/ingredient-details";
 function App() {
   const history = useHistory();
   const dispatch = useDispatch();
-    const location = useLocation();
+  const location = useLocation();
   const { hasError, isLoading, data } = useFetchIngredients();
   const isLogin = useSelector((state) => state.authUserReducer.isLogin);
   const isVisible = useSelector((state) => state.modalReducer.isVisible);
@@ -43,18 +43,18 @@ function App() {
         <ApiLoader />
       ) : (
         <Switch location={background || location}>
-          <ProtectedRoute
-            path="/"
-            exact={true}
-            anonymous={false}
-            isAuth={isLogin}
-          >
+          <Route path="/" exact={true}>
             <DndProvider backend={HTML5Backend}>
               <Home />
             </DndProvider>
-          </ProtectedRoute>
+          </Route>
 
-          <ProtectedRoute path="/profile" exact={true} isAuth={isLogin}>
+          <ProtectedRoute
+            path="/profile"
+            exact={true}
+            isAuth={isLogin}
+            anonymous={false}
+          >
             <Profile />
           </ProtectedRoute>
 

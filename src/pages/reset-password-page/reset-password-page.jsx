@@ -3,7 +3,7 @@ import {
   Input,
   Button,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { fetchResetPassword } from "../../utils/fetchOrderData";
 import { useState } from "react";
 
@@ -12,6 +12,7 @@ function ResetPasswordPage() {
     password: "",
     token: "",
   });
+  const history = useHistory();
 
   const [apiState, setApiState] = useState({
     isLoading: false,
@@ -19,21 +20,22 @@ function ResetPasswordPage() {
     data: [],
   });
 
-  const resetPassword = async form => {
-    const data = await fetchResetPassword(form).then(data => data)
-    if(data.success) {
-      setApiState({...apiState, data: data})
+  const resetPassword = async (form) => {
+    const data = await fetchResetPassword(form).then((data) => data);
+    if (data.success) {
+      setApiState({ ...apiState, data: data });
     }
-  }
+  };
 
   const submitResetPassword = (e) => {
     e.preventDefault();
     resetPassword(formState);
-  }
+    history.push("/login");
+  };
 
   const onInputChange = (e) => {
-    setFormState({...formState, [e.target.name]: e.target.value})
-  }
+    setFormState({ ...formState, [e.target.name]: e.target.value });
+  };
 
   return (
     <div className={resetStyles.container}>
@@ -42,7 +44,8 @@ function ResetPasswordPage() {
           Восстановление пароля
         </h1>
         <Input
-        name='password'
+          value={formState.password}
+          name="password"
           type="password"
           placeholder="Введите новый пароль"
           disabled={false}
@@ -50,7 +53,8 @@ function ResetPasswordPage() {
           onChange={onInputChange}
         />
         <Input
-         name='token'
+          value={formState.token}
+          name="token"
           type="text"
           placeholder="Введите код из письма"
           disabled={false}

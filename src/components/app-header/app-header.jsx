@@ -16,7 +16,12 @@ export default function AppHeader() {
             className={`${AppHeaderStyle.navbarItem} text text_type_main-default text_color_inactive`}
           >
             <BurgerIcon type="primary" />
-            <NavLink className={AppHeaderStyle.link} activeClassName={AppHeaderStyle.selected} to='/'> 
+            <NavLink
+              className={AppHeaderStyle.link}
+              activeClassName={AppHeaderStyle.selected}
+              to="/"
+              exact={true}
+            >
               Конструктор
             </NavLink>
           </li>
@@ -25,16 +30,16 @@ export default function AppHeader() {
             className={`${AppHeaderStyle.navbarItem} text text_type_main-default text_color_inactive`}
           >
             <ListIcon type="secondary" />
-            <a className={AppHeaderStyle.link} href="#">
+            <NavLink className={AppHeaderStyle.link} to="#" exact={true}>
               Лента заказов
-            </a>
+            </NavLink>
           </li>
         </ul>
 
         <li
           className={`${AppHeaderStyle.navbarItem} ${AppHeaderStyle.navbarItem_type_logo}`}
         >
-          <Link to='/' className={AppHeaderStyle.link}>
+          <Link to="/" className={AppHeaderStyle.link}>
             <Logo />
           </Link>
         </li>
@@ -43,7 +48,12 @@ export default function AppHeader() {
           className={`${AppHeaderStyle.navbarItem} text text_type_main-default text_color_inactive`}
         >
           <ProfileIcon type="secondary" />
-          <NavLink className={AppHeaderStyle.link} activeClassName={AppHeaderStyle.selected} to='/profile'>
+          <NavLink
+            className={AppHeaderStyle.link}
+            activeClassName={AppHeaderStyle.selected}
+            to="/profile"
+            exact={true}
+          >
             Личный кабинет
           </NavLink>
         </li>
