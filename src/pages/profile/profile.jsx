@@ -3,31 +3,24 @@ import {
   Input,
   Button,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import { NavLink, Redirect } from "react-router-dom";
+import { NavLink, useHistory } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import {
-  logoutFromAccount,
-  updateData,
-} from "../../services/actions/auth";
+import { logoutFromAccount, updateData } from "../../services/actions/auth";
 import { useCallback, useState } from "react";
-import { deleteCookie, getCookie } from "../../utils/cookie";
+import { deleteCookie } from "../../utils/cookie";
 import { useEffect } from "react";
-import { fetchToken } from "../../utils/fetchOrderData";
+import { getData } from "../../services/actions/auth";
 
 function Profile() {
   const dispatch = useDispatch();
-  const refreshToken = useSelector(
-    (state) => state.authUserReducer.refreshToken
+  const history = useHistory();
+
+  const currentUserName = useSelector(
+    (state) => state.authUserReducer.userInfo.name
   );
-
-  //   useEffect(() => {
-  //   getData();
-  //   setForm({email: userInfo.email, name: userInfo.name})
-  // }, [userInfo]);
-
-  useEffect(() => {
-    fetchToken(getCookie("refreshToken"));
-  }, []);
+  const currentUserEmail = useSelector(
+    (state) => state.authUserReducer.userInfo.email
+  );
 
   const [form, setForm] = useState({
     email: "",
@@ -35,18 +28,15 @@ function Profile() {
     password: "",
   });
 
-  const logoutUser = (form) => {
-    dispatch(logoutFromAccount(form));
-  };
-
-  const updateUser = (form) => {
-    dispatch(updateData(form));
-  };
+  useEffect(() => {
+    dispatch(getData());
+    setForm({ ...form, email: currentUserEmail, name: currentUserName });
+  }, [currentUserEmail, currentUserName]);
 
   const updateUserData = useCallback(
     (e) => {
       e.preventDefault();
-      updateUser(form);
+      dispatch(updateData(form.name, form.email));
     },
     [form]
   );
@@ -56,28 +46,17 @@ function Profile() {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
-  const logout = useCallback(
-    (e) => {
-      e.preventDefault();
-      logoutUser({ token: refreshToken });
-      deleteCookie("token");
-    },
-    [refreshToken]
-  );
+  const logout = useCallback((e) => {
+    e.preventDefault();
+    dispatch(logoutFromAccount());
+    deleteCookie("token");
+    localStorage.removeItem("refreshToken");
+    history.push("/login");
+  }, []);
 
   const resetForm = () => {
     setForm({ email: "", name: "", password: "" });
   };
-
-  // if (!userInfo) {
-  //   return (
-  //     <Redirect
-  //       to={{
-  //         pathname: "/",
-  //       }}
-  //     />
-  //   );
-  // }
 
   return (
     <div className={ProfileStyles.container}>
@@ -121,7 +100,6 @@ function Profile() {
           errorText={"Ошибка"}
           size={"default"}
           icon="EditIcon"
-          // value={userInfo.user.name}
         ></Input>
 
         <Input
@@ -134,7 +112,6 @@ function Profile() {
           errorText={"Ошибка"}
           size={"default"}
           icon="EditIcon"
-          // value={userInfo.user.email}
         ></Input>
 
         <Input
