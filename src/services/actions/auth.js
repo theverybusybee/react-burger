@@ -4,6 +4,7 @@ import {
   fetchLogin,
   fetchLogout,
   updateUserData,
+  getUserData,
 } from "../../utils/fetchOrderData";
 import { checkResponse } from "../../utils/constants";
 import { fetchToken } from "../../utils/fetchOrderData";
@@ -76,8 +77,6 @@ export function authenticateUser(form) {
   };
 }
 
-//
-
 export function refreshAccessToken() {
   return function (dispatch) {
     dispatch({ type: FETCH_REFRESH_TOKEN_REQUEST });
@@ -136,7 +135,11 @@ export function updateData(name, email) {
           throw res;
         }
       })
-      .catch((err) => console.log(err));
+      .catch(() =>
+        dispatch({
+          type: FETCH_AUTH_ERROR,
+        })
+      );
   };
 }
 
@@ -144,7 +147,7 @@ export function updateData(name, email) {
 export function getData() {
   return function (dispatch) {
     dispatch({ type: FETCH_AUTH_REQUEST });
-    updateUserData()
+    getUserData()
       .then((res) => {
         if (res && res.success) {
           dispatch({
@@ -155,7 +158,7 @@ export function getData() {
           dispatch({ type: FETCH_AUTH_ERROR });
         }
       })
-      .catch(() =>
+      .catch((err) =>
         dispatch({
           type: FETCH_AUTH_ERROR,
         })

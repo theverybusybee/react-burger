@@ -3,6 +3,8 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { refreshAccessToken } from "../../services/actions/auth";
 import ApiLoader from "../api-loader/api-loader";
+import { getData } from "../../services/actions/auth";
+import { SET_LOGIN_STATUS } from "../../services/actions/auth";
 
 export default function ProtectedRoute({
   anonymous = false,
@@ -10,6 +12,7 @@ export default function ProtectedRoute({
   children,
   ...rest
 }) {
+
   const location = useLocation();
   const dispatch = useDispatch();
   const isTokenExist = !!localStorage.getItem("refreshToken");
@@ -18,8 +21,12 @@ export default function ProtectedRoute({
   );
 
   useEffect(() => {
-    if (!isTokenUpdated && isTokenExist) {
+    if (!isAuth && isTokenExist) {
       dispatch(refreshAccessToken());
+    }
+    if(isTokenExist) {
+      dispatch(getData())
+      dispatch({type: SET_LOGIN_STATUS})
     }
   }, [dispatch, isTokenExist, isTokenUpdated]);
 

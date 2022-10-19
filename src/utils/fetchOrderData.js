@@ -1,6 +1,5 @@
 import { baseUrl, checkResponse, baseAuthUrl } from "./constants";
 import { getCookie } from "./cookie";
-import { fetchWithRefresh } from "../services/actions/auth";
 import { fetchWithRefreshToken } from "../services/actions/auth";
 
 export const fetchOrderDetails = (ingredients) => {
@@ -59,25 +58,6 @@ export const fetchResetPassword = (form) => {
   );
 };
 
-// export const fetchRegister = (form) => {
-//   const token = getCookie('token');
-//   const requestOptions = {
-//     method: "POST",
-//     mode: "cors",
-//     cache: "no-cache",
-//     credentials: "same-origin",
-//     headers: {
-//       "Content-type": "application/json",
-//       Authorization: token
-//     },
-//     redirect: "follow",
-//     referrerPolicy: "no-referrer",
-//     body: JSON.stringify(form),
-//   };
-
-//   return fetchWithRefresh(`${baseAuthUrl}/register`, requestOptions).then(checkResponse);
-// };
-
 export const fetchRegister = (form) => {
   const requestOptions = {
     method: "POST",
@@ -94,24 +74,6 @@ export const fetchRegister = (form) => {
 
   return fetch(`${baseAuthUrl}/register`, requestOptions).then(checkResponse);
 };
-
-// export const fetchLogin = (form) => {
-//   const token = getCookie('token');
-//   const requestOptions = {
-//     method: "POST",
-//     mode: "cors",
-//     cache: "no-cache",
-//     credentials: "same-origin",
-//     headers: {
-//       "Content-type": "application/json",
-//     },
-//     redirect: "follow",
-//     referrerPolicy: "no-referrer",
-//     body: JSON.stringify(form),
-//   };
-
-//   return fetchWithRefresh(`${baseAuthUrl}/login`, requestOptions).then(checkResponse);
-// };
 
 export const fetchLogin = (form) => {
   const requestOptions = {
@@ -191,7 +153,7 @@ export const updateUserData = (name, email) => {
   );
 };
 
-export const getUserData = (token) => {
+export const getUserData = () => {
   const requestOptions = {
     method: "GET",
     mode: "cors",
@@ -199,14 +161,14 @@ export const getUserData = (token) => {
     credentials: "same-origin",
     headers: {
       "Content-Type": "application/json",
-      Authorization: token,
+      Authorization: "Bearer " + getCookie("token"),
     },
     redirect: "follow",
     referrerPolicy: "no-referrer",
     body: JSON.stringify(),
   };
 
-  return fetchWithRefreshToken(`${baseAuthUrl}/user`, requestOptions).then(
+  return fetch(`${baseAuthUrl}/user`, requestOptions).then(
     checkResponse
   );
 };
