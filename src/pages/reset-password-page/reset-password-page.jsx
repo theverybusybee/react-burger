@@ -17,20 +17,24 @@ function ResetPasswordPage() {
   const [apiState, setApiState] = useState({
     isLoading: false,
     hasError: false,
-    data: [],
+    success: false,
   });
+
+  console.log(apiState.data);
 
   const resetPassword = async (form) => {
     const data = await fetchResetPassword(form).then((data) => data);
     if (data.success) {
-      setApiState({ ...apiState, data: data });
+      setApiState({ ...apiState, data: data.success });
     }
   };
 
   const submitResetPassword = (e) => {
     e.preventDefault();
     resetPassword(formState);
-    history.push("/login");
+    if (apiState.success) {
+      history.push("/login");
+    }
   };
 
   const onInputChange = (e) => {
