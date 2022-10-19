@@ -24,6 +24,7 @@ import {
   SET_ORDER_INGREDIENTS,
 } from "../../services/actions/drop-container";
 import { Reorder } from "framer-motion";
+import { Redirect, useLocation } from "react-router-dom";
 
 const BurgerConstructor = React.memo(() => {
   const dispatch = useDispatch();
@@ -34,10 +35,6 @@ const BurgerConstructor = React.memo(() => {
   const isOrderVisible = useSelector(
     (state) => state.modalReducer.isOrderVisible
   );
-
-  const onClose = () => {
-    dispatch({ type: REMOVE_ORDER_VISIBILITY });
-  };
 
   const [, dropTarget] = useDrop({
     accept: "items",
@@ -52,6 +49,8 @@ const BurgerConstructor = React.memo(() => {
   const constructorElements = useSelector(
     (state) => state.dropContainerReducer.constructorElements
   );
+
+  const isLogin = useSelector((state) => state.authUserReducer.isLogin);
 
   const [items, setItems] = useState(constructorElements); // данный стейт используется для пропсов компонентов библиотеки, которую я использую для перетаскивания ингредиентов внутри конструктора
 
@@ -83,6 +82,16 @@ const BurgerConstructor = React.memo(() => {
     postResult(orderIngredients);
     handleOpenModal();
   };
+
+  const location = useLocation();
+
+  const onButtonClick = () => {
+    if (!isLogin) {
+      return (<Redirect to={{ pathname: "/login", from: location}} />);
+    } else setModal();
+  };
+
+  
 
   function handleOpenModal() {
     dispatch({ type: SET_ORDER_VISIBILITY });
@@ -153,7 +162,7 @@ const BurgerConstructor = React.memo(() => {
           <p className="text text_type_digits-medium">{totalPrice}</p>
           <CurrencyIcon />
         </div>
-        <Button onClick={setModal} type="primary" size="large">
+        <Button onClick={onButtonClick} type="primary" size="large">
           Оформить заказ
         </Button>
         {isOrderVisible && modalOrderDetails}

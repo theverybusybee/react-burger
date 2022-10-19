@@ -23,10 +23,10 @@ import IngredientDetails from "../ingredient-details/ingredient-details";
 function App() {
   const history = useHistory();
   const dispatch = useDispatch();
+    const location = useLocation();
   const { hasError, isLoading, data } = useFetchIngredients();
   const isLogin = useSelector((state) => state.authUserReducer.isLogin);
   const isVisible = useSelector((state) => state.modalReducer.isVisible);
-  const location = useLocation();
   const background = location.state?.background;
 
   const onClose = () => {
@@ -46,7 +46,7 @@ function App() {
           <ProtectedRoute
             path="/"
             exact={true}
-            anonymous={true}
+            anonymous={false}
             isAuth={isLogin}
           >
             <DndProvider backend={HTML5Backend}>
@@ -99,7 +99,7 @@ function App() {
         </Switch>
       )}
       {isVisible ? (
-        <Modal isOpened={isVisible}>
+        <Modal isOpened={isVisible} onClose={onClose}>
           <IngredientDetails />
         </Modal>
       ) : null}
