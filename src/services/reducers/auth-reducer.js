@@ -2,7 +2,7 @@ import {
   FETCH_AUTH_REQUEST,
   FETCH_AUTH_SUCCESS,
   FETCH_AUTH_ERROR,
-  SET_USER_NULL,
+  DELETE_USER,
   SET_LOGIN_STATUS,
 } from "../actions/auth";
 
@@ -10,8 +10,6 @@ const initialState = {
   isLoading: false,
   hasError: false,
   userInfo: { name: "", email: "" },
-  accessToken: "",
-  refreshToken: "",
   isLogin: false,
 };
 
@@ -30,8 +28,6 @@ const authUserReducer = (state = initialState, { type, payload }) => {
         isLoading: false,
         hasError: false,
         userInfo: { name: payload.user.name, email: payload.user.email },
-        accessToken: payload.accessToken,
-        refreshToken: payload.refreshToken,
       };
     }
     case FETCH_AUTH_ERROR: {
@@ -42,18 +38,18 @@ const authUserReducer = (state = initialState, { type, payload }) => {
       };
     }
 
-    case SET_USER_NULL: {
+    case DELETE_USER: {
       return {
         ...state,
-        userInfo: null,
-        accessToken: null,
-        refreshToken: null,
+        userInfo: initialState.userInfo,
+        isLogin: initialState.isLogin,
       };
     }
+
     case SET_LOGIN_STATUS: {
       return {
         ...state,
-        isLogin: !initialState.isLogin,
+        isLogin: true,
       };
     }
 

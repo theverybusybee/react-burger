@@ -7,6 +7,12 @@ import {
   GET_ORDER_NUMBER_FAILED,
 } from "../actions/api-data";
 
+import {
+  FETCH_REFRESH_TOKEN_REQUEST,
+  FETCH_REFRESH_TOKEN_SUCCESS,
+  FETCH_REFRESH_TOKEN_ERROR,
+} from "../actions/auth";
+
 const initialState = {
   allIngredients: [],
   allIngredientsRequest: false,
@@ -15,6 +21,10 @@ const initialState = {
   createdOrderNumber: null,
   createdOrderNumberRequest: false,
   createdOrderNumberFailed: false,
+
+  tokenRequest: false,
+  isTokenUpdated: false,
+  tokenUpdateData: false,
 };
 
 const apiDataReducer = (state = initialState, { type, payload }) => {
@@ -46,6 +56,25 @@ const apiDataReducer = (state = initialState, { type, payload }) => {
 
     case GET_ORDER_NUMBER_FAILED: {
       return { ...state, createdOrderNumberFailed: true };
+    }
+
+    case FETCH_REFRESH_TOKEN_REQUEST: {
+      return { ...state, tokenRequest: true };
+    }
+    case FETCH_REFRESH_TOKEN_SUCCESS: {
+      return {
+        ...state,
+        tokenRequest: false,
+        isTokenUpdated: true,
+        tokenUpdateData: true,
+      };
+    }
+    case FETCH_REFRESH_TOKEN_ERROR: {
+      return {
+        ...state,
+        isTokenUpdated: true,
+        tokenUpdateData: false,
+      };
     }
 
     default:
