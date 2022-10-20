@@ -1,28 +1,36 @@
 import OrderCardStyles from "./order-feed-order-card.module.css";
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
+import { useSelector } from "react-redux";
 
 function OrderFeedOrderCard({ data }) {
+
+  console.log(data.number)
+  
+  const allIngredients = useSelector((state) => state.apiDataReducer.allIngredients)
+
   return (
     <div className={OrderCardStyles.container}>
       <p className={`${OrderCardStyles.number} text text_type_digits-default`}>
-        {data.orderNumber}
+        {data.number}
       </p>
       <p
-        className={`${OrderCardStyles.time} text text_type_main-default text_color_inactive`}
+        className={`${OrderCardStyles.createdAt} text text_type_main-default text_color_inactive`}
       >
-        {data.orderTime}
+        {data.createdAt}
       </p>
       <p className={`${OrderCardStyles.name} text text_type_main-medium`}>
-        {data.orderName}
+        {data.name}
       </p>
       <ul className={OrderCardStyles.ingredients}>
-        {data.orderIngredients.map((el) => {
+        {data.ingredients.map((item) => {
+          const ingredientImage = allIngredients.find((el) => el._id === item)?.image
+          console.log(ingredientImage)
           return (
             <li className={OrderCardStyles.ingredient}>
               <div className={OrderCardStyles.ingredientBackground}>
                 <img
                   className={OrderCardStyles.ingredientImage}
-                  src={el.orderImage}
+                  src={ingredientImage}
                   alt="image1"
                 />
               </div>
@@ -32,7 +40,7 @@ function OrderFeedOrderCard({ data }) {
       </ul>
       <div className={OrderCardStyles.priceContainer}>
         <p className={`${OrderCardStyles.price} text text_type_digits-default`}>
-          {data.orderPrice}
+          324234
         </p>
         <CurrencyIcon type="primary" />
       </div>
