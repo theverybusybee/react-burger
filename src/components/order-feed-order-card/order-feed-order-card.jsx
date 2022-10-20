@@ -3,9 +3,6 @@ import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components
 import { useSelector } from "react-redux";
 
 function OrderFeedOrderCard({ data }) {
-
-  console.log(data.number)
-  
   const allIngredients = useSelector((state) => state.apiDataReducer.allIngredients)
 
   return (

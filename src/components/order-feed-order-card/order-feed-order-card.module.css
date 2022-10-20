@@ -19,8 +19,9 @@
   grid-area: number;
 }
 
-.time {
+.createdAt {
   grid-area: time;
+  justify-self: end;
 }
 
 .name {
@@ -29,7 +30,7 @@
 
 .priceContainer {
   grid-area: price;
-  justify-self: right;
+  justify-self: end;
   display: flex;
   gap: 8px;
 }

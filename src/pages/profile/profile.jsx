@@ -10,6 +10,8 @@ import { useCallback, useState } from "react";
 import { deleteCookie } from "../../utils/cookie";
 import { useEffect } from "react";
 import { getData } from "../../services/actions/auth";
+import ProfileOrders from "../profile-orders/profile-orders";
+import { data2 } from "../../utils/constants";
 
 function Profile() {
   const dispatch = useDispatch();
@@ -142,6 +144,7 @@ function Profile() {
           </Button>
         </div>
       ) : null}
+      {/* <ProfileOrders data={data2}/> */}
     </div>
   );
 }
