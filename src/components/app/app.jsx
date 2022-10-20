@@ -14,6 +14,7 @@ import {
   ForgotPasswordPage,
   LoginPage,
   Profile,
+  OrderFeedPage
 } from "../../pages/index";
 import ProtectedRoute from "../protected-route/protected-route";
 import { useDispatch, useSelector } from "react-redux";
@@ -96,6 +97,23 @@ function App() {
               <IngredientDetails />
             </div>
           </Route>
+
+          <Route path="/feed" exact={true}>
+            <OrderFeedPage />
+          </Route>
+          <Route path="/feed/:id" exact={true}></Route>
+          <ProtectedRoute
+            path="/profile/orders"
+            exact={true}
+            isAuth={isLogin}
+            anonymous={false}
+          ></ProtectedRoute>
+          <ProtectedRoute
+            path="/profile/orders/:id"
+            exact={true}
+            isAuth={isLogin}
+            anonymous={false}
+          ></ProtectedRoute>
         </Switch>
       )}
       {isVisible ? (
