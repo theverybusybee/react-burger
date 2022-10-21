@@ -8,7 +8,7 @@ function OrderFeedOrderCard({ data }) {
   return (
     <div className={OrderCardStyles.container}>
       <p className={`${OrderCardStyles.number} text text_type_digits-default`}>
-        {data.number}
+        &#35;{data.number}
       </p>
       <p
         className={`${OrderCardStyles.createdAt} text text_type_main-default text_color_inactive`}
@@ -21,7 +21,6 @@ function OrderFeedOrderCard({ data }) {
       <ul className={OrderCardStyles.ingredients}>
         {data.ingredients.map((item) => {
           const ingredientImage = allIngredients.find((el) => el._id === item)?.image
-          console.log(ingredientImage)
           return (
             <li className={OrderCardStyles.ingredient}>
               <div className={OrderCardStyles.ingredientBackground}>

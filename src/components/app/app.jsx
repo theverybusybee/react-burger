@@ -14,12 +14,15 @@ import {
   ForgotPasswordPage,
   LoginPage,
   Profile,
-  OrderFeedPage
+  OrderFeedPage,
+  OrderFeedDetails,
 } from "../../pages/index";
 import ProtectedRoute from "../protected-route/protected-route";
 import { useDispatch, useSelector } from "react-redux";
 import Modal from "../modal/modal";
 import IngredientDetails from "../ingredient-details/ingredient-details";
+import { data2 } from "../../utils/constants";
+
 
 function App() {
   const history = useHistory();
@@ -101,7 +104,9 @@ function App() {
           <Route path="/feed" exact={true}>
             <OrderFeedPage />
           </Route>
-          <Route path="/feed/:id" exact={true}></Route>
+          <Route path="/feed/:id" exact={true}>
+            <OrderFeedDetails data={data2.orders[1]}/>
+          </Route>
           <ProtectedRoute
             path="/profile/orders"
             exact={true}
