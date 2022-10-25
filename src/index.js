@@ -10,6 +10,7 @@ import dropContainerReducer from "./services/reducers/drop-container-reducer";
 import apiDataReducer from "./services/reducers/api-data";
 import modalReducer from "./services/reducers/modal";
 import authUserReducer from "./services/reducers/auth-reducer";
+import feedDataReducer from "./services/reducers/feed-data-reducer";
 import { BrowserRouter as Router } from "react-router-dom";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
@@ -20,6 +21,7 @@ const rootReducer = combineReducers({
   apiDataReducer: apiDataReducer,
   modalReducer: modalReducer,
   authUserReducer: authUserReducer,
+  feedDataReducer: feedDataReducer,
 });
 
 const store = configureStore({ reducer: rootReducer });
