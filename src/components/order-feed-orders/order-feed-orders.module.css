@@ -12,6 +12,7 @@
 }
 
 .ordersContainer {
+  padding-right: 8px;
   overflow-y: scroll;
   max-height: 73.5vh;
   display: grid;

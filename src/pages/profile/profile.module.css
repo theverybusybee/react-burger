@@ -41,26 +41,3 @@
   color: #fff;
   transition: color 0.3s ease-in;
 }
-
-.userData {
-  display: flex;
-  flex-direction: column;
-  gap: 24px;
-  align-items: center;
-  grid-area: userData;
-}
-
-.paragraph {
-  grid-area: paragraph;
-  opacity: 0.4;
-}
-
-.buttonsContainer {
-  grid-area: buttonsContainer;
-  display: flex;
-  justify-content: flex-end;
-}
-
-.container input {
-  color: #8585ad;
-}

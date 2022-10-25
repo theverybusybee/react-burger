@@ -1,18 +1,19 @@
 import ProfileOrdersStyles from "./profile-orders.module.css";
-import OrderFeedOrderCard from "../../components/order-feed-order-card/order-feed-order-card";
+import OrderFeedCard from "../../components/order-feed-card/order-feed-card";
 
-function ProfileOrders({data}) {
-  return <section className={ProfileOrdersStyles.main}>
-      
+function ProfileOrders({ data }) {
+  return (
+    <section className={ProfileOrdersStyles.main}>
       <div
         className={` ${ProfileOrdersStyles.ordersContainer} custom-scroll`}
         id="scroll"
       >
         {data.orders.map((el) => {
-          return <OrderFeedOrderCard data={el} />;
+          return <OrderFeedCard data={el} />;
         })}
       </div>
-    </section>;
+    </section>
+  );
 }
 
 export default ProfileOrders;
