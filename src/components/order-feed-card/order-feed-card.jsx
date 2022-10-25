@@ -1,12 +1,25 @@
-import OrderCardStyles from "./order-feed-order-card.module.css";
+import OrderCardStyles from "./order-feed-card.module.css";
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { SET_CURRENT_ORDER } from "../../services/actions/feed-data";
+import { useCallback, memo } from "react";
+import { Link, useLocation } from 'react-router-dom'
 
-function OrderFeedOrderCard({ data }) {
+function OrderFeedCard({ data }) {
+  const dispatch = useDispatch();
+  const location = useLocation();
+  const id = data._id;
   const allIngredients = useSelector((state) => state.apiDataReducer.allIngredients)
+  const currentOrder = useSelector((state) => state.feedDataReducer.currentOrder)
+  console.log(currentOrder)
+
+  const openModal = useCallback(() => {
+    dispatch({type: SET_CURRENT_ORDER, payload: data})
+  }, [currentOrder])
 
   return (
-    <div className={OrderCardStyles.container}>
+    <Link className={OrderCardStyles.link} to={{ pathname: `/profile/orders/${id}` }}>
+       <div className={OrderCardStyles.container} onClick={openModal}>
       <p className={`${OrderCardStyles.number} text text_type_digits-default`}>
         &#35;{data.number}
       </p>
@@ -41,7 +54,9 @@ function OrderFeedOrderCard({ data }) {
         <CurrencyIcon type="primary" />
       </div>
     </div>
+    </Link>
+   
   );
 }
 
-export default OrderFeedOrderCard;
+export default memo(OrderFeedCard);

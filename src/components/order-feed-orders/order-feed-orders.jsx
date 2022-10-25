@@ -1,5 +1,5 @@
 import feedOrdersStyles from "./order-feed-orders.module.css";
-import OrderFeedOrderCard from "../order-feed-order-card/order-feed-order-card";
+import OrderFeedCard from "../order-feed-card/order-feed-card";
 
 function OrderFeedOrders({data}) {
   return (
@@ -12,7 +12,7 @@ function OrderFeedOrders({data}) {
         id="scroll"
       >
         {data.orders.map((el) => {
-          return <OrderFeedOrderCard data={el} />;
+          return <OrderFeedCard data={el} />;
         })}
       </div>
     </section>

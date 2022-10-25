@@ -1,3 +1,8 @@
+.link {
+  text-decoration: none;
+  color: inherit;
+}
+
 .container {
   min-width: 100%;
   padding: 24px;
@@ -22,6 +27,12 @@
 .createdAt {
   grid-area: time;
   justify-self: end;
+}
+
+.container:hover {
+  cursor: pointer;
+  background: linear-gradient(63.18deg, #801ab3 0%, #4c4cff 100%);
+  color: #fff;
 }
 
 .name {
