@@ -15,7 +15,7 @@
     "number time"
     "name name"
     "ingredients price";
-  grid-template-columns: 1fr fit-content;
+  grid-template-columns: 1fr auto;
   gap: 24px;
   align-items: center;
 }
@@ -66,8 +66,12 @@
   background: linear-gradient(#801ab2, #4c4cff);
   border-radius: 100%;
   box-sizing: border-box;
-  margin-right: -8px;
+  margin-right: -16px;
   z-index: 5;
+}
+
+.lastIngredient {
+  opacity: 0.6;
 }
 
 .ingredientBackground {
@@ -80,12 +84,18 @@
   justify-content: center;
   align-items: center;
   z-index: 5;
+  position: relative;
 }
 
 .ingredientImage {
   width: 115px;
   object-fit: contain;
   border-radius: 100%;
+}
+
+.ingredientsAmount {
+  position: absolute;
+  text-align: center;
 }
 
 .ingredient:nth-child(2) {
@@ -103,7 +113,7 @@
   z-index: 1;
 }
 
-.ingredient:nth-child(5) {
+.ingredient:nth-child(6) {
   z-index: 0;
 }
 
