@@ -20,8 +20,6 @@ function ResetPasswordPage() {
     success: false,
   });
 
-  console.log(apiState.data);
-
   const resetPassword = async (form) => {
     const data = await fetchResetPassword(form).then((data) => data);
     if (data.success) {

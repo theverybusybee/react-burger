@@ -10,66 +10,18 @@ export const checkResponse = (res) => {
 
 export const modalsRoot = document.querySelector("#react-modals");
 
-export const data2 = {
-  success: true,
-  orders: [
-    {
-      ingredients: [
-        "60d3b41abdacab0026a733c8",
-        "60d3b41abdacab0026a733cf",
-        "60d3b41abdacab0026a733c8",
-        "60d3b41abdacab0026a733cc",
-      ],
-      _id: "60d3b41abdacab0026a733cf",
-      status: "done",
-      number: 124322,
-      createdAt: "2021-06-23T14:43:22.587Z",
-      updatedAt: "2021-06-23T14:43:22.603Z",
-      name: "Death Star Starship Main бургер",
-    },
-    {
-      ingredients: [
-        "60d3b41abdacab0026a733d4",
-        "60d3b41abdacab0026a733c7",
-        "60d3b41abdacab0026a733c6",
-        "60d3b41abdacab0026a733cd",
-      ],
-      _id: "60d3b41abdacab0026a733c7",
-      status: "done",
-      number: 123423,
-      createdAt: "2021-06-23T14:43:22.587Z",
-      updatedAt: "2021-06-23T14:43:22.603Z",
-      name: "Death Star Starship Main бургер",
-    },
-    {
-      ingredients: [
-         "60d3b41abdacab0026a733c8",
-        "60d3b41abdacab0026a733cf",
-        "60d3b41abdacab0026a733c8",
-        "60d3b41abdacab0026a733cc",
-      ],
-      _id: "60d3b41abdacab0026a733c8",
-      status: "inProcess",
-      number: 21432,
-      createdAt: "2021-06-23T14:43:22.587Z",
-      updatedAt: "2021-06-23T14:43:22.603Z",
-      name: "Death Star Starship Main бургер",
-    },
-    {
-      ingredients: [
-        "60d3b41abdacab0026a733d4",
-        "60d3b41abdacab0026a733c7",
-        "60d3b41abdacab0026a733c6",
-        "60d3b41abdacab0026a733cd",
-      ],
-      _id: "60d3b41abdacab0026a733c7",
-      status: "inProcess",
-      number: 324231,
-      createdAt: "2021-06-23T14:43:22.587Z",
-      updatedAt: "2021-06-23T14:43:22.603Z",
-      name: "Death Star Starship Main бургер",
-    },
-  ],
-  total: 14343,
-  totalToday: 13422,
+export const getDate = (setDate) => {
+  const enteringDate = new Date(setDate);
+  const enter = enteringDate.toLocaleDateString('ru-RU').slice(0, 2)
+  const hours = enteringDate.getHours();
+  const minutes = enteringDate.getMinutes();
+  const today = new Date().toISOString().toLocaleString("ru-RU").slice(8, 10);
+  const day = (() => {
+    if ((today - enter) === 0) {
+      return 'Сегодня';
+    } else if((today - enter) === 1 ) {
+      return "Вчера";
+    } else return enteringDate.toLocaleString("ru-RU");
+  })();
+  return `${day}, ${hours}:${minutes} i-GMT+3`;
 };

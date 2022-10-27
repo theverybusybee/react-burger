@@ -2,7 +2,7 @@ import ProfileStyles from "./profile.module.css";
 import { NavLink, useHistory } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { logoutFromAccount } from "../../services/actions/auth";
-import { useCallback } from "react";
+import { memo, useCallback } from "react";
 import { deleteCookie } from "../../utils/cookie";
 
 function Profile({ children }) {
@@ -51,9 +51,8 @@ function Profile({ children }) {
       </div>
 
       <>{children}</>
-      {/* <ProfileOrders data={data2}/> */}
     </div>
   );
 }
 
-export default Profile;
+export default memo(Profile);
