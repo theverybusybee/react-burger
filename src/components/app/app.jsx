@@ -6,7 +6,7 @@ import { HTML5Backend } from "react-dnd-html5-backend";
 import ApiLoader from "../api-loader/api-loader";
 import { Route, Switch, useLocation, useHistory } from "react-router-dom";
 import { REMOVE_VISIBILITY } from "../../services/actions/modal";
-
+import { useEffect } from "react";
 import {
   Home,
   RegisterPage,
@@ -21,22 +21,45 @@ import ProtectedRoute from "../protected-route/protected-route";
 import { useDispatch, useSelector } from "react-redux";
 import Modal from "../modal/modal";
 import IngredientDetails from "../ingredient-details/ingredient-details";
-import { data2 } from "../../utils/constants";
+import ProfileForm from "../profile-forms/profile-forms";
+import ProfileOrders from "../../pages/profile-orders/profile-orders";
+import { getIngredients } from "../../services/actions/api-data";
+import { SET_ALL_ORDERS } from "../../services/actions/feed-data";
 
 
 function App() {
-  const history = useHistory();
   const dispatch = useDispatch();
+  const history = useHistory();
   const location = useLocation();
   const { hasError, isLoading, data } = useFetchIngredients();
   const isLogin = useSelector((state) => state.authUserReducer.isLogin);
-  const isVisible = useSelector((state) => state.modalReducer.isVisible);
+  const ingredientIsVisible = useSelector(
+    (state) => state.modalReducer.isVisible.ingredient
+  );
+  const orderIsVisible = useSelector(
+    (state) => state.modalReducer.isVisible.order
+  );
   const background = location.state?.background;
+  const allOrders = useSelector((state) => state.feedDataReducer.allOrders)
+
+  const ws = new WebSocket('wss://norma.nomoreparties.space/orders/all');
+  // ws.onmessage()
 
   const onClose = () => {
     history.goBack();
     dispatch({ type: REMOVE_VISIBILITY });
   };
+
+    useEffect(() => {
+    dispatch(getIngredients());
+    ws.onmessage = e => {
+      const ordersData = JSON.parse(e.data);
+      if(ordersData.success) {
+        dispatch({type: SET_ALL_ORDERS, payload: ordersData})
+      }      
+    };
+  }, []);
+
 
   return hasError || isLoading || !data.length ? (
     <ApiLoader />
@@ -59,7 +82,9 @@ function App() {
             isAuth={isLogin}
             anonymous={false}
           >
-            <Profile />
+            <Profile>
+              <ProfileForm />
+            </Profile>
           </ProtectedRoute>
 
           <ProtectedRoute
@@ -105,37 +130,68 @@ function App() {
             <OrderFeedPage />
           </Route>
           <Route path="/feed/:id" exact={true}>
-            <OrderFeedDetails data={data2.orders[1]}/>
+            <OrderFeedDetails data={allOrders.orders} />
           </Route>
           <ProtectedRoute
             path="/profile/orders"
             exact={true}
             isAuth={isLogin}
             anonymous={false}
-          ></ProtectedRoute>
+          >
+            <Profile>
+              <ProfileOrders data={allOrders} />
+            </Profile>
+          </ProtectedRoute>
           <ProtectedRoute
             path="/profile/orders/:id"
             exact={true}
             isAuth={isLogin}
             anonymous={false}
-          ></ProtectedRoute>
+          >
+            <OrderFeedDetails />
+          </ProtectedRoute>
         </Switch>
       )}
-      {isVisible ? (
-        <Modal isOpened={isVisible} onClose={onClose}>
+      {ingredientIsVisible ? (
+        <Modal isOpened={ingredientIsVisible} onClose={onClose}>
           <IngredientDetails />
         </Modal>
       ) : null}
+      {orderIsVisible ? (
+        <Modal isOpened={orderIsVisible} onClose={onClose}>
+          <OrderFeedDetails />
+        </Modal>
+      ) : null}
       {background && (
-        <Route
-          exact={true}
-          path="/ingredients/:id"
-          children={
-            <Modal isOpened={isVisible} onClose={onClose}>
-              <IngredientDetails />
-            </Modal>
-          }
-        />
+        <Switch>
+          <Route
+            exact={true}
+            path="/ingredients/:id"
+            children={
+              <Modal isOpened={ingredientIsVisible} onClose={onClose}>
+                <IngredientDetails />
+              </Modal>
+            }
+          />
+          <Route
+            exact={true}
+            path="/feed/:id"
+            children={
+              <Modal isOpened={orderIsVisible} onClose={onClose}>
+                <OrderFeedDetails />
+              </Modal>
+            }
+          />
+          <Route
+            exact={true}
+            path="/profile/orders/:id"
+            children={
+              <Modal isOpened={orderIsVisible} onClose={onClose}>
+                <OrderFeedDetails />
+              </Modal>
+            }
+          />
+        </Switch>
       )}
     </div>
   );

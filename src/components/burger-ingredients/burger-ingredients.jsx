@@ -10,10 +10,6 @@ import { TAB_NAME, TAB_SWITCH } from "../../services/actions/tab";
 export default function BurgerIngredients() {
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    dispatch(getIngredients());
-  }, [dispatch]);
-
   function getDistanceBetweenPoints(element, viewportCoords) {
     const coordsChild = element.getBoundingClientRect();
     return Math.abs(viewportCoords.top - coordsChild.top);
