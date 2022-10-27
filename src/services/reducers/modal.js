@@ -5,6 +5,7 @@ import {
   SET_VISIBILITY_INGREDIENT,
   REMOVE_VISIBILITY,
   SET_ORDER_NUMBER_VISIBILITY,
+  SET_ORDER_VISIBILITY,
 } from "../actions/modal";
 
 const initialState = {
@@ -18,6 +19,7 @@ const initialState = {
 
 const modalReducer = (state = initialState, { type, payload }) => {
   switch (type) {
+
     case SET_MODAL_INGREDIENT:
       return { ...state, currentModalIngredient: payload };
 
@@ -30,17 +32,24 @@ const modalReducer = (state = initialState, { type, payload }) => {
     case RESET_ORDER_NUMBER: {
       return { ...state, createdOrderNumber: initialState.createdOrderNumber };
     }
+
     case SET_VISIBILITY_INGREDIENT: {
       return { ...state, isVisible: { ...state.isVisible, ingredient: true } };
     }
+
     case REMOVE_VISIBILITY: {
       return {
         ...state,
         isVisible: { ingredient: false, order: false, orderNumber: false },
       };
     }
+
     case SET_ORDER_NUMBER_VISIBILITY: {
       return { ...state, isVisible: { ...state.isVisible, orderNumber: true } };
+    }
+
+      case SET_ORDER_VISIBILITY: {
+      return { ...state, isVisible: { ...state.isVisible, order: true } };
     }
 
     default:
