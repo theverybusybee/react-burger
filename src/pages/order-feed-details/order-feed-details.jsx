@@ -1,18 +1,74 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import FeedDetailsStyles from "./order-feed-details.module.css";
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useSelector } from "react-redux";
 import FeedDetailsIngredient from "../../components/feed-details-ingredient/feed-details-ingredient";
+import { useParams } from "react-router-dom";
+import { useMemo, useEffect, useState, memo } from "react";
 
-function OrderFeedDetails({ data }) {
+function OrderFeedDetails() {
   const allIngredients = useSelector(
     (state) => state.apiDataReducer.allIngredients
   );
-  return (
+
+  const allOrders = useSelector(
+    (state) => state.feedDataReducer.allOrders.orders
+  );
+
+  const [order, setOrder] = useState({
+    createdAt: "",
+    ingredients: [],
+    name: "",
+    number: 0,
+    status: "",
+    updatedAt: "",
+    _id: "",
+  });
+
+  const { ingredients, createdAt, number } = order;
+
+  const ingredient = useMemo(() => {
+    if (!!ingredients) {
+      return ingredients.map((item) => {
+        return allIngredients.find((el) => el._id === item);
+      });
+    }
+  }, [ingredients, allIngredients]);
+
+  const orderPrice = useMemo(() => {
+    if(ingredient.length) {
+      return ingredient.map((item) => item.price).reduce((a, b) => a + b)
+    }
+  })
+
+  const { id } = useParams();
+  const currentOrder = useMemo(() => {
+    if (!!allOrders) {
+      return allOrders.find((el) => el._id === id);
+    }
+  }, [allOrders]);
+
+  useEffect(() => {
+    if (!!currentOrder) {
+      setOrder({
+        createdAt: currentOrder.createdAt,
+        ingredients: currentOrder.ingredients,
+        name: currentOrder.name,
+        number: currentOrder.number,
+        status: currentOrder.status,
+        updatedAt: currentOrder.updatedAt,
+        _id: currentOrder._id,
+      });
+    }
+
+  }, [currentOrder, ingredient.length]);
+
+  return (!!ingredients || ingredient) ? (
     <div className={FeedDetailsStyles.main}>
       <p
         className={`${FeedDetailsStyles.number} text text_type_digits-default`}
       >
-        &#35;{data.number}
+        &#35;{number}
       </p>
       <div>
         <p className={`text text_type_main-medium`}>
@@ -25,10 +81,7 @@ function OrderFeedDetails({ data }) {
       <div>
         <p className={`text text_type_main-medium`}>Состав:</p>
         <ul className={FeedDetailsStyles.ordersContainer}>
-          {data.ingredients.map((item) => {
-            const ingredient = allIngredients.find((el) => el._id === item);
-            return <FeedDetailsIngredient data={ingredient} />;
-          })}
+           <FeedDetailsIngredient data={ingredient} />
         </ul>
       </div>
 
@@ -36,19 +89,19 @@ function OrderFeedDetails({ data }) {
         <p
           className={`${FeedDetailsStyles.time} text text_type_main-default text_color_inactive`}
         >
-          {data.createdAt}
+          {createdAt}
         </p>
         <div className={FeedDetailsStyles.totalPriceContainer}>
           <p
             className={`${FeedDetailsStyles.totalPrice} text text_type_digits-default`}
           >
-            433
+            {orderPrice}
           </p>
           <CurrencyIcon className={FeedDetailsStyles.currency} type="primary" />
         </div>
       </div>
     </div>
-  );
+  ) : null;
 }
 
-export default OrderFeedDetails;
+export default memo(OrderFeedDetails);

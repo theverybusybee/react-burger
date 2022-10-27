@@ -12,7 +12,7 @@ function OrderFeedOrders({data}) {
         id="scroll"
       >
         {data.orders.map((el) => {
-          return <OrderFeedCard data={el} />;
+          return <OrderFeedCard data={el} key={el._id} />;
         })}
       </div>
     </section>

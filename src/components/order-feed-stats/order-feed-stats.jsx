@@ -1,11 +1,9 @@
+import { memo } from "react";
 import feedStatsStyles from "./order-feed-stats.module.css";
-import { orderData } from "../../utils/constants";
 
 function OrderFeedStats({ data }) {
-  console.log(data)
   const isReady = data.orders.filter((el) => el.status === "done");
   const inProcess = data.orders.filter((el) => el.status === "inProcess");
-  console.log(isReady);
   return (
     <div className={feedStatsStyles.container}>
       <div className={feedStatsStyles.orderIsReady}>
@@ -15,7 +13,7 @@ function OrderFeedStats({ data }) {
         <div
           className={`${feedStatsStyles.readyOrders} text text_type_digits-default`}
         >
-          {isReady.map((el) => {
+          {isReady.slice(0, 10).map((el) => {
             return <p>{el.number}</p>;
           })}
         </div>
@@ -56,4 +54,4 @@ function OrderFeedStats({ data }) {
   );
 }
 
-export default OrderFeedStats;
+export default memo(OrderFeedStats);
