@@ -1,18 +1,23 @@
 import ProfileOrdersStyles from "./profile-orders.module.css";
 import OrderFeedCard from "../../components/order-feed-card/order-feed-card";
+import { useSelector } from "react-redux";
 
-function ProfileOrders({ data }) {
+function ProfileOrders() {
+  const orders = useSelector((state) => state.wsReducer.allOrders.orders);
+
   return (
-    <section className={ProfileOrdersStyles.main}>
-      <div
-        className={` ${ProfileOrdersStyles.ordersContainer} custom-scroll`}
-        id="scroll"
-      >
-        {data.orders.map((el) => {
-          return <OrderFeedCard data={el} />;
-        })}
-      </div>
-    </section>
+    orders && (
+      <section className={ProfileOrdersStyles.main}>
+        <div
+          className={` ${ProfileOrdersStyles.ordersContainer} custom-scroll`}
+          id="scroll"
+        >
+          {orders.map((el) => {
+            return <OrderFeedCard data={el} key={el._id} />;
+          })}
+        </div>
+      </section>
+    )
   );
 }
 

@@ -16,8 +16,6 @@ function OrderFeedDetails() {
     (state) => state.wsReducer.allOrders.orders
   );
 
-  console.log(allOrders)
-
   const [order, setOrder] = useState({
     createdAt: "",
     ingredients: [],

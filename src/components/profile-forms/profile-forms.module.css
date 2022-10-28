@@ -1,9 +1,15 @@
+.container {
+  padding-top: 80px;
+}
+
 .userData {
+  padding-top: 80px;
   display: flex;
   flex-direction: column;
   gap: 24px;
-  align-items: center;
+  align-items: flex-start;
   grid-area: userData;
+
 }
 
 .paragraph {
