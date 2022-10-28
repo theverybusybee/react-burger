@@ -26,7 +26,7 @@ function OrderFeedStats({ data }) {
           className={`${feedStatsStyles.inProcessOrders} text text_type_digits-default`}
         >
           {inProcess.map((el) => {
-            return <p>{el.number}</p>;
+            return <p key={el.number}>{el.number}</p>;
           })}
         </div>
       </div>

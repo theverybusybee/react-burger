@@ -1,6 +1,7 @@
+import ingredientStyles from "./feed-details-ingredient.module.css";
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useState, useEffect, memo, useCallback } from "react";
-import ingredientStyles from "./feed-details-ingredient.module.css";
+import IngredientIcon from "../ingredient-icon/ingredient-icon";
 
 function FeedDetailsIngredient({ data }) {
   const [orderState, setOrderState] = useState({
@@ -37,15 +38,12 @@ function FeedDetailsIngredient({ data }) {
     ? reducedIngredients.map((ingredient) => {
         return (
           <li className={ingredientStyles.containerItem}>
-            <div className={ingredientStyles.ingredient}>
-              <div className={ingredientStyles.ingredientBackground}>
-                <img
-                  className={ingredientStyles.ingredientImage}
-                  src={ingredient.image}
-                  alt={ingredient.name}
-                />
-              </div>
-            </div>
+            <IngredientIcon
+              type="ordinary ingredient"
+              ingredient={ingredient}
+              key={ingredient.uuid}
+              tagType='div'
+            />
             <p
               className={`${ingredientStyles.ingredientName} text text_type_main-default`}
             >

@@ -6,6 +6,7 @@ import { useCallback, memo, useMemo } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { SET_ORDER_VISIBILITY } from "../../services/actions/modal";
 import { getDate } from "../../utils/constants";
+import IngredientIcon from "../ingredient-icon/ingredient-icon";
 
 function OrderFeedCard({ data }) {
   const dispatch = useDispatch();
@@ -18,7 +19,7 @@ function OrderFeedCard({ data }) {
   const currentOrder = useSelector(
     (state) => state.feedDataReducer.currentOrder
   );
-  const lastImage = data.ingredients[6];
+  const lastImage = allIngredients.find((el) => el._id === data.ingredients[6]);
 
   const totalPrice = useMemo(() => {
     return data.ingredients
@@ -32,7 +33,7 @@ function OrderFeedCard({ data }) {
   const openModal = useCallback(() => {
     dispatch({ type: SET_CURRENT_ORDER, payload: data });
     dispatch({ type: SET_ORDER_VISIBILITY });
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentOrder]);
 
   return (
@@ -61,33 +62,23 @@ function OrderFeedCard({ data }) {
           {data.ingredients.slice(0, 5).map((item) => {
             const ingredient = allIngredients.find((el) => el._id === item);
             return (
-              <li className={OrderCardStyles.ingredient}>
-                <div className={OrderCardStyles.ingredientBackground}>
-                  <img
-                    className={OrderCardStyles.ingredientImage}
-                    src={ingredient.image_large}
-                    alt={ingredient.name}
-                  />
-                </div>
-              </li>
+              <IngredientIcon
+                type="ordinary ingredient"
+                ingredient={ingredient}
+                key={ingredient.uuid}
+                tagType='li'
+              />
             );
           })}
 
           {lastImage ? (
-            <li className={OrderCardStyles.ingredient}>
-              <div className={OrderCardStyles.ingredientBackground}>
-                <img
-                  className={`${OrderCardStyles.ingredientImage} ${OrderCardStyles.lastIngredient}`}
-                  src={allIngredients.find((el) => el._id === lastImage)?.image}
-                  alt="ingredient"
-                />
-                <p
-                  className={`${OrderCardStyles.ingredientsAmount} text text_type_digits-default`}
-                >
-                  &#43;{`${data.ingredients.length - 6}`}
-                </p>
-              </div>
-            </li>
+            <IngredientIcon
+              type="last ingredient"
+              lastIngredient={lastImage}
+              ingredientsArray={data.ingredients}
+              tagType='li'
+              key={lastImage.uuid}
+            />
           ) : null}
         </ul>
         <div className={OrderCardStyles.priceContainer}>
