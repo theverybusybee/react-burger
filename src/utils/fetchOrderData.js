@@ -5,7 +5,10 @@ import { fetchWithRefreshToken } from "../services/actions/auth";
 export const fetchOrderDetails = (ingredients) => {
   const requestOptions = {
     method: "POST",
-    headers: { "Content-Type": "application/json" },
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: "Bearer " + getCookie("token"),
+    },
     body: JSON.stringify({ ingredients }),
   };
 

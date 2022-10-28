@@ -10,6 +10,7 @@ import {
 const initialState = {
   wsConnected: false,
   error: undefined,
+  isRefreshed: false,
   allOrders: {
     orders: [],
     total: 0,
@@ -24,6 +25,7 @@ const wsReducer = (state = initialState, { type, payload, uuid }) => {
         ...state,
         error: undefined,
         wsConnected: true,
+        isRefreshed: true,
       };
     case WS_CONNECTION_ERROR:
       return {
@@ -39,6 +41,7 @@ const wsReducer = (state = initialState, { type, payload, uuid }) => {
         ...state,
         error: undefined,
         wsConnected: false,
+        isRefreshed: false,
       };
 
     // Опишем обработку экшена с типом WS_GET_ORDERS
@@ -48,15 +51,7 @@ const wsReducer = (state = initialState, { type, payload, uuid }) => {
       return {
         ...state,
         error: undefined,
-        allOrders: {
-          orders: 
-            payload.data.orders.map((el) => {
-              return {...el, uuid: uuidv4()}
-            })
-          ,
-          total: payload.data.total,
-          totalToday: payload.data.totalToday,
-        },
+        allOrders: {orders: payload.data.orders, total: payload.data.total, totalToday: payload.data.totalToday}
       };
 
     default:

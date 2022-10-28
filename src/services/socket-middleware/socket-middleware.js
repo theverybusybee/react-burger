@@ -38,7 +38,7 @@ export const socketMiddleware = (wsUrl) => {
           const { data } = event;
           const parsedData = JSON.parse(data);
           const { success, ...restParsedData } = parsedData;
-
+          
           dispatch({
             type: "WS_GET_ORDERS",
             payload: {

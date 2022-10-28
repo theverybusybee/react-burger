@@ -41,7 +41,7 @@ export function getOrderNumber(ingredients) {
         if (res && res.success) {
           dispatch({
             type: GET_ORDER_NUMBER_SUCCESS,
-            payload: res.order.number,
+            payload: res,
           });
         } else {
           dispatch({ type: GET_ORDER_NUMBER_FAILED });

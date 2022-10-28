@@ -25,7 +25,9 @@ const preloadedState = {};
 export const store = configureStore({
   reducer: rootReducer,
   middleware: (thunkMiddleware) =>
-    thunkMiddleware().concat(socketMiddleware(wsUrl, wsActions)),
+    thunkMiddleware({
+      serializableCheck: false,
+    }).concat(socketMiddleware(wsUrl, wsActions)),
   preloadedState,
   devtools: true,
 });
