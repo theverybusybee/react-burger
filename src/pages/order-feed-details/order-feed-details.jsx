@@ -5,6 +5,7 @@ import { useSelector } from "react-redux";
 import FeedDetailsIngredient from "../../components/feed-details-ingredient/feed-details-ingredient";
 import { useParams } from "react-router-dom";
 import { useMemo, useEffect, useState, memo } from "react";
+import { getDate } from "../../utils/constants";
 
 function OrderFeedDetails() {
   const allIngredients = useSelector(
@@ -12,8 +13,10 @@ function OrderFeedDetails() {
   );
 
   const allOrders = useSelector(
-    (state) => state.feedDataReducer.allOrders.orders
+    (state) => state.wsReducer.allOrders.orders
   );
+
+  console.log(allOrders)
 
   const [order, setOrder] = useState({
     createdAt: "",
@@ -51,7 +54,7 @@ function OrderFeedDetails() {
   useEffect(() => {
     if (!!currentOrder) {
       setOrder({
-        createdAt: currentOrder.createdAt,
+        createdAt: getDate(currentOrder.createdAt.toString()),
         ingredients: currentOrder.ingredients,
         name: currentOrder.name,
         number: currentOrder.number,
@@ -81,7 +84,7 @@ function OrderFeedDetails() {
       <div>
         <p className={`text text_type_main-medium`}>Состав:</p>
         <ul className={FeedDetailsStyles.ordersContainer}>
-           <FeedDetailsIngredient data={ingredient} />
+           <FeedDetailsIngredient data={ingredient} key={ingredient}  />
         </ul>
       </div>
 
