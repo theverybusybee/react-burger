@@ -1,2 +1,1 @@
 export const SET_CURRENT_ORDER = 'SET_CURRENT_ORDER';
-export const SET_ALL_ORDERS = 'SET_ALL_ORDERS'
