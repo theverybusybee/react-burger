@@ -59,13 +59,13 @@ function OrderFeedCard({ data }) {
           {data.name}
         </p>
         <ul className={OrderCardStyles.ingredients}>
-          {data.ingredients.slice(0, 5).map((item) => {
+          {data.ingredients.slice(0, 5).map((item, index) => {
             const ingredient = allIngredients.find((el) => el._id === item);
             return (
               <IngredientIcon
                 type="ordinary ingredient"
                 ingredient={ingredient}
-                key={ingredient.uuid}
+                key={index}
                 tagType='li'
               />
             );
@@ -77,7 +77,7 @@ function OrderFeedCard({ data }) {
               lastIngredient={lastImage}
               ingredientsArray={data.ingredients}
               tagType='li'
-              key={lastImage.uuid}
+              key='6'
             />
           ) : null}
         </ul>

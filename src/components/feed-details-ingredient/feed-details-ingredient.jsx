@@ -37,7 +37,7 @@ function FeedDetailsIngredient({ data }) {
   return reducedIngredients.length
     ? reducedIngredients.map((ingredient) => {
         return (
-          <li className={ingredientStyles.containerItem}>
+          <li className={ingredientStyles.containerItem} key={ingredient._id}>
             <IngredientIcon
               type="ordinary ingredient"
               ingredient={ingredient}
