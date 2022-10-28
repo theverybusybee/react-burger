@@ -24,8 +24,7 @@ import IngredientDetails from "../ingredient-details/ingredient-details";
 import ProfileForm from "../profile-forms/profile-forms";
 import ProfileOrders from "../../pages/profile-orders/profile-orders";
 import { getIngredients } from "../../services/actions/api-data";
-import { SET_ALL_ORDERS } from "../../services/actions/feed-data";
-
+import { wsActions } from "../../services/actions/ws-actions";
 
 function App() {
   const dispatch = useDispatch();
@@ -40,26 +39,15 @@ function App() {
     (state) => state.modalReducer.isVisible.order
   );
   const background = location.state?.background;
-  const allOrders = useSelector((state) => state.feedDataReducer.allOrders)
-
-  const ws = new WebSocket('wss://norma.nomoreparties.space/orders/all');
-  // ws.onmessage()
 
   const onClose = () => {
     history.goBack();
     dispatch({ type: REMOVE_VISIBILITY });
   };
 
-    useEffect(() => {
+  useEffect(() => {
     dispatch(getIngredients());
-    ws.onmessage = e => {
-      const ordersData = JSON.parse(e.data);
-      if(ordersData.success) {
-        dispatch({type: SET_ALL_ORDERS, payload: ordersData})
-      }      
-    };
   }, []);
-
 
   return hasError || isLoading || !data.length ? (
     <ApiLoader />
@@ -121,7 +109,7 @@ function App() {
             <ResetPasswordPage />
           </ProtectedRoute>
           <Route path="/ingredients/:id" exact={true}>
-            <div className={AppStyle.ingredient}>
+            <div className={AppStyle.modal}>
               <IngredientDetails />
             </div>
           </Route>
@@ -130,7 +118,9 @@ function App() {
             <OrderFeedPage />
           </Route>
           <Route path="/feed/:id" exact={true}>
-            <OrderFeedDetails data={allOrders.orders} />
+            <div className={AppStyle.modal}>
+              <OrderFeedDetails />
+            </div>
           </Route>
           <ProtectedRoute
             path="/profile/orders"
@@ -139,7 +129,7 @@ function App() {
             anonymous={false}
           >
             <Profile>
-              <ProfileOrders data={allOrders} />
+              <ProfileOrders />
             </Profile>
           </ProtectedRoute>
           <ProtectedRoute
@@ -148,7 +138,9 @@ function App() {
             isAuth={isLogin}
             anonymous={false}
           >
-            <OrderFeedDetails />
+            <div className={AppStyle.modal}>
+              <OrderFeedDetails />
+            </div>
           </ProtectedRoute>
         </Switch>
       )}
