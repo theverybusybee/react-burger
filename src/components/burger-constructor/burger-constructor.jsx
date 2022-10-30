@@ -22,9 +22,11 @@ import {
   RESET_TOTAL_PRICE,
   SET_BUNS,
   SET_ORDER_INGREDIENTS,
+  RESET_ORDER_INGREDIENTS,
 } from "../../services/actions/drop-container";
 import { Reorder } from "framer-motion";
 import { useHistory } from "react-router-dom";
+import ApiLoader from "../api-loader/api-loader";
 
 const BurgerConstructor = React.memo(() => {
   const dispatch = useDispatch();
@@ -35,6 +37,9 @@ const BurgerConstructor = React.memo(() => {
 
   const isOrderNumberVisible = useSelector(
     (state) => state.modalReducer.isVisible.orderNumber
+  );
+  const {createdOrderNumber, createdOrderNumberRequest} = useSelector(
+    (state) => state.apiDataReducer
   );
 
   const [, dropTarget] = useDrop({
@@ -100,11 +105,18 @@ const BurgerConstructor = React.memo(() => {
   function handleCloseModal() {
     dispatch({ type: REMOVE_VISIBILITY });
     dispatch({ type: RESET_ORDER_NUMBER });
+    dispatch({type: RESET_ORDER_INGREDIENTS})
   }
 
   const modalOrderDetails = (
     <Modal onClose={handleCloseModal} isOpened={isOrderNumberVisible}>
       <OrderDetails />
+    </Modal>
+  );
+
+  const modalOrderDetailsLoading = (
+    <Modal onClose={handleCloseModal}>
+       <ApiLoader/>
     </Modal>
   );
 
@@ -165,7 +177,8 @@ const BurgerConstructor = React.memo(() => {
         <Button onClick={onButtonClick} type="primary" size="large">
           Оформить заказ
         </Button>
-        {isOrderNumberVisible && modalOrderDetails}
+        {createdOrderNumberRequest && modalOrderDetailsLoading}
+        {(createdOrderNumber && isOrderNumberVisible) && modalOrderDetails}
       </div>
     </section>
   );
