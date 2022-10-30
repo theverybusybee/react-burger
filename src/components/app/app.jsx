@@ -5,7 +5,6 @@ import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 import ApiLoader from "../api-loader/api-loader";
 import { Route, Switch, useLocation, useHistory } from "react-router-dom";
-import { REMOVE_VISIBILITY } from "../../services/actions/modal";
 import { useEffect } from "react";
 import {
   Home,
@@ -24,26 +23,19 @@ import IngredientDetails from "../ingredient-details/ingredient-details";
 import ProfileForm from "../profile-forms/profile-forms";
 import ProfileOrders from "../../pages/profile-orders/profile-orders";
 import { getIngredients } from "../../services/actions/api-data";
-import { wsActions } from "../../services/actions/ws-actions";
 
 function App() {
   const dispatch = useDispatch();
   const history = useHistory();
-  const location = useLocation();
+    const location = useLocation();
+  console.log(history)
+  console.log(location)
   const { hasError, isLoading, data } = useFetchIngredients();
   const isLogin = useSelector((state) => state.authUserReducer.isLogin);
-  const ingredientIsVisible = useSelector(
-    (state) => state.modalReducer.isVisible.ingredient
-  );
-  const orderIsVisible = useSelector(
-    (state) => state.modalReducer.isVisible.order
-  );
-  const background = location.state?.background;
-
-  const onClose = () => {
+  function closePopup() {
     history.goBack();
-    dispatch({ type: REMOVE_VISIBILITY });
-  };
+  }
+  const background = location.state?.background;
 
   useEffect(() => {
     dispatch(getIngredients());
@@ -144,23 +136,14 @@ function App() {
           </ProtectedRoute>
         </Switch>
       )}
-      {ingredientIsVisible ? (
-        <Modal isOpened={ingredientIsVisible} onClose={onClose}>
-          <IngredientDetails />
-        </Modal>
-      ) : null}
-      {orderIsVisible ? (
-        <Modal isOpened={orderIsVisible} onClose={onClose}>
-          <OrderFeedDetails />
-        </Modal>
-      ) : null}
+  
       {background && (
         <Switch>
           <Route
             exact={true}
             path="/ingredients/:id"
             children={
-              <Modal isOpened={ingredientIsVisible} onClose={onClose}>
+              <Modal onClose={closePopup}>
                 <IngredientDetails />
               </Modal>
             }
@@ -169,7 +152,7 @@ function App() {
             exact={true}
             path="/feed/:id"
             children={
-              <Modal isOpened={orderIsVisible} onClose={onClose}>
+              <Modal onClose={closePopup}>
                 <OrderFeedDetails />
               </Modal>
             }
@@ -178,7 +161,7 @@ function App() {
             exact={true}
             path="/profile/orders/:id"
             children={
-              <Modal isOpened={orderIsVisible} onClose={onClose}>
+              <Modal onClose={closePopup}>
                 <OrderFeedDetails />
               </Modal>
             }

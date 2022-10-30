@@ -8,7 +8,7 @@ import PropTypes from "prop-types";
 import { ingredientType } from "../../utils/types";
 import { useDrag } from "react-dnd";
 import { useSelector } from "react-redux";
-import { Link, useLocation, useHistory } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import {
   SET_VISIBILITY_INGREDIENT,
@@ -18,14 +18,7 @@ import {
 const IngredientCard = React.memo(({ ingredient }) => {
   const dispatch = useDispatch();
   const location = useLocation();
-  const history = useHistory();
   const id = ingredient._id;
-
-  useEffect(() => {
-    dispatch(() => {
-      history.push({ state: { background: location } });
-    });
-  }, [ingredient]);
 
   const onClick = () => {
     dispatch({ type: SET_VISIBILITY_INGREDIENT });

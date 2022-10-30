@@ -35,8 +35,7 @@ function Modal({ children, isOpened, onClose }) {
 
 Modal.propTypes = {
   children: PropTypes.element.isRequired,
-  isOpened: PropTypes.bool.isRequired,
   onClose: PropTypes.func.isRequired,
 };
 
-export default memo(Modal)
+export default memo(Modal);

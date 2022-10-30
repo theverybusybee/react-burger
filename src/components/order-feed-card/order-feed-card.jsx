@@ -4,7 +4,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { SET_CURRENT_ORDER } from "../../services/actions/feed-data";
 import { useCallback, memo, useMemo } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { SET_ORDER_VISIBILITY } from "../../services/actions/modal";
 import { getDate } from "../../utils/constants";
 import IngredientIcon from "../ingredient-icon/ingredient-icon";
 
@@ -32,7 +31,6 @@ function OrderFeedCard({ data }) {
 
   const openModal = useCallback(() => {
     dispatch({ type: SET_CURRENT_ORDER, payload: data });
-    dispatch({ type: SET_ORDER_VISIBILITY });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentOrder]);
 
