@@ -1,4 +1,10 @@
-import { WS_CONNECTION_START, WS_CONNECTION_SUCCESS, WS_CONNECTION_ERROR, WS_GET_ORDERS } from "../actions/ws-actions";
+import {
+  WS_CONNECTION_START,
+  WS_CONNECTION_SUCCESS,
+  WS_CONNECTION_ERROR,
+  WS_GET_ORDERS,
+  WS_CONNECTION_CLOSED,
+} from "../actions/ws-actions";
 
 export const socketMiddleware = (wsUrl) => {
   return (store) => {
@@ -8,7 +14,7 @@ export const socketMiddleware = (wsUrl) => {
       const { dispatch, getState } = store;
       const { type, payload } = action;
 
-      if (type === 'WS_CONNECTION_CLOSED' && socket) {
+      if (type === WS_CONNECTION_CLOSED && socket) {
         if (socket.readyState === 1) {
           socket.close();
         }
@@ -22,7 +28,6 @@ export const socketMiddleware = (wsUrl) => {
         }
       }
 
-     
       if (socket) {
         // функция, которая вызывается при открытии сокета
         socket.onopen = (event) => {
@@ -40,7 +45,7 @@ export const socketMiddleware = (wsUrl) => {
           const { data } = event;
           const parsedData = JSON.parse(data);
           const { success, ...restParsedData } = parsedData;
-          
+
           dispatch({
             type: WS_GET_ORDERS,
             payload: {
@@ -49,9 +54,8 @@ export const socketMiddleware = (wsUrl) => {
           });
         };
         // функция, которая вызывается при закрытии соединения
-  
 
-        // if (type === 'WS_SEND_MESSAGE') {
+        // if (type === WS_SEND_MESSAGE) {
         //   const message = payload;
         //             // функция для отправки сообщения на сервер
         //   socket.send(JSON.stringify(message));
