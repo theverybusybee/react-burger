@@ -21,7 +21,6 @@ import { useDispatch, useSelector } from "react-redux";
 import Modal from "../modal/modal";
 import IngredientDetails from "../ingredient-details/ingredient-details";
 import ProfileForm from "../profile-forms/profile-forms";
-import ProfileOrders from "../../pages/profile-orders/profile-orders";
 import { getIngredients } from "../../services/actions/api-data";
 import ProfileOrdersPage from "../../pages/profile-orders-page/profile-orders-page";
 import { refreshAccessToken } from "../../services/actions/auth";

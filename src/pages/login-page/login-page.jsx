@@ -30,7 +30,7 @@ function LoginPage() {
     [dispatch, form]
   );
 
-  if (userInfo.name) {
+  if (!!userInfo.name) {
     return (
       <Redirect
         to={{

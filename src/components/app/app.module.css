@@ -9,6 +9,10 @@
     "loading loading"
     "ingredient ingredient"
     "profile profile"
-    'feed-details feed-details'
+    "feed-details feed-details";
 }
 
+.modal {
+  padding-top: 120px;
+  grid-area: ingredient;
+}
