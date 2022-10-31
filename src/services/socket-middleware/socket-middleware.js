@@ -1,3 +1,5 @@
+import { WS_CONNECTION_START, WS_CONNECTION_SUCCESS, WS_CONNECTION_ERROR, WS_GET_ORDERS } from "../actions/ws-actions";
+
 export const socketMiddleware = (wsUrl) => {
   return (store) => {
     let socket = null;
@@ -12,7 +14,7 @@ export const socketMiddleware = (wsUrl) => {
         }
       }
 
-      if (type === "WS_CONNECTION_START") {
+      if (type === WS_CONNECTION_START) {
         if (socket === null) {
           socket = new WebSocket(`${wsUrl}${payload.add}`);
         } else if (socket.readyState === 3 || socket.readyState === 2) {
@@ -24,12 +26,12 @@ export const socketMiddleware = (wsUrl) => {
       if (socket) {
         // функция, которая вызывается при открытии сокета
         socket.onopen = (event) => {
-          dispatch({ type: "WS_CONNECTION_SUCCESS", payload: event });
+          dispatch({ type: WS_CONNECTION_SUCCESS, payload: event });
         };
 
         // функция, которая вызывается при ошибке соединения
         socket.onerror = (event) => {
-          dispatch({ type: "WS_CONNECTION_ERROR", payload: event });
+          dispatch({ type: WS_CONNECTION_ERROR, payload: event });
         };
 
         // функция, которая вызывается при получении события от сервера
@@ -40,7 +42,7 @@ export const socketMiddleware = (wsUrl) => {
           const { success, ...restParsedData } = parsedData;
           
           dispatch({
-            type: "WS_GET_ORDERS",
+            type: WS_GET_ORDERS,
             payload: {
               data: restParsedData,
             },
