@@ -4,14 +4,18 @@ import {
   Button,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useSelector, useDispatch } from "react-redux";
-import { useCallback, useState } from "react";
-import { useEffect } from "react";
-import { getData } from "../../services/actions/auth";
-import { updateData } from "../../services/actions/auth";
+import { useCallback, useState, useEffect } from "react";
 
+import { updateData } from "../../services/actions/auth";
 
 function ProfileForms() {
   const dispatch = useDispatch();
+
+  const [form, setForm] = useState({
+    email: "",
+    name: "",
+    password: "",
+  });
 
   const currentUserName = useSelector(
     (state) => state.authUserReducer.userInfo.name
@@ -20,20 +24,13 @@ function ProfileForms() {
     (state) => state.authUserReducer.userInfo.email
   );
 
-  const [form, setForm] = useState({
-    email: "",
-    name: "",
-    password: "",
-  });
+  useEffect(() => {
+    setForm({ ...form, email: currentUserEmail, name: currentUserName });
+  }, [currentUserEmail, currentUserName]);
 
   const resetForm = () => {
     setForm({ email: "", name: "", password: "" });
   };
-
-  useEffect(() => {
-    dispatch(getData());
-    setForm({ ...form, email: currentUserEmail, name: currentUserName });
-  }, [currentUserEmail, currentUserName]);
 
   const updateUserData = useCallback(
     (e) => {

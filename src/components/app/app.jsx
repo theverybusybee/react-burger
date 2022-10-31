@@ -23,19 +23,36 @@ import IngredientDetails from "../ingredient-details/ingredient-details";
 import ProfileForm from "../profile-forms/profile-forms";
 import ProfileOrders from "../../pages/profile-orders/profile-orders";
 import { getIngredients } from "../../services/actions/api-data";
+import ProfileOrdersPage from "../../pages/profile-orders-page/profile-orders-page";
+import { refreshAccessToken } from "../../services/actions/auth";
+import { getData } from "../../services/actions/auth";
+import { SET_LOGIN_STATUS } from "../../services/actions/auth";
 
 function App() {
   const dispatch = useDispatch();
   const history = useHistory();
-    const location = useLocation();
-  console.log(history)
-  console.log(location)
+  const location = useLocation();
   const { hasError, isLoading, data } = useFetchIngredients();
   const isLogin = useSelector((state) => state.authUserReducer.isLogin);
   function closePopup() {
     history.goBack();
   }
   const background = location.state?.background;
+
+ const isTokenExist = !!localStorage.getItem("refreshToken");
+  const isTokenUpdated = useSelector(
+    (state) => state.apiDataReducer.isTokenUpdated
+  );
+
+  useEffect(() => {
+    if (!isLogin && isTokenExist) {
+      dispatch(refreshAccessToken());
+    }
+    if(isTokenExist) {
+      dispatch(getData())
+      dispatch({type: SET_LOGIN_STATUS})
+    }
+  }, [dispatch, isTokenExist, isTokenUpdated]);
 
   useEffect(() => {
     dispatch(getIngredients());
@@ -106,67 +123,53 @@ function App() {
             </div>
           </Route>
 
-          <Route path="/feed" exact={true}>
+          <Route path="/feed">
             <OrderFeedPage />
-          </Route>
-          <Route path="/feed/:id" exact={true}>
-            <div className={AppStyle.modal}>
-              <OrderFeedDetails />
-            </div>
           </Route>
           <ProtectedRoute
             path="/profile/orders"
-            exact={true}
             isAuth={isLogin}
             anonymous={false}
           >
-            <Profile>
-              <ProfileOrders />
-            </Profile>
-          </ProtectedRoute>
-          <ProtectedRoute
-            path="/profile/orders/:id"
-            exact={true}
-            isAuth={isLogin}
-            anonymous={false}
-          >
-            <div className={AppStyle.modal}>
-              <OrderFeedDetails />
-            </div>
+            <ProfileOrdersPage isAuth={isLogin}/>
           </ProtectedRoute>
         </Switch>
       )}
-  
+
       {background && (
-        <Switch>
-          <Route
-            exact={true}
-            path="/ingredients/:id"
-            children={
-              <Modal onClose={closePopup}>
-                <IngredientDetails />
-              </Modal>
-            }
-          />
-          <Route
-            exact={true}
-            path="/feed/:id"
-            children={
-              <Modal onClose={closePopup}>
-                <OrderFeedDetails />
-              </Modal>
-            }
-          />
-          <Route
-            exact={true}
-            path="/profile/orders/:id"
-            children={
-              <Modal onClose={closePopup}>
-                <OrderFeedDetails />
-              </Modal>
-            }
-          />
-        </Switch>
+        <Route
+          exact={true}
+          path="/ingredients/:id"
+          children={
+            <Modal onClose={closePopup}>
+              <IngredientDetails />
+            </Modal>
+          }
+        />
+      )}
+
+      {background && (
+        <Route
+          exact={true}
+          path="/feed/:id"
+          children={
+            <Modal onClose={closePopup}>
+              <OrderFeedDetails />
+            </Modal>
+          }
+        />
+      )}
+
+      {background && (
+        <Route
+          exact={true}
+          path="/profile/orders/:id"
+          children={
+            <Modal onClose={closePopup}>
+              <OrderFeedDetails />
+            </Modal>
+          }
+        />
       )}
     </div>
   );

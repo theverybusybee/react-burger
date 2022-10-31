@@ -5,18 +5,20 @@ import {
   WS_CONNECTION_CLOSED,
 } from "../../services/actions/ws-actions";
 import { Route, Switch } from "react-router-dom";
-import FeedMainPage from "../feed-main-page/feed-main-page";
 import OrderFeedDetails from "../order-feed-details/order-feed-details";
-import feedStyles from './order-feed-page.module.css'
+import profileOrdersStyles from "./profile-orders-page.module.css";
+import { getCookie } from "../../utils/cookie";
+import ProfileOrders from "../profile-orders/profile-orders";
+import Profile from "../profile/profile";
 
-function OrderFeedPage() {
+function ProfileOrdersPage({ isAuth }) {
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch({
       type: WS_CONNECTION_START,
       payload: {
-        add: "/all",
+        add: `?token=${getCookie("token")}`,
       },
     });
     return () => {
@@ -26,17 +28,18 @@ function OrderFeedPage() {
 
   return (
     <Switch>
-      <Route path="/feed" exact={true}>
-        <FeedMainPage />
+      <Route path="/profile/orders" exact={true}>
+        <Profile>
+          <ProfileOrders />
+        </Profile>
       </Route>
-      <Route path="/feed/:id" exact={true}>
-        <div className={feedStyles.modalContainer}>
-        <OrderFeedDetails />
+      <Route path="/profile/orders/:id" exact={true}>
+        <div className={profileOrdersStyles.modalContainer}>
+          <OrderFeedDetails />
         </div>
-        
       </Route>
     </Switch>
   );
 }
 
-export default OrderFeedPage;
+export default ProfileOrdersPage;
