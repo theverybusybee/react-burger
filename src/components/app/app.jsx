@@ -23,9 +23,10 @@ import IngredientDetails from "../ingredient-details/ingredient-details";
 import ProfileForm from "../profile-forms/profile-forms";
 import { getIngredients } from "../../services/actions/api-data";
 import ProfileOrdersPage from "../../pages/profile-orders-page/profile-orders-page";
-import { refreshAccessToken } from "../../services/actions/auth";
+import NotFound from "../../pages/not-found-page/not-found-page";
 import { getData } from "../../services/actions/auth";
 import { SET_LOGIN_STATUS } from "../../services/actions/auth";
+import { getCookie } from "../../utils/cookie";
 
 function App() {
   const dispatch = useDispatch();
@@ -38,20 +39,19 @@ function App() {
   }
   const background = location.state?.background;
 
- const isTokenExist = !!localStorage.getItem("refreshToken");
+  const token = getCookie("token");
+
+  const isTokenExist = !!localStorage.getItem("refreshToken");
   const isTokenUpdated = useSelector(
     (state) => state.apiDataReducer.isTokenUpdated
   );
 
   useEffect(() => {
-    if (!isLogin && isTokenExist) {
-      dispatch(refreshAccessToken());
+    if (isTokenExist) {
+      dispatch(getData());
+      dispatch({ type: SET_LOGIN_STATUS });
     }
-    if(isTokenExist) {
-      dispatch(getData())
-      dispatch({type: SET_LOGIN_STATUS})
-    }
-  }, [dispatch, isTokenExist, isTokenUpdated]);
+  }, [dispatch, isTokenExist, isTokenUpdated, token]);
 
   useEffect(() => {
     dispatch(getIngredients());
@@ -130,8 +130,11 @@ function App() {
             isAuth={isLogin}
             anonymous={false}
           >
-            <ProfileOrdersPage isAuth={isLogin}/>
+            <ProfileOrdersPage isAuth={isLogin} />
           </ProtectedRoute>
+          <Route path="*">
+            <NotFound />
+          </Route>
         </Switch>
       )}
 

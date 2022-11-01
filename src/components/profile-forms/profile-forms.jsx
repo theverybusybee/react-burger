@@ -32,13 +32,10 @@ function ProfileForms() {
     setForm({ email: "", name: "", password: "" });
   };
 
-  const updateUserData = useCallback(
-    (e) => {
-      e.preventDefault();
-      dispatch(updateData(form.name, form.email));
-    },
-    [form]
-  );
+  const updateUserData = (e) => {
+    e.preventDefault();
+    dispatch(updateData(form.name, form.email));
+  };
 
   const onInputChange = (e) => {
     e.preventDefault();
@@ -46,7 +43,7 @@ function ProfileForms() {
   };
   return (
     <>
-      <form className={FormStyles.userData}>
+      <form className={FormStyles.userData} onSubmit={updateUserData}>
         <Input
           onChange={onInputChange}
           value={form.name}
@@ -82,6 +79,14 @@ function ProfileForms() {
           size={"default"}
           icon="EditIcon"
         ></Input>
+        <div className={FormStyles.buttonsContainer}>
+          <Button type="secondary" size="medium" htmlType="reset" onClick={resetForm}>
+            Отмена
+          </Button>
+          <Button type="primary" size="medium" htmlType="submit">
+            Сохранить
+          </Button>
+        </div>
       </form>
 
       <p
@@ -89,16 +94,6 @@ function ProfileForms() {
       >
         В этом разделе вы можете изменить&nbsp;свои персональные данные
       </p>
-      {form.email || form.name || form.password ? (
-        <div className={FormStyles.buttonsContainer}>
-          <Button type="secondary" size="medium" onClick={resetForm}>
-            Отмена
-          </Button>
-          <Button type="primary" size="medium" onClick={updateUserData}>
-            Сохранить
-          </Button>
-        </div>
-      ) : null}
     </>
   );
 }

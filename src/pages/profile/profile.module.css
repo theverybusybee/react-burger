@@ -6,7 +6,7 @@
   grid-template-columns: 320px max-content;
   grid-template-areas:
     "buttons userData"
-    "paragraph buttonsContainer";
+    "paragraph userData";
   gap: 80px;
   box-sizing: border-box;
   grid-area: profile;
