@@ -1,26 +1,20 @@
-import {
-  WS_CONNECTION_START,
-  WS_CONNECTION_SUCCESS,
-  WS_CONNECTION_ERROR,
-  WS_GET_ORDERS,
-  WS_CONNECTION_CLOSED,
-} from "../actions/ws-actions";
-
-export const socketMiddleware = (wsUrl) => {
+export const socketMiddleware = (wsUrl, wsActions) => {
   return (store) => {
     let socket = null;
+
+    const { wsInit, onOpen, onError, onClose, onMessage } = wsActions;
 
     return (next) => (action) => {
       const { dispatch, getState } = store;
       const { type, payload } = action;
 
-      if (type === WS_CONNECTION_CLOSED && socket) {
+      if (type === onClose && socket) {
         if (socket.readyState === 1) {
           socket.close();
         }
       }
 
-      if (type === WS_CONNECTION_START) {
+      if (type === wsInit) {
         if (socket === null) {
           socket = new WebSocket(`${wsUrl}${payload.add}`);
         } else if (socket.readyState === 3 || socket.readyState === 2) {
@@ -31,12 +25,12 @@ export const socketMiddleware = (wsUrl) => {
       if (socket) {
         // функция, которая вызывается при открытии сокета
         socket.onopen = (event) => {
-          dispatch({ type: WS_CONNECTION_SUCCESS, payload: event });
+          dispatch({ type: onOpen, payload: event });
         };
 
         // функция, которая вызывается при ошибке соединения
         socket.onerror = (event) => {
-          dispatch({ type: WS_CONNECTION_ERROR, payload: event });
+          dispatch({ type: onError, payload: event });
         };
 
         // функция, которая вызывается при получении события от сервера
@@ -47,19 +41,12 @@ export const socketMiddleware = (wsUrl) => {
           const { success, ...restParsedData } = parsedData;
 
           dispatch({
-            type: WS_GET_ORDERS,
+            type: onMessage,
             payload: {
               data: restParsedData,
             },
           });
         };
-        // функция, которая вызывается при закрытии соединения
-
-        // if (type === WS_SEND_MESSAGE) {
-        //   const message = payload;
-        //             // функция для отправки сообщения на сервер
-        //   socket.send(JSON.stringify(message));
-        // }
       }
 
       next(action);
