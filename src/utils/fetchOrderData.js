@@ -1,6 +1,5 @@
 import { baseUrl, checkResponse, baseAuthUrl } from "./constants";
 import { getCookie } from "./cookie";
-import { fetchWithRefreshToken } from "../services/actions/auth";
 
 export const fetchOrderDetails = (ingredients) => {
   const requestOptions = {
@@ -151,9 +150,7 @@ export const updateUserData = (name, email) => {
     }),
   };
 
-  return fetchWithRefreshToken(`${baseAuthUrl}/user`, requestOptions).then(
-    checkResponse
-  );
+  return fetch(`${baseAuthUrl}/user`, requestOptions).then(checkResponse)
 };
 
 export const getUserData = () => {
@@ -171,7 +168,5 @@ export const getUserData = () => {
     body: JSON.stringify(),
   };
 
-  return fetch(`${baseAuthUrl}/user`, requestOptions).then(
-    checkResponse
-  );
+  return fetch(`${baseAuthUrl}/user`, requestOptions).then(checkResponse)
 };
