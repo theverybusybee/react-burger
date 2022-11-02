@@ -2,7 +2,7 @@ import OrderCardStyles from "./order-feed-card.module.css";
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useDispatch, useSelector } from "react-redux";
 import { SET_CURRENT_ORDER } from "../../services/actions/feed-data";
-import { useCallback, memo, useMemo } from "react";
+import { useCallback, memo, useMemo, useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { getDate } from "../../utils/constants";
 import IngredientIcon from "../ingredient-icon/ingredient-icon";
@@ -18,6 +18,7 @@ function OrderFeedCard({ data }) {
   const currentOrder = useSelector(
     (state) => state.feedDataReducer.currentOrder
   );
+
   const lastImage = allIngredients.find((el) => el._id === data.ingredients[6]);
 
   const totalPrice = useMemo(() => {
@@ -33,6 +34,32 @@ function OrderFeedCard({ data }) {
     dispatch({ type: SET_CURRENT_ORDER, payload: data });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentOrder]);
+
+  const [orderStatus, setOrderStatus] = useState({
+    status: "",
+    className: "",
+  });
+
+  console.log(orderStatus);
+
+  useEffect(() => {
+    data &&
+      setOrderStatus({
+        status:
+          data.status === "created"
+            ? "Создан"
+            : data.status === "pending"
+            ? "Готовится"
+            : "Выполнен",
+
+        className:
+          data.status.status === "created"
+            ? "orderIsCreated"
+            : orderStatus.status === "pending"
+            ? "orderIsPending"
+            : "orderIsDone",
+      });
+  }, [data]);
 
   return (
     <Link
@@ -56,6 +83,11 @@ function OrderFeedCard({ data }) {
         <p className={`${OrderCardStyles.name} text text_type_main-medium`}>
           {data.name}
         </p>
+        <p
+          className={`${OrderCardStyles.order} ${orderStatus.className} text text_type_main-default`}
+        >
+          {orderStatus.status}
+        </p>
         <ul className={OrderCardStyles.ingredients}>
           {data.ingredients.slice(0, 5).map((item, index) => {
             const ingredient = allIngredients.find((el) => el._id === item);
@@ -64,7 +96,7 @@ function OrderFeedCard({ data }) {
                 type="ordinary ingredient"
                 ingredient={ingredient}
                 key={index}
-                tagType='li'
+                tagType="li"
               />
             );
           })}
@@ -74,8 +106,8 @@ function OrderFeedCard({ data }) {
               type="last ingredient"
               lastIngredient={lastImage}
               ingredientsArray={data.ingredients}
-              tagType='li'
-              key='6'
+              tagType="li"
+              key="6"
             />
           ) : null}
         </ul>

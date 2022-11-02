@@ -2,6 +2,7 @@ import {
   fetchIngredients,
   fetchOrderDetails,
 } from "../../utils/fetchOrderData";
+import { refreshAccessToken } from "./auth";
 
 export const GET_INGREDIENTS_REQUEST = "GET_INGREDIENTS_REQUEST";
 export const GET_INGREDIENTS_SUCCESS = "GET_INGREDIENTS_SUCCESS";
@@ -43,14 +44,8 @@ export function getOrderNumber(ingredients) {
             type: GET_ORDER_NUMBER_SUCCESS,
             payload: res,
           });
-        } else {
-          dispatch({ type: GET_ORDER_NUMBER_FAILED });
         }
       })
-      .catch(() =>
-        dispatch({
-          type: GET_ORDER_NUMBER_FAILED,
-        })
-      );
+      .catch(() => dispatch(refreshAccessToken()));
   };
 }

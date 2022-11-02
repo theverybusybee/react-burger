@@ -14,6 +14,7 @@
   grid-template-areas:
     "number time"
     "name name"
+    'status .'
     "ingredients price";
   grid-template-columns: 1fr auto;
   gap: 24px;
@@ -42,6 +43,15 @@
 .name {
   grid-area: name;
 }
+
+.order {
+  grid-area: status;
+}
+
+.orderIsDone {
+  color: #00CCCC,
+}
+
 
 .priceContainer {
   grid-area: price;
