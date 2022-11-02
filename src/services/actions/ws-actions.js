@@ -5,6 +5,11 @@ export const WS_CONNECTION_CLOSED = "WS_CONNECTION_CLOSED";
 export const WS_GET_ORDERS = "WS_GET_ORDERS";
 export const WS_SEND_MESSAGE = "WS_SEND_MESSAGE";
 
+export const CONNECTING = 0;
+export const OPEN = 1;
+export const CLOSING = 2;
+export const CLOSED = 3;
+
 export const wsUrl = "wss://norma.nomoreparties.space/orders";
 
 export const wsActions = {

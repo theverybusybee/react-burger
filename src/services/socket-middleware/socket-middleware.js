@@ -1,3 +1,5 @@
+import { OPEN, CLOSING, CLOSED } from "../actions/ws-actions";
+
 export const socketMiddleware = (wsUrl, wsActions) => {
   return (store) => {
     let socket = null;
@@ -9,7 +11,7 @@ export const socketMiddleware = (wsUrl, wsActions) => {
       const { type, payload } = action;
 
       if (type === onClose && socket) {
-        if (socket.readyState === 1) {
+        if (socket.readyState === OPEN) {
           socket.close();
         }
       }
@@ -17,7 +19,10 @@ export const socketMiddleware = (wsUrl, wsActions) => {
       if (type === wsInit) {
         if (socket === null) {
           socket = new WebSocket(`${wsUrl}${payload.add}`);
-        } else if (socket.readyState === 3 || socket.readyState === 2) {
+        } else if (
+          socket.readyState === CLOSED ||
+          socket.readyState === CLOSING
+        ) {
           socket = new WebSocket(`${wsUrl}${payload.add}`);
         }
       }
