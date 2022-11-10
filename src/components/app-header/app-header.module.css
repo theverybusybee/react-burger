@@ -44,3 +44,8 @@
   color: #fff;
   transition: color .3s ease-in;
 }
+
+.selected {
+  color: #fff;
+  text-decoration: none;
+}

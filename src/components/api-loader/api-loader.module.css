@@ -1,20 +1,10 @@
 .main {
-  width: 100%;
-  max-width: 1920px;
-  margin-top: 40px;
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 0 40px;
-  grid-template-areas:
-    "header header"
-    "ingredients constructor"
-    "loading loading";
+  justify-self: center;
+  grid-area: loading;
 }
 
 .loading {
   padding-top: 40px;
-  grid-area: loading;
-  justify-self: center;
 }
 
 .dotFlashing {

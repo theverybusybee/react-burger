@@ -1,0 +1,48 @@
+.main {
+  width: 640px;
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  grid-area: feed-details;
+  margin: 0 auto;
+}
+
+.number {
+  text-align: center;
+}
+
+.status {
+  padding-top: 12px;
+}
+
+.timeAndPriceContainer {
+  display: flex;
+  justify-content: space-between;
+}
+
+.totalPriceContainer {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.ordersContainer {
+  overflow-y: scroll;
+  max-height: 40vh;
+  display: grid;
+  gap: 16px;
+  margin: 0;
+  padding: 16px 24px 0 0;
+}
+
+.ordersContainer::-webkit-scrollbar {
+  width: 8px;
+}
+
+.ordersContainer::-webkit-scrollbar-track {
+  background: #2f2f37;
+}
+
+.ordersContainer::-webkit-scrollbar-thumb {
+  background: #8585ad;
+}

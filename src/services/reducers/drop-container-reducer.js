@@ -7,6 +7,7 @@ import {
   RESET_TOTAL_PRICE,
   SET_BUNS,
   SET_ORDER_INGREDIENTS,
+  RESET_ORDER_INGREDIENTS,
 } from "../actions/drop-container";
 
 const initialState = {
@@ -69,6 +70,14 @@ const dropContainerReducer = (
           state.buns,
           state.buns
         ),
+      };
+
+    case RESET_ORDER_INGREDIENTS:
+      return {
+        ...state,
+        orderIngredients: initialState.orderIngredients,
+        constructorElements: initialState.constructorElements,
+        buns: initialState.buns,
       };
 
     default:

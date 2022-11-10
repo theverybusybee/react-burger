@@ -3,10 +3,17 @@
   max-width: 1920px;
   margin-top: 40px;
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 0 40px;
-  grid-template-areas: 
-  'header header'
-  'ingredients constructor'
-  'loading loading';
+  grid-template-areas:
+    "header header"
+    "main main"
+    "loading loading"
+    "ingredient ingredient"
+    "profile profile"
+    "feed-details feed-details"
+    "notFound notFound";
+}
+
+.modal {
+  padding-top: 120px;
+  grid-area: ingredient;
 }

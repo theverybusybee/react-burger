@@ -1,0 +1,40 @@
+.ingredient {
+  list-style: none;
+  padding: 2px;
+  width: 64px;
+  height: 64px;
+  filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+  background: linear-gradient(#801ab2, #4c4cff);
+  border-radius: 100%;
+  box-sizing: border-box;
+  margin-right: -16px;
+  z-index: 5;
+}
+
+.lastIngredient {
+  opacity: 0.6;
+}
+
+.ingredientBackground {
+  background-color: black;
+  border-radius: 100%;
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 5;
+  position: relative;
+}
+
+.ingredientImage {
+  width: 115px;
+  object-fit: contain;
+  border-radius: 100%;
+}
+
+.ingredientsAmount {
+  position: absolute;
+  text-align: center;
+}

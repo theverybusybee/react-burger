@@ -5,6 +5,7 @@ import {
   ProfileIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import AppHeaderStyle from "./app-header.module.css";
+import { NavLink, Link } from "react-router-dom";
 
 export default function AppHeader() {
   return (
@@ -12,39 +13,49 @@ export default function AppHeader() {
       <ul className={AppHeaderStyle.navbar}>
         <ul className={AppHeaderStyle.navbarItemContainer}>
           <li
-            className={`${AppHeaderStyle.navbarItem} text text_type_main-default`}
+            className={`${AppHeaderStyle.navbarItem} text text_type_main-default text_color_inactive`}
           >
             <BurgerIcon type="primary" />
-            <a className={AppHeaderStyle.link} href="index.html">
+            <NavLink
+              className={AppHeaderStyle.link}
+              activeClassName={AppHeaderStyle.selected}
+              to="/"
+              exact={true}
+            >
               Конструктор
-            </a>
+            </NavLink>
           </li>
 
           <li
             className={`${AppHeaderStyle.navbarItem} text text_type_main-default text_color_inactive`}
           >
             <ListIcon type="secondary" />
-            <a className={AppHeaderStyle.link} href="index.html">
+            <NavLink className={AppHeaderStyle.link} activeClassName={AppHeaderStyle.selected} to="/feed" exact={true}>
               Лента заказов
-            </a>
+            </NavLink>
           </li>
         </ul>
 
         <li
           className={`${AppHeaderStyle.navbarItem} ${AppHeaderStyle.navbarItem_type_logo}`}
         >
-          <a className={AppHeaderStyle.link} href="index.html">
+          <Link to="/" className={AppHeaderStyle.link}>
             <Logo />
-          </a>
+          </Link>
         </li>
 
         <li
           className={`${AppHeaderStyle.navbarItem} text text_type_main-default text_color_inactive`}
         >
           <ProfileIcon type="secondary" />
-          <a className={AppHeaderStyle.link} href="index.html">
+          <NavLink
+            className={AppHeaderStyle.link}
+            activeClassName={AppHeaderStyle.selected}
+            to="/profile"
+            exact={true}
+          >
             Личный кабинет
-          </a>
+          </NavLink>
         </li>
       </ul>
     </header>

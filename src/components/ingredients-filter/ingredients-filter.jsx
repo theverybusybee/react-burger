@@ -3,7 +3,7 @@ import IngredientCard from "../ingredient-card/ingredient-card";
 import PropTypes from "prop-types";
 import { useSelector } from "react-redux";
 
-export default function IngredientsFilter({ type, openModal }) {
+export default function IngredientsFilter({ type }) {
   const allIngredients = useSelector(
     (state) => state.apiDataReducer.allIngredients
   );
@@ -17,7 +17,6 @@ export default function IngredientsFilter({ type, openModal }) {
       <IngredientCard
         ingredient={ingredient}
         key={ingredient._id}
-        openModal={openModal}
       />
     );
   });
@@ -25,5 +24,4 @@ export default function IngredientsFilter({ type, openModal }) {
 
 IngredientsFilter.propTypes = {
   type: PropTypes.string.isRequired,
-  openModal: PropTypes.func.isRequired,
 };

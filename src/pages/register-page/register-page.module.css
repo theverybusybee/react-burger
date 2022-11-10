@@ -1,0 +1,31 @@
+.authContainer {
+  margin: 0 auto;
+  grid-area: main;
+  padding-top: 180px;
+}
+
+.title {
+  padding-bottom: 24px;
+  text-align: center;
+}
+
+.authForm {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  padding-bottom: 80px;
+}
+
+.alreadyRegister {
+  text-align: center;
+}
+
+.loginLink {
+  text-decoration: none;
+  color: #4c4cff;
+}
+
+.loginLink:hover {
+  color: #fff;
+  transition: color 0.3s ease-in;
+}

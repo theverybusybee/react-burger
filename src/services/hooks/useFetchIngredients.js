@@ -1,10 +1,10 @@
 import { useEffect, useReducer } from "react";
-import { apiReducer } from "../reducers/api-data";
+import { apiStateReducer } from "../reducers/api-state-reducer";
 import {
   FETCH_API_REQUEST,
   FETCH_API_SUCCESS,
   FETCH_API_ERROR,
-} from "../actions/api-data";
+} from "../actions/api-state";
 import { baseUrl } from "../../utils/constants";
 
 const useFetchIngredients = () => {
@@ -15,7 +15,7 @@ const useFetchIngredients = () => {
   };
 
   const [apiIngredientsState, apiDispatcher] = useReducer(
-    apiReducer,
+    apiStateReducer,
     apiInitialState
   );
 

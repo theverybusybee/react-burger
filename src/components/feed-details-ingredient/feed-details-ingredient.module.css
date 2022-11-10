@@ -1,0 +1,18 @@
+.containerItem {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 16px;
+  width: 100%;
+}
+
+.ingredientName {
+  padding-left: 16px;
+}
+
+.amountAndCostContainer {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  justify-self: end;
+}

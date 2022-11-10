@@ -2,32 +2,18 @@ import ReactDOM from "react-dom/client";
 import "./index.css";
 import App from "./components/app/app";
 import { Provider } from "react-redux";
-import { combineReducers } from 'redux';
-import reportWebVitals from './reportWebVitals';
-import { configureStore } from '@reduxjs/toolkit'
-import tabReducer from "./services/reducers/tab";
-import dropContainerReducer from "./services/reducers/drop-container-reducer";
-import apiDataReducer from "./services/reducers/api-data";
-import modalReducer from "./services/reducers/modal";
+import reportWebVitals from "./reportWebVitals";
+import { BrowserRouter as Router } from "react-router-dom";
+import { store } from "./services/store";
 
-const root = ReactDOM.createRoot(
-  document.getElementById("root")
-);
-
-const rootReducer = combineReducers({
-  tabReducer: tabReducer,
-  dropContainerReducer: dropContainerReducer,
-  apiDataReducer: apiDataReducer,
-  modalReducer: modalReducer,
-});
-
-const store = configureStore({ reducer: rootReducer })
-
+const root = ReactDOM.createRoot(document.getElementById("root"));
 
 root.render(
-  <Provider store={store}>
-    <App />
-  </Provider>
+  <Router>
+    <Provider store={store}>
+      <App />
+    </Provider>
+  </Router>
 );
 
 // If you want to start measuring performance in your app, pass a function

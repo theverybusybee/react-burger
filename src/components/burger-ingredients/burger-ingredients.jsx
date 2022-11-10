@@ -1,46 +1,14 @@
-import { useState, useEffect, useRef } from "react";
+import { useEffect, useRef } from "react";
 import { useDispatch } from "react-redux";
 import BurgerIngredientsStyles from "./burger-ingredients.module.css";
 import Tabs from "../tabs/tabs";
-import Modal from "../modal/modal.jsx";
-import IngredientDetails from "../ingredient-details/ingredient-details";
 import IngredientsFilter from "../ingredients-filter/ingredients-filter.jsx";
 import { useSelector } from "react-redux";
-import {
-  RESET_MODAL_INGREDIENT,
-  SET_MODAL_INGREDIENT,
-} from "../../services/actions/modal";
 import { getIngredients } from "../../services/actions/api-data";
 import { TAB_NAME, TAB_SWITCH } from "../../services/actions/tab";
 
 export default function BurgerIngredients() {
-  const currentModalIngredient = useSelector(
-    (state) => state.modalReducer.currentModalIngredient
-  );
-
   const dispatch = useDispatch();
-
-  useEffect(() => {
-    dispatch(getIngredients());
-  }, [dispatch]);
-
-  const [isVisible, setVisibility] = useState(false);
-
-  function handleOpenModal(ingredient) {
-    dispatch({ type: SET_MODAL_INGREDIENT, payload: ingredient });
-    setVisibility(true);
-  }
-
-  function handleCloseModal() {
-    setVisibility(false);
-    dispatch({ type: RESET_MODAL_INGREDIENT });
-  }
-
-  const modalIngredientDetails = (
-    <Modal onClose={handleCloseModal} isOpened={isVisible}>
-      <IngredientDetails ingredient={currentModalIngredient} />
-    </Modal>
-  );
 
   function getDistanceBetweenPoints(element, viewportCoords) {
     const coordsChild = element.getBoundingClientRect();
@@ -109,7 +77,7 @@ export default function BurgerIngredients() {
           Булки
         </h2>
         <ul className={BurgerIngredientsStyles.cardsContainer}>
-          <IngredientsFilter type="bun" openModal={handleOpenModal} />
+          <IngredientsFilter type="bun" />
         </ul>
 
         <h2
@@ -120,7 +88,7 @@ export default function BurgerIngredients() {
           Соусы
         </h2>
         <ul className={BurgerIngredientsStyles.cardsContainer}>
-          <IngredientsFilter type={"sauce"} openModal={handleOpenModal} />
+          <IngredientsFilter type={"sauce"} />
         </ul>
 
         <h2
@@ -131,9 +99,8 @@ export default function BurgerIngredients() {
           Начинки
         </h2>
         <ul className={BurgerIngredientsStyles.cardsContainer}>
-          <IngredientsFilter type={"main"} openModal={handleOpenModal} />
+          <IngredientsFilter type={"main"} />
         </ul>
-        {isVisible && modalIngredientDetails}
       </div>
     </section>
   );

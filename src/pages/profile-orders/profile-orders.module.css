@@ -1,0 +1,26 @@
+
+.main {
+  grid-area: userData;
+  width: 100%;
+  max-width: 844px;
+}
+
+.ordersContainer {
+  padding-right: 8px;
+  overflow-y: scroll;
+  max-height: 80vh;
+  display: grid;
+  gap: 16px;
+}
+
+.ordersContainer::-webkit-scrollbar {
+  width: 8px;
+}
+
+.ordersContainer::-webkit-scrollbar-track {
+  background: #2f2f37;
+}
+
+.ordersContainer::-webkit-scrollbar-thumb {
+  background: #8585ad;
+}

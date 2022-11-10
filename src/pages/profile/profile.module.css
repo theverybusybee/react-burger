@@ -1,0 +1,44 @@
+.container {
+  width: 1240px;
+  margin: 0 auto;
+  padding-top: 40px;
+  display: grid;
+  grid-template-columns: 320px max-content;
+  grid-template-areas:
+    "buttons userData"
+    "paragraph userData";
+  gap: 80px;
+  box-sizing: border-box;
+  grid-area: profile;
+}
+
+.linksContainer {
+  padding-top: 80px;
+  display: flex;
+  flex-direction: column;
+  grid-area: buttons;
+  align-items: flex-start;
+}
+
+.link {
+  text-decoration: none;
+  cursor: pointer;
+  height: 64px;
+}
+
+.button {
+  text-decoration: none;
+  cursor: pointer;
+  background-color: transparent;
+  border: none;
+}
+
+.selected {
+  color: #fff;
+}
+
+.button:hover,
+.link:hover {
+  color: #fff;
+  transition: color 0.3s ease-in;
+}
