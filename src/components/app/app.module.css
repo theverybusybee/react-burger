@@ -7,10 +7,13 @@
     "header header"
     "main main"
     "loading loading"
-    "ingredient ingredient";
+    "ingredient ingredient"
+    "profile profile"
+    "feed-details feed-details"
+    "notFound notFound";
 }
 
-.ingredient {
+.modal {
   padding-top: 120px;
   grid-area: ingredient;
 }

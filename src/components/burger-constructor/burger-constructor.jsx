@@ -10,9 +10,9 @@ import OrderDetails from "../order-details/order-details";
 import { getOrderNumber } from "../../services/actions/api-data";
 import { useDispatch, useSelector } from "react-redux";
 import {
-  REMOVE_ORDER_VISIBILITY,
+  REMOVE_VISIBILITY,
   RESET_ORDER_NUMBER,
-  SET_ORDER_VISIBILITY,
+  SET_ORDER_NUMBER_VISIBILITY,
 } from "../../services/actions/modal";
 import { useDrop } from "react-dnd";
 import {
@@ -22,9 +22,11 @@ import {
   RESET_TOTAL_PRICE,
   SET_BUNS,
   SET_ORDER_INGREDIENTS,
+  RESET_ORDER_INGREDIENTS,
 } from "../../services/actions/drop-container";
 import { Reorder } from "framer-motion";
 import { useHistory } from "react-router-dom";
+import ApiLoader from "../api-loader/api-loader";
 
 const BurgerConstructor = React.memo(() => {
   const dispatch = useDispatch();
@@ -33,8 +35,11 @@ const BurgerConstructor = React.memo(() => {
     (state) => state.dropContainerReducer
   );
 
-  const isOrderVisible = useSelector(
-    (state) => state.modalReducer.isOrderVisible
+  const isOrderNumberVisible = useSelector(
+    (state) => state.modalReducer.isVisible.orderNumber
+  );
+  const {createdOrderNumber, createdOrderNumberRequest} = useSelector(
+    (state) => state.apiDataReducer
   );
 
   const [, dropTarget] = useDrop({
@@ -94,17 +99,24 @@ const BurgerConstructor = React.memo(() => {
   };
 
   function handleOpenModal() {
-    dispatch({ type: SET_ORDER_VISIBILITY });
+    dispatch({ type: SET_ORDER_NUMBER_VISIBILITY });
   }
 
   function handleCloseModal() {
-    dispatch({ type: REMOVE_ORDER_VISIBILITY });
+    dispatch({ type: REMOVE_VISIBILITY });
     dispatch({ type: RESET_ORDER_NUMBER });
+    dispatch({type: RESET_ORDER_INGREDIENTS})
   }
 
   const modalOrderDetails = (
-    <Modal onClose={handleCloseModal} isOpened={isOrderVisible}>
+    <Modal onClose={handleCloseModal} isOpened={isOrderNumberVisible}>
       <OrderDetails />
+    </Modal>
+  );
+
+  const modalOrderDetailsLoading = (
+    <Modal onClose={handleCloseModal}>
+       <ApiLoader/>
     </Modal>
   );
 
@@ -165,7 +177,8 @@ const BurgerConstructor = React.memo(() => {
         <Button onClick={onButtonClick} type="primary" size="large">
           Оформить заказ
         </Button>
-        {isOrderVisible && modalOrderDetails}
+        {createdOrderNumberRequest && modalOrderDetailsLoading}
+        {(createdOrderNumber && isOrderNumberVisible) && modalOrderDetails}
       </div>
     </section>
   );

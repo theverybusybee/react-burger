@@ -20,8 +20,6 @@ function ResetPasswordPage() {
     success: false,
   });
 
-  console.log(apiState.data);
-
   const resetPassword = async (form) => {
     const data = await fetchResetPassword(form).then((data) => data);
     if (data.success) {
@@ -43,7 +41,7 @@ function ResetPasswordPage() {
 
   return (
     <div className={resetStyles.container}>
-      <form className={resetStyles.form} action="">
+      <form className={resetStyles.form} onSubmit={submitResetPassword}>
         <h1 className={`${resetStyles.title} text text_type_main-medium`}>
           Восстановление пароля
         </h1>
@@ -64,7 +62,7 @@ function ResetPasswordPage() {
           disabled={false}
           onChange={onInputChange}
         />
-        <Button type="primary" size="medium" onClick={submitResetPassword}>
+        <Button type="primary" size="medium">
           Сохранить
         </Button>
       </form>

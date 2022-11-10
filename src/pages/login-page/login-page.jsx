@@ -4,14 +4,15 @@ import {
   Input,
   PasswordInput,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import { Link, Redirect } from "react-router-dom";
+import { Link, Redirect, useLocation } from "react-router-dom";
 import { useState, useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { authenticateUser } from "../../services/actions/auth";
 
 function LoginPage() {
   const dispatch = useDispatch();
-  const userInfo = useSelector((state) => state.authUserReducer.userInfo);
+  const isLogin = useSelector((state) => state.authUserReducer.isLogin);
+  const location = useLocation();
 
   const [form, setValue] = useState({
     email: "",
@@ -22,7 +23,7 @@ function LoginPage() {
     setValue({ ...form, [e.target.name]: e.target.value });
   };
 
-  let login = useCallback(
+  const login = useCallback(
     (e) => {
       e.preventDefault();
       dispatch(authenticateUser(form));
@@ -30,11 +31,12 @@ function LoginPage() {
     [dispatch, form]
   );
 
-  if (userInfo.name) {
+  if (isLogin) {
     return (
       <Redirect
         to={{
           pathname: "/",
+          from: location,
         }}
       />
     );
@@ -45,7 +47,7 @@ function LoginPage() {
       <h1 className={`${loginStyles.title} title text text_type_main-medium`}>
         Вход
       </h1>
-      <form className={loginStyles.authForm}>
+      <form className={loginStyles.authForm} onSubmit={login}>
         <Input
           value={form.email}
           name={"email"}
@@ -60,7 +62,7 @@ function LoginPage() {
           onChange={onChange}
         />
 
-        <Button type="primary" size="medium" onClick={login}>
+        <Button type="primary" size="medium">
           Войти
         </Button>
       </form>

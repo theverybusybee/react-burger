@@ -31,6 +31,7 @@ const apiDataReducer = (state = initialState, { type, payload }) => {
   switch (type) {
     case GET_INGREDIENTS_REQUEST:
       return { ...state, allIngredientsRequest: true };
+
     case GET_INGREDIENTS_SUCCESS:
       return {
         ...state,
@@ -38,6 +39,7 @@ const apiDataReducer = (state = initialState, { type, payload }) => {
         allIngredientsRequest: false,
         allIngredientsFailed: false,
       };
+
     case GET_INGREDIENTS_FAILED:
       return { ...state, allIngredientsFailed: true };
 
@@ -50,7 +52,7 @@ const apiDataReducer = (state = initialState, { type, payload }) => {
         ...state,
         createdOrderNumberRequest: false,
         createdOrderNumberFailed: false,
-        createdOrderNumber: payload,
+        createdOrderNumber: payload.order.number,
       };
     }
 
@@ -61,6 +63,7 @@ const apiDataReducer = (state = initialState, { type, payload }) => {
     case FETCH_REFRESH_TOKEN_REQUEST: {
       return { ...state, tokenRequest: true };
     }
+
     case FETCH_REFRESH_TOKEN_SUCCESS: {
       return {
         ...state,
@@ -69,6 +72,7 @@ const apiDataReducer = (state = initialState, { type, payload }) => {
         tokenUpdateData: true,
       };
     }
+
     case FETCH_REFRESH_TOKEN_ERROR: {
       return {
         ...state,

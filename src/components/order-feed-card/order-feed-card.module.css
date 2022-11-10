@@ -1,0 +1,92 @@
+.link {
+  text-decoration: none;
+  color: inherit;
+}
+
+.container {
+  min-width: 100%;
+  padding: 24px;
+  background: #1c1c21;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.04), 0px 0px 2px rgba(0, 0, 0, 0.06), 0px 0px 1px rgba(0, 0, 0, 0.04);
+  border-radius: 40px;
+  box-sizing: border-box;
+  display: grid;
+  grid-template-areas:
+    "number time"
+    "name name"
+    'status .'
+    "ingredients price";
+  grid-template-columns: 1fr auto;
+  gap: 24px;
+  align-items: center;
+}
+
+.number {
+  grid-area: number;
+}
+
+.container:hover {
+  cursor: pointer;
+  background: linear-gradient(63.18deg, #801ab3 0%, #4c4cff 100%);
+  color: #fff;
+}
+
+.createdAt {
+  grid-area: time;
+  justify-self: end;
+}
+
+.container:hover .createdAt {
+  color: #fff;
+}
+
+.name {
+  grid-area: name;
+}
+
+.order {
+  grid-area: status;
+}
+
+.orderIsDone {
+  color: #00CCCC,
+}
+
+
+.priceContainer {
+  grid-area: price;
+  justify-self: end;
+  display: flex;
+  gap: 8px;
+}
+
+.ingredients {
+  padding: 0;
+  margin: 0;
+  display: flex;
+  grid-area: ingredients;
+}
+
+
+.ingredient:nth-child(2) {
+  z-index: 4;
+}
+.ingredient:nth-child(3) {
+  z-index: 3;
+}
+
+.ingredient:nth-child(4) {
+  z-index: 2;
+}
+
+.ingredient:nth-child(5) {
+  z-index: 1;
+}
+
+.ingredient:nth-child(6) {
+  z-index: 0;
+}
+
+p {
+  margin: 0;
+}

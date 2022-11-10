@@ -5,8 +5,7 @@ import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 import ApiLoader from "../api-loader/api-loader";
 import { Route, Switch, useLocation, useHistory } from "react-router-dom";
-import { REMOVE_VISIBILITY } from "../../services/actions/modal";
-
+import { useEffect } from "react";
 import {
   Home,
   RegisterPage,
@@ -14,25 +13,49 @@ import {
   ForgotPasswordPage,
   LoginPage,
   Profile,
+  OrderFeedPage,
+  OrderFeedDetails,
 } from "../../pages/index";
 import ProtectedRoute from "../protected-route/protected-route";
 import { useDispatch, useSelector } from "react-redux";
 import Modal from "../modal/modal";
 import IngredientDetails from "../ingredient-details/ingredient-details";
+import ProfileForm from "../profile-forms/profile-forms";
+import { getIngredients } from "../../services/actions/api-data";
+import ProfileOrdersPage from "../../pages/profile-orders-page/profile-orders-page";
+import NotFound from "../../pages/not-found-page/not-found-page";
+import { getData } from "../../services/actions/auth";
+import { SET_LOGIN_STATUS } from "../../services/actions/auth";
+import { getCookie } from "../../utils/cookie";
 
 function App() {
-  const history = useHistory();
   const dispatch = useDispatch();
+  const history = useHistory();
   const location = useLocation();
   const { hasError, isLoading, data } = useFetchIngredients();
   const isLogin = useSelector((state) => state.authUserReducer.isLogin);
-  const isVisible = useSelector((state) => state.modalReducer.isVisible);
+  function closePopup() {
+    history.goBack();
+  }
   const background = location.state?.background;
 
-  const onClose = () => {
-    history.goBack();
-    dispatch({ type: REMOVE_VISIBILITY });
-  };
+  const token = getCookie("token");
+
+  const isTokenExist = !!localStorage.getItem("refreshToken");
+  const isTokenUpdated = useSelector(
+    (state) => state.apiDataReducer.isTokenUpdated
+  );
+
+  useEffect(() => {
+    if (isTokenExist) {
+      dispatch(getData());
+      dispatch({ type: SET_LOGIN_STATUS });
+    }
+  }, [dispatch, isTokenExist, isTokenUpdated, token]);
+
+  useEffect(() => {
+    dispatch(getIngredients());
+  }, []);
 
   return hasError || isLoading || !data.length ? (
     <ApiLoader />
@@ -55,7 +78,9 @@ function App() {
             isAuth={isLogin}
             anonymous={false}
           >
-            <Profile />
+            <Profile>
+              <ProfileForm />
+            </Profile>
           </ProtectedRoute>
 
           <ProtectedRoute
@@ -92,24 +117,58 @@ function App() {
             <ResetPasswordPage />
           </ProtectedRoute>
           <Route path="/ingredients/:id" exact={true}>
-            <div className={AppStyle.ingredient}>
+            <div className={AppStyle.modal}>
               <IngredientDetails />
             </div>
           </Route>
+
+          <Route path="/feed">
+            <OrderFeedPage />
+          </Route>
+          <ProtectedRoute
+            path="/profile/orders"
+            isAuth={isLogin}
+            anonymous={false}
+          >
+            <ProfileOrdersPage isAuth={isLogin} />
+          </ProtectedRoute>
+          <Route path="*">
+            <NotFound />
+          </Route>
         </Switch>
       )}
-      {isVisible ? (
-        <Modal isOpened={isVisible} onClose={onClose}>
-          <IngredientDetails />
-        </Modal>
-      ) : null}
+
       {background && (
         <Route
           exact={true}
           path="/ingredients/:id"
           children={
-            <Modal isOpened={isVisible} onClose={onClose}>
+            <Modal onClose={closePopup}>
               <IngredientDetails />
+            </Modal>
+          }
+        />
+      )}
+
+      {background && (
+        <Route
+          exact={true}
+          path="/feed/:id"
+          children={
+            <Modal onClose={closePopup}>
+              <OrderFeedDetails />
+            </Modal>
+          }
+        />
+      )}
+
+      {background && (
+        <Route
+          exact={true}
+          path="/profile/orders/:id"
+          children={
+            <Modal onClose={closePopup}>
+              <OrderFeedDetails />
             </Modal>
           }
         />

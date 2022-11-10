@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { memo, useEffect } from "react";
 import modalStyles from "./modal.module.css";
 import { CloseIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import PropTypes from "prop-types";
@@ -6,7 +6,7 @@ import { createPortal } from "react-dom";
 import ModalOverlay from "../modal-overlay/modal-overlay";
 import { modalsRoot } from "../../utils/constants";
 
-export default function Modal({ children, isOpened, onClose }) {
+function Modal({ children, isOpened, onClose }) {
 
   useEffect(() => {
     const handleEscClose = (evt) => {
@@ -35,6 +35,7 @@ export default function Modal({ children, isOpened, onClose }) {
 
 Modal.propTypes = {
   children: PropTypes.element.isRequired,
-  isOpened: PropTypes.bool.isRequired,
   onClose: PropTypes.func.isRequired,
 };
+
+export default memo(Modal);

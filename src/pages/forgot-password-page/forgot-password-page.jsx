@@ -29,7 +29,7 @@ function ForgotPasswordPage() {
     }
   };
 
-  let push = useCallback(
+  const push = useCallback(
     (e) => {
       e.preventDefault();
       resetPassword(formState);
@@ -44,7 +44,7 @@ function ForgotPasswordPage() {
 
   return (
     <div className={forgotPasswordStyles.container}>
-      <form className={forgotPasswordStyles.form}>
+      <form className={forgotPasswordStyles.form} onSubmit={push}>
         <h1
           className={`${forgotPasswordStyles.title} text text_type_main-medium`}
         >
@@ -58,7 +58,7 @@ function ForgotPasswordPage() {
           disabled={false}
           onChange={onInputChange}
         />
-        <Button type="primary" size="medium" onClick={push}>
+        <Button type="primary" size="medium">
           Восстановить
         </Button>
       </form>

@@ -27,7 +27,7 @@ function RegisterPage() {
     setFormState({ ...formState, [e.target.name]: e.target.value });
   };
 
-  let push = useCallback(
+  const push = useCallback(
     (e) => {
       e.preventDefault();
       registerUser(formState);
@@ -43,7 +43,7 @@ function RegisterPage() {
       >
         Регистрация
       </h1>
-      <form className={registerStyles.authForm}>
+      <form className={registerStyles.authForm} onSubmit={push}>
         <Input
           value={formState.name}
           type={"text"}
@@ -69,7 +69,7 @@ function RegisterPage() {
           onChange={onInputChange}
         />
 
-        <Button type="primary" size="medium" onClick={push}>
+        <Button type="primary" size="medium">
           Зарегистрироваться
         </Button>
       </form>

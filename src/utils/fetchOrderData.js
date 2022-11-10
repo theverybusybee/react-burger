@@ -1,11 +1,13 @@
 import { baseUrl, checkResponse, baseAuthUrl } from "./constants";
 import { getCookie } from "./cookie";
-import { fetchWithRefreshToken } from "../services/actions/auth";
 
 export const fetchOrderDetails = (ingredients) => {
   const requestOptions = {
     method: "POST",
-    headers: { "Content-Type": "application/json" },
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: getCookie("token"),
+    },
     body: JSON.stringify({ ingredients }),
   };
 
@@ -138,7 +140,7 @@ export const updateUserData = (name, email) => {
     credentials: "same-origin",
     headers: {
       "Content-Type": "application/json",
-      Authorization: "Bearer " + getCookie("token"),
+      Authorization: `Bearer ${getCookie("token")}`,
     },
     redirect: "follow",
     referrerPolicy: "no-referrer",
@@ -148,9 +150,7 @@ export const updateUserData = (name, email) => {
     }),
   };
 
-  return fetchWithRefreshToken(`${baseAuthUrl}/user`, requestOptions).then(
-    checkResponse
-  );
+  return fetch(`${baseAuthUrl}/user`, requestOptions).then(checkResponse)
 };
 
 export const getUserData = () => {
@@ -161,14 +161,12 @@ export const getUserData = () => {
     credentials: "same-origin",
     headers: {
       "Content-Type": "application/json",
-      Authorization: "Bearer " + getCookie("token"),
+      Authorization: `Bearer ${getCookie("token")}`,
     },
     redirect: "follow",
     referrerPolicy: "no-referrer",
     body: JSON.stringify(),
   };
 
-  return fetch(`${baseAuthUrl}/user`, requestOptions).then(
-    checkResponse
-  );
+  return fetch(`${baseAuthUrl}/user`, requestOptions).then(checkResponse)
 };

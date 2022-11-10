@@ -2,27 +2,11 @@ import ReactDOM from "react-dom/client";
 import "./index.css";
 import App from "./components/app/app";
 import { Provider } from "react-redux";
-import { combineReducers } from "redux";
 import reportWebVitals from "./reportWebVitals";
-import { configureStore } from "@reduxjs/toolkit";
-import tabReducer from "./services/reducers/tab";
-import dropContainerReducer from "./services/reducers/drop-container-reducer";
-import apiDataReducer from "./services/reducers/api-data";
-import modalReducer from "./services/reducers/modal";
-import authUserReducer from "./services/reducers/auth-reducer";
 import { BrowserRouter as Router } from "react-router-dom";
+import { store } from "./services/store";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
-
-const rootReducer = combineReducers({
-  tabReducer: tabReducer,
-  dropContainerReducer: dropContainerReducer,
-  apiDataReducer: apiDataReducer,
-  modalReducer: modalReducer,
-  authUserReducer: authUserReducer,
-});
-
-const store = configureStore({ reducer: rootReducer });
 
 root.render(
   <Router>

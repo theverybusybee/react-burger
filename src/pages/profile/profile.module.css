@@ -1,17 +1,19 @@
 .container {
-  max-width: 1280px;
+  width: 1240px;
   margin: 0 auto;
-  padding-top: 120px;
-  padding-left: 20px;
+  padding-top: 40px;
   display: grid;
-  grid-template-columns: 320px 480px;
+  grid-template-columns: 320px max-content;
   grid-template-areas:
     "buttons userData"
-    "paragraph buttonsContainer";
-  gap: 60px;
+    "paragraph userData";
+  gap: 80px;
+  box-sizing: border-box;
+  grid-area: profile;
 }
 
 .linksContainer {
+  padding-top: 80px;
   display: flex;
   flex-direction: column;
   grid-area: buttons;
@@ -39,27 +41,4 @@
 .link:hover {
   color: #fff;
   transition: color 0.3s ease-in;
-}
-
-.userData {
-  display: flex;
-  flex-direction: column;
-  gap: 24px;
-  align-items: center;
-  grid-area: userData;
-}
-
-.paragraph {
-  grid-area: paragraph;
-  opacity: 0.4;
-}
-
-.buttonsContainer {
-  grid-area: buttonsContainer;
-  display: flex;
-  justify-content: flex-end;
-}
-
-.container input {
-  color: #8585ad;
 }

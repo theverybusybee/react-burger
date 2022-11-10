@@ -30,7 +30,7 @@ export default function AppHeader() {
             className={`${AppHeaderStyle.navbarItem} text text_type_main-default text_color_inactive`}
           >
             <ListIcon type="secondary" />
-            <NavLink className={AppHeaderStyle.link} to="#" exact={true}>
+            <NavLink className={AppHeaderStyle.link} activeClassName={AppHeaderStyle.selected} to="/feed" exact={true}>
               Лента заказов
             </NavLink>
           </li>

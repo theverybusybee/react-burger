@@ -10,6 +10,7 @@
   position: relative;
   box-sizing: border-box;
   cursor: default;
+  z-index: 7;
 }
 
 .closeButton {
