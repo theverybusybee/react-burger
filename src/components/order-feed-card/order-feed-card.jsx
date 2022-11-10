@@ -40,8 +40,6 @@ function OrderFeedCard({ data }) {
     className: "",
   });
 
-  console.log(orderStatus);
-
   useEffect(() => {
     data &&
       setOrderStatus({
@@ -53,9 +51,9 @@ function OrderFeedCard({ data }) {
             : "Выполнен",
 
         className:
-          data.status.status === "created"
+          data.status === "created"
             ? "orderIsCreated"
-            : orderStatus.status === "pending"
+            : data.status === "pending"
             ? "orderIsPending"
             : "orderIsDone",
       });

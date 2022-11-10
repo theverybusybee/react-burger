@@ -1,3 +1,4 @@
+import { useDispatch } from "react-redux";
 import { Redirect, Route, useLocation } from "react-router-dom";
 import { getCookie } from "../../utils/cookie";
 
@@ -18,9 +19,9 @@ export default function ProtectedRoute({
   //   return <ApiLoader />;
   // }
 
-  // if (anonymous && isAuth) {
-  //   return <Redirect to="/" />;
-  // }
+  if (anonymous && isAuth) {
+    return <Redirect to="/" />;
+  }
 
   if (!anonymous && !isAuth) {
     return <Redirect to={{ pathname: "/login", from: location }} />;

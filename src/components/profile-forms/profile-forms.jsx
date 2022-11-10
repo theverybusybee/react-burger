@@ -4,7 +4,7 @@ import {
   Button,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useSelector, useDispatch } from "react-redux";
-import { useCallback, useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 
 import { updateData } from "../../services/actions/auth";
 
@@ -25,11 +25,15 @@ function ProfileForms() {
   );
 
   useEffect(() => {
-    setForm({ ...form, email: currentUserEmail, name: currentUserName });
+    setForm({
+      ...form,
+      email: currentUserEmail,
+      name: currentUserName,
+    });
   }, [currentUserEmail, currentUserName]);
 
   const resetForm = () => {
-    setForm({ email: "", name: "", password: "" });
+    setForm({ email: currentUserEmail, name: currentUserName, password: "" });
   };
 
   const updateUserData = (e) => {
@@ -79,14 +83,21 @@ function ProfileForms() {
           size={"default"}
           icon="EditIcon"
         ></Input>
-        <div className={FormStyles.buttonsContainer}>
-          <Button type="secondary" size="medium" htmlType="reset" onClick={resetForm}>
-            Отмена
-          </Button>
-          <Button type="primary" size="medium" htmlType="submit">
-            Сохранить
-          </Button>
-        </div>
+        {(currentUserEmail !== form.email || currentUserName !== form.name) && (
+          <div className={FormStyles.buttonsContainer}>
+            <Button
+              type="secondary"
+              size="medium"
+              htmlType="reset"
+              onClick={resetForm}
+            >
+              Отмена
+            </Button>
+            <Button type="primary" size="medium" htmlType="submit">
+              Сохранить
+            </Button>
+          </div>
+        )}
       </form>
 
       <p

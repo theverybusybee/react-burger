@@ -6,7 +6,7 @@ export const fetchOrderDetails = (ingredients) => {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
-      Authorization: "Bearer " + getCookie("token"),
+      Authorization: getCookie("token"),
     },
     body: JSON.stringify({ ingredients }),
   };
@@ -140,7 +140,7 @@ export const updateUserData = (name, email) => {
     credentials: "same-origin",
     headers: {
       "Content-Type": "application/json",
-      Authorization: "Bearer " + getCookie("token"),
+      Authorization: `Bearer ${getCookie("token")}`,
     },
     redirect: "follow",
     referrerPolicy: "no-referrer",
@@ -161,7 +161,7 @@ export const getUserData = () => {
     credentials: "same-origin",
     headers: {
       "Content-Type": "application/json",
-      Authorization: "Bearer " + getCookie("token"),
+      Authorization: `Bearer ${getCookie("token")}`,
     },
     redirect: "follow",
     referrerPolicy: "no-referrer",
