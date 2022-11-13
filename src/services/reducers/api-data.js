@@ -4,7 +4,6 @@ import {
   GET_INGREDIENTS_FAILED,
   GET_ORDER_NUMBER_REQUEST,
   GET_ORDER_NUMBER_SUCCESS,
-  GET_ORDER_NUMBER_FAILED,
 } from "../constants/api-data";
 
 import {
@@ -54,10 +53,6 @@ const apiDataReducer = (state = initialState, { type, payload }) => {
         createdOrderNumberFailed: false,
         createdOrderNumber: payload.order.number,
       };
-    }
-
-    case GET_ORDER_NUMBER_FAILED: {
-      return { ...state, createdOrderNumberFailed: true };
     }
 
     case FETCH_REFRESH_TOKEN_REQUEST: {

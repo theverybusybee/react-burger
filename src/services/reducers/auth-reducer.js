@@ -34,7 +34,7 @@ const authUserReducer = (state = initialState, { type, payload }) => {
       return {
         ...state,
         isLoading: false,
-        hasError: payload,
+        hasError: false,
       };
     }
 

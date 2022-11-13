@@ -10,9 +10,32 @@ import {
   GET_ORDER_NUMBER_REQUEST,
   GET_ORDER_NUMBER_SUCCESS,
 } from "../constants/api-data";
+import { TIngredient } from "../types/data";
+
+export interface IGetIngredientAction {
+  readonly type: typeof GET_INGREDIENTS_REQUEST;
+}
+
+export interface IGetIngredientActionFailed {
+  readonly type: typeof GET_INGREDIENTS_FAILED;
+}
+
+export interface IGetIngredientActionSuccess {
+  readonly type: typeof GET_INGREDIENTS_SUCCESS;
+  allIngredients: ReadonlyArray<TIngredient>;
+}
+
+export interface IGetOrderNumberAction {
+  readonly type: typeof GET_ORDER_NUMBER_REQUEST;
+}
+
+export interface IGetOrderNumberSuccess {
+  readonly type: typeof GET_ORDER_NUMBER_SUCCESS;
+  createdOrderNumber: number;
+}
 
 export function getIngredients() {
-  return function (dispatch) {
+  return function (dispatch: any) {
     dispatch({ type: GET_INGREDIENTS_REQUEST });
     fetchIngredients()
       .then((res) => {
@@ -33,8 +56,8 @@ export function getIngredients() {
   };
 }
 
-export function getOrderNumber(ingredients) {
-  return function (dispatch) {
+export function getOrderNumber(ingredients: any) {
+  return function (dispatch: any) {
     dispatch({ type: GET_ORDER_NUMBER_REQUEST });
     fetchOrderDetails(ingredients)
       .then((res) => {

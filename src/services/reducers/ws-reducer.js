@@ -25,6 +25,7 @@ const wsReducer = (state = initialState, { type, payload, uuid }) => {
         wsConnected: true,
         isRefreshed: true,
       };
+
     case WS_CONNECTION_ERROR:
       return {
         ...state,

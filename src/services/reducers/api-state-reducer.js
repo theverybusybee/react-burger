@@ -31,7 +31,7 @@ export function apiStateReducer(state = initialState, { type, payload }) {
       return {
         ...state,
         isLoading: false,
-        hasError: payload,
+        hasError: true,
       };
     }
     default:

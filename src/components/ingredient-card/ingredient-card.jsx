@@ -10,10 +10,7 @@ import { useDrag } from "react-dnd";
 import { useSelector } from "react-redux";
 import { Link, useLocation } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import {
-  SET_VISIBILITY_INGREDIENT,
-  SET_MODAL_INGREDIENT,
-} from "../../services/actions/modal";
+import { SET_MODAL_INGREDIENT } from "../../services/constants/modal";
 
 const IngredientCard = React.memo(({ ingredient }) => {
   const dispatch = useDispatch();
@@ -21,7 +18,6 @@ const IngredientCard = React.memo(({ ingredient }) => {
   const id = ingredient._id;
 
   const onClick = () => {
-    dispatch({ type: SET_VISIBILITY_INGREDIENT });
     dispatch({ type: SET_MODAL_INGREDIENT, payload: ingredient });
   };
 

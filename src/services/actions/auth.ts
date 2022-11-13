@@ -17,10 +17,32 @@ import {
   FETCH_REFRESH_TOKEN_SUCCESS,
   FETCH_REFRESH_TOKEN_ERROR,
 } from "../constants/auth";
+import { TUserData } from "../types/data";
+
+export interface IAuthRequestAction {
+  readonly type: typeof FETCH_AUTH_REQUEST;
+}
+
+export interface IAuthSuccessAction {
+  readonly type: typeof FETCH_AUTH_SUCCESS;
+  userInfo: Omit<TUserData, "password">;
+}
+
+export interface IAuthFailedAction {
+  readonly type: typeof FETCH_AUTH_ERROR;
+}
+
+export interface IRefreshUserDataAction {
+  readonly type: typeof DELETE_USER;
+}
+
+export interface ISetLoginStatusAction {
+  readonly type: typeof SET_LOGIN_STATUS;
+}
 
 // регистрация
-export function setRegister(form) {
-  return function (dispatch) {
+export function setRegister(form: any) {
+  return function (dispatch: any) {
     dispatch({ type: FETCH_AUTH_REQUEST });
     fetchRegister(form)
       .then((res) => {
@@ -47,8 +69,8 @@ export function setRegister(form) {
 }
 
 // аутентификация
-export function authenticateUser(form) {
-  return function (dispatch) {
+export function authenticateUser(form: any) {
+  return function (dispatch: any) {
     dispatch({ type: FETCH_AUTH_REQUEST });
     fetchLogin(form)
       .then((res) => {
@@ -77,7 +99,7 @@ export function authenticateUser(form) {
 }
 
 export function refreshAccessToken() {
-  return function (dispatch) {
+  return function (dispatch: any) {
     dispatch({ type: FETCH_REFRESH_TOKEN_REQUEST });
     fetchToken()
       .then((res) => {
@@ -99,7 +121,7 @@ export function refreshAccessToken() {
 }
 
 export function logoutFromAccount() {
-  return function (dispatch) {
+  return function (dispatch: any) {
     dispatch({ type: FETCH_AUTH_REQUEST });
     fetchLogout()
       .then((res) => {
@@ -120,8 +142,8 @@ export function logoutFromAccount() {
 }
 
 // обновление данных профиля
-export function updateData(name, email) {
-  return function (dispatch) {
+export function updateData(name: string, email: string) {
+  return function (dispatch: any) {
     dispatch({ type: FETCH_AUTH_REQUEST });
     updateUserData(name, email)
       .then((res) => {
@@ -139,7 +161,7 @@ export function updateData(name, email) {
 
 // получение данных юзера
 export function getData() {
-  return function (dispatch) {
+  return function (dispatch: any) {
     dispatch({ type: FETCH_AUTH_REQUEST });
     getUserData()
       .then((res) => {

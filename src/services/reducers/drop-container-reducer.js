@@ -34,9 +34,6 @@ const dropContainerReducer = (
         ],
       };
 
-    case SET_BUNS:
-      return { ...state, buns: [payload] };
-
     case REMOVE_CONSTRUCTOR_ELEMENT:
       return {
         ...state,
@@ -44,6 +41,9 @@ const dropContainerReducer = (
           (item) => item.uuid !== uuid
         ),
       };
+
+    case SET_BUNS:
+      return { ...state, buns: [payload] };
 
     case SET_TOTAL_PRICE:
       return {

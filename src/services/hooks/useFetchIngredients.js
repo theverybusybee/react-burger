@@ -34,7 +34,6 @@ const useFetchIngredients = () => {
       } catch (error) {
         apiDispatcher({
           type: FETCH_API_ERROR,
-          payload: error,
         });
       }
     };
