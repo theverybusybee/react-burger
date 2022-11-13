@@ -38,3 +38,12 @@ export interface ISetOrderIngredientsAction {
 export interface IResetOrderIngredientsAction {
   readonly type: typeof RESET_ORDER_INGREDIENTS;
 }
+
+export type TDropContainerActions =
+  | ISetConstructorElementAction
+  | IRemoveConstructorElementAction
+  | ISetTotalPriceAction
+  | IResetTotalPriceAction
+  | ISetBunsAction
+  | ISetOrderIngredientsAction
+  | IResetOrderIngredientsAction;

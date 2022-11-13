@@ -5,3 +5,6 @@ export interface IFeedData {
   readonly type: typeof SET_CURRENT_ORDER;
   currentOrder: ReadonlyArray<TIngredient>;
 }
+
+export type TFeedDataActions =
+  | IFeedData;

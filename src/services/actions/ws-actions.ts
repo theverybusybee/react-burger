@@ -29,6 +29,12 @@ export interface IWSGetOrdersAction {
   };
 }
 
+export type TWSActions =
+  | IWSConnectionSuccessAction
+  | IWSConnectionErrorAction
+  | IWSConnectionClosedAction
+  | IWSGetOrdersAction;
+
 export const wsConnectionSuccess = () => {
   return {
     type: WS_CONNECTION_SUCCESS,

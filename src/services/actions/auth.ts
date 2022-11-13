@@ -40,6 +40,13 @@ export interface ISetLoginStatusAction {
   readonly type: typeof SET_LOGIN_STATUS;
 }
 
+export type TAuthActions =
+  | IAuthRequestAction
+  | IAuthSuccessAction
+  | IAuthFailedAction
+  | IRefreshUserDataAction
+  | ISetLoginStatusAction;
+
 // регистрация
 export function setRegister(form: any) {
   return function (dispatch: any) {

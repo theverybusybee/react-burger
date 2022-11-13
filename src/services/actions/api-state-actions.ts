@@ -17,3 +17,8 @@ export interface IApiRequestSuccessAction {
   readonly type: typeof FETCH_API_SUCCESS;
   data: ReadonlyArray<TIngredient>;
 }
+
+export type TApiStateActions =
+  | IApiRequestAction
+  | IApiRequestFailedAction
+  | IApiRequestSuccessAction;

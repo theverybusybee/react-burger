@@ -17,3 +17,8 @@ export interface ISetOrderNumberVisibilityAction {
 export interface IResetOrderNumberAction {
   readonly type: typeof RESET_ORDER_NUMBER;
 }
+
+export type TModalsActions =
+  | ISetModalIngredientAction
+  | ISetOrderNumberVisibilityAction
+  | IResetOrderNumberAction;

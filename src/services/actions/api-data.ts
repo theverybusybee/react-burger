@@ -34,6 +34,13 @@ export interface IGetOrderNumberSuccess {
   createdOrderNumber: number;
 }
 
+export type TApiDataActions =
+  | IGetIngredientAction
+  | IGetIngredientActionFailed
+  | IGetIngredientActionSuccess
+  | IGetOrderNumberAction
+  | IGetOrderNumberSuccess;
+
 export function getIngredients() {
   return function (dispatch: any) {
     dispatch({ type: GET_INGREDIENTS_REQUEST });
