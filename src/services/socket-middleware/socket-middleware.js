@@ -1,4 +1,4 @@
-import { OPEN, CLOSING, CLOSED } from "../actions/ws-actions";
+import { OPEN, CLOSING, CLOSED } from "../constants/ws-actions";
 
 export const socketMiddleware = (wsUrl, wsActions) => {
   return (store) => {

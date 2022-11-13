@@ -1,11 +1,9 @@
-import { v4 as uuidv4 } from "uuid";
-
 import {
   WS_CONNECTION_SUCCESS,
   WS_CONNECTION_ERROR,
   WS_CONNECTION_CLOSED,
   WS_GET_ORDERS,
-} from "../actions/ws-actions";
+} from "../constants/ws-actions";
 
 const initialState = {
   wsConnected: false,
@@ -51,7 +49,11 @@ const wsReducer = (state = initialState, { type, payload, uuid }) => {
       return {
         ...state,
         error: undefined,
-        allOrders: {orders: payload.data.orders, total: payload.data.total, totalToday: payload.data.totalToday}
+        allOrders: {
+          orders: payload.data.orders,
+          total: payload.data.total,
+          totalToday: payload.data.totalToday,
+        },
       };
 
     default:

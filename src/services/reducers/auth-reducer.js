@@ -4,7 +4,7 @@ import {
   FETCH_AUTH_ERROR,
   DELETE_USER,
   SET_LOGIN_STATUS,
-} from "../actions/auth";
+} from "../constants/auth";
 
 const initialState = {
   isLoading: false,

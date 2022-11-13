@@ -1,10 +1,9 @@
 import ProfileStyles from "./profile.module.css";
 import { NavLink, useHistory } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { logoutFromAccount } from "../../services/actions/auth";
+import { useDispatch } from "react-redux";
+import { logoutFromAccount, getData } from "../../services/actions/auth";
 import { memo, useCallback, useEffect } from "react";
 import { deleteCookie } from "../../utils/cookie";
-import { getData } from "../../services/actions/auth";
 
 function Profile({ children }) {
   const dispatch = useDispatch();

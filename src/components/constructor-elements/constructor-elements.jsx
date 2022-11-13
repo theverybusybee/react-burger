@@ -5,7 +5,7 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import ConstructorElementsStyles from "./constructor-elements.module.css";
 import { useDispatch } from "react-redux";
-import { REMOVE_CONSTRUCTOR_ELEMENT } from "../../services/actions/drop-container";
+import { REMOVE_CONSTRUCTOR_ELEMENT } from "../../services/constants/drop-container";
 import { useMotionValue, Reorder } from "framer-motion";
 
 const ConstructorElements = React.memo(({ ingredient, type, isLocked }) => {
@@ -28,7 +28,8 @@ const ConstructorElements = React.memo(({ ingredient, type, isLocked }) => {
         />
       </div>
     );
-  }  if (type === "bottom") {
+  }
+  if (type === "bottom") {
     return (
       <div className={ConstructorElementsStyles.elementWrapper}>
         <ConstructorElement
@@ -40,7 +41,8 @@ const ConstructorElements = React.memo(({ ingredient, type, isLocked }) => {
         />
       </div>
     );
-  }  if (type === "stuffing") {
+  }
+  if (type === "stuffing") {
     return (
       <Reorder.Item value={ingredient} id={ingredient.uuid} style={{ y }}>
         <div className={ConstructorElementsStyles.container}>

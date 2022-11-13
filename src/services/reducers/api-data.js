@@ -5,13 +5,13 @@ import {
   GET_ORDER_NUMBER_REQUEST,
   GET_ORDER_NUMBER_SUCCESS,
   GET_ORDER_NUMBER_FAILED,
-} from "../actions/api-data";
+} from "../constants/api-data";
 
 import {
   FETCH_REFRESH_TOKEN_REQUEST,
   FETCH_REFRESH_TOKEN_SUCCESS,
   FETCH_REFRESH_TOKEN_ERROR,
-} from "../actions/auth";
+} from "../constants/auth";
 
 const initialState = {
   allIngredients: [],

@@ -1,4 +1,4 @@
-import { SET_CURRENT_ORDER } from "../actions/feed-data";
+import { SET_CURRENT_ORDER } from "../constants/feed-data";
 
 const initialState = {
   currentOrder: {},

@@ -8,7 +8,7 @@ import {
   SET_BUNS,
   SET_ORDER_INGREDIENTS,
   RESET_ORDER_INGREDIENTS,
-} from "../actions/drop-container";
+} from "../constants/drop-container";
 
 const initialState = {
   constructorElements: [],

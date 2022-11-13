@@ -1,4 +1,4 @@
-import { TAB_SWITCH } from "../actions/tab";
+import { TAB_SWITCH } from "../constants/tab";
 
 const initialState = {
   currentTab: "Булки",

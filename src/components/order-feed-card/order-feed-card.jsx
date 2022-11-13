@@ -1,7 +1,7 @@
 import OrderCardStyles from "./order-feed-card.module.css";
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useDispatch, useSelector } from "react-redux";
-import { SET_CURRENT_ORDER } from "../../services/actions/feed-data";
+import { SET_CURRENT_ORDER } from "../../services/constants/feed-data";
 import { useCallback, memo, useMemo, useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { getDate } from "../../utils/constants";

@@ -3,7 +3,7 @@ import { useEffect } from "react";
 import {
   WS_CONNECTION_START,
   WS_CONNECTION_CLOSED,
-} from "../../services/actions/ws-actions";
+} from "../../services/constants/ws-actions";
 import { Route, Switch } from "react-router-dom";
 import OrderFeedDetails from "../order-feed-details/order-feed-details";
 import profileOrdersStyles from "./profile-orders-page.module.css";

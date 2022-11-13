@@ -7,8 +7,7 @@ import modalReducer from "./reducers/modal";
 import authUserReducer from "./reducers/auth-reducer";
 import feedDataReducer from "./reducers/feed-data-reducer";
 import wsReducer from "./reducers/ws-reducer";
-import { wsActions } from "./actions/ws-actions";
-import { wsUrl } from "./actions/ws-actions";
+import { wsActions, wsUrl } from "./constants/ws-actions";
 import { combineReducers } from "redux";
 
 const rootReducer = combineReducers({

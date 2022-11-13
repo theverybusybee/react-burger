@@ -4,7 +4,7 @@ import {
   FETCH_API_REQUEST,
   FETCH_API_SUCCESS,
   FETCH_API_ERROR,
-} from "../actions/api-state";
+} from "../constants/api-state";
 import { baseUrl } from "../../utils/constants";
 
 const useFetchIngredients = () => {
