@@ -1,5 +1,4 @@
 import IconStyles from "./ingredient-icon.module.css";
-import { useSelector } from "react-redux";
 
 function IngredientIcon({
   type,
@@ -8,9 +7,7 @@ function IngredientIcon({
   ingredientsArray,
   tagType,
 }) {
-  const allIngredients = useSelector(
-    (state) => state.apiDataReducer.allIngredients
-  );
+ 
   const CustomTag = tagType === "li" ? "li" : "div";
   return type === "ordinary ingredient" ? (
     <CustomTag className={IconStyles.ingredient}>

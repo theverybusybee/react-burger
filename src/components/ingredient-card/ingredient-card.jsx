@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import IngredientCardStyles from "./ingredient-card.module.css";
 import {
   Counter,

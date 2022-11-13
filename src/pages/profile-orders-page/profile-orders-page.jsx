@@ -11,7 +11,7 @@ import { getCookie } from "../../utils/cookie";
 import ProfileOrders from "../profile-orders/profile-orders";
 import Profile from "../profile/profile";
 
-function ProfileOrdersPage({ isAuth }) {
+function ProfileOrdersPage() {
   const dispatch = useDispatch();
 
   useEffect(() => {

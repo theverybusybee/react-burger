@@ -5,7 +5,7 @@ import { useSelector } from "react-redux";
 function ProfileOrders() {
   const orders = useSelector((state) => state.wsReducer.allOrders.orders);
   const upToDateOrders = [...orders].reverse();
-  console.log(upToDateOrders)
+
   return upToDateOrders ? (
     <section className={ProfileOrdersStyles.main}>
       <div
