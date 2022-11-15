@@ -1,7 +1,7 @@
 import {
   SET_MODAL_INGREDIENT,
-  RESET_ORDER_NUMBER,
   SET_ORDER_NUMBER_VISIBILITY,
+  RESET_ORDER_NUMBER_VISIBILITY
 } from "../constants/modal";
 
 const initialState = {
@@ -22,8 +22,8 @@ const modalReducer = (state = initialState, { type, payload }) => {
       return { ...state, isVisible: { ...state.isVisible, orderNumber: true } };
     }
 
-    case RESET_ORDER_NUMBER: {
-      return { ...state, createdOrderNumber: initialState.createdOrderNumber };
+    case RESET_ORDER_NUMBER_VISIBILITY: {
+      return { ...state, isVisible: { ...state.isVisible, orderNumber: false } };
     }
 
     default:

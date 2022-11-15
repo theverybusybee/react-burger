@@ -9,6 +9,7 @@ import {
   GET_INGREDIENTS_FAILED,
   GET_ORDER_NUMBER_REQUEST,
   GET_ORDER_NUMBER_SUCCESS,
+  RESET_ORDER_NUMBER,
 } from "../constants/api-data";
 import { TIngredient } from "../types/data";
 
@@ -22,7 +23,7 @@ export interface IGetIngredientActionFailed {
 
 export interface IGetIngredientActionSuccess {
   readonly type: typeof GET_INGREDIENTS_SUCCESS;
-  allIngredients: ReadonlyArray<TIngredient>;
+  payload: ReadonlyArray<TIngredient>;
 }
 
 export interface IGetOrderNumberAction {
@@ -31,15 +32,12 @@ export interface IGetOrderNumberAction {
 
 export interface IGetOrderNumberSuccess {
   readonly type: typeof GET_ORDER_NUMBER_SUCCESS;
-  createdOrderNumber: number;
+  payload: number;
 }
 
-export type TApiDataActions =
-  | IGetIngredientAction
-  | IGetIngredientActionFailed
-  | IGetIngredientActionSuccess
-  | IGetOrderNumberAction
-  | IGetOrderNumberSuccess;
+export interface IResetOrderNumber {
+  readonly type: typeof RESET_ORDER_NUMBER;
+}
 
 export function getIngredients() {
   return function (dispatch: any) {
@@ -71,10 +69,19 @@ export function getOrderNumber(ingredients: any) {
         if (res && res.success) {
           dispatch({
             type: GET_ORDER_NUMBER_SUCCESS,
-            payload: res,
+            payload: res.order.number,
           });
         }
       })
       .catch(() => dispatch(refreshAccessToken()));
   };
 }
+
+
+export type TApiDataActions =
+  IGetIngredientAction
+  | IGetIngredientActionFailed
+  | IGetIngredientActionSuccess
+  | IGetOrderNumberAction
+  | IGetOrderNumberSuccess
+  | IResetOrderNumber;

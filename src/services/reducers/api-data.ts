@@ -4,6 +4,7 @@ import {
   GET_INGREDIENTS_FAILED,
   GET_ORDER_NUMBER_REQUEST,
   GET_ORDER_NUMBER_SUCCESS,
+  RESET_ORDER_NUMBER,
 } from "../constants/api-data";
 
 import {
@@ -12,7 +13,25 @@ import {
   FETCH_REFRESH_TOKEN_ERROR,
 } from "../constants/auth";
 
-const initialState = {
+import { TIngredient } from "../types/data";
+import { TApiDataActions } from "../actions/api-data";
+import { TTokenActions } from "../actions/auth";
+
+type TApiDataState = {
+  allIngredients: ReadonlyArray<TIngredient>;
+  allIngredientsRequest: boolean;
+  allIngredientsFailed: boolean;
+
+  createdOrderNumber: null | number;
+  createdOrderNumberRequest: boolean;
+  createdOrderNumberFailed: boolean;
+
+  tokenRequest: boolean;
+  isTokenUpdated: boolean;
+  tokenUpdateData: boolean;
+};
+
+const initialState: TApiDataState = {
   allIngredients: [],
   allIngredientsRequest: false,
   allIngredientsFailed: false,
@@ -26,15 +45,18 @@ const initialState = {
   tokenUpdateData: false,
 };
 
-const apiDataReducer = (state = initialState, { type, payload }) => {
-  switch (type) {
+const apiDataReducer = (
+  state = initialState,
+  action: TApiDataActions | TTokenActions
+): TApiDataState => {
+  switch (action.type) {
     case GET_INGREDIENTS_REQUEST:
       return { ...state, allIngredientsRequest: true };
 
     case GET_INGREDIENTS_SUCCESS:
       return {
         ...state,
-        allIngredients: payload,
+        allIngredients: action.payload,
         allIngredientsRequest: false,
         allIngredientsFailed: false,
       };
@@ -51,7 +73,14 @@ const apiDataReducer = (state = initialState, { type, payload }) => {
         ...state,
         createdOrderNumberRequest: false,
         createdOrderNumberFailed: false,
-        createdOrderNumber: payload.order.number,
+        createdOrderNumber: action.payload,
+      };
+    }
+
+    case RESET_ORDER_NUMBER: {
+      return {
+        ...state,
+        createdOrderNumber: initialState.createdOrderNumber,
       };
     }
 

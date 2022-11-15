@@ -40,6 +40,23 @@ export interface ISetLoginStatusAction {
   readonly type: typeof SET_LOGIN_STATUS;
 }
 
+export interface ITokenRequest {
+  readonly type: typeof FETCH_REFRESH_TOKEN_REQUEST;
+}
+
+export interface ITokenRequestSuccess {
+  readonly type: typeof FETCH_REFRESH_TOKEN_SUCCESS;
+}
+
+export interface ITokenRequestFailed {
+  readonly type: typeof FETCH_REFRESH_TOKEN_ERROR;
+}
+
+export type TTokenActions =
+  | ITokenRequest
+  | ITokenRequestSuccess
+  | ITokenRequestFailed;
+
 export type TAuthActions =
   | IAuthRequestAction
   | IAuthSuccessAction

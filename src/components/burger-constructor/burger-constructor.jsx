@@ -10,9 +10,9 @@ import OrderDetails from "../order-details/order-details";
 import { getOrderNumber } from "../../services/actions/api-data";
 import { useDispatch, useSelector } from "react-redux";
 import {
-  RESET_ORDER_NUMBER,
   SET_ORDER_NUMBER_VISIBILITY,
 } from "../../services/constants/modal";
+import { RESET_ORDER_NUMBER } from "../../services/constants/api-data";
 import { useDrop } from "react-dnd";
 import {
   SET_CONSTRUCTOR_ELEMENT,
@@ -104,6 +104,7 @@ const BurgerConstructor = React.memo(() => {
   function handleCloseModal() {
     dispatch({ type: RESET_ORDER_NUMBER });
     dispatch({ type: RESET_ORDER_INGREDIENTS });
+    console.log('12344')
   }
 
   const modalOrderDetails = (

@@ -16,7 +16,7 @@ const initialState = {
   },
 };
 
-const wsReducer = (state = initialState, { type, payload, uuid }) => {
+const wsReducer = (state = initialState, { type, payload }) => {
   switch (type) {
     case WS_CONNECTION_SUCCESS:
       return {
