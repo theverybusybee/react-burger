@@ -1,5 +1,5 @@
 import { useEffect, useReducer } from "react";
-import { apiStateReducer } from "../reducers/api-state-reducer";
+import apiStateReducer from "../reducers/api-state-reducer";
 import {
   FETCH_API_REQUEST,
   FETCH_API_SUCCESS,

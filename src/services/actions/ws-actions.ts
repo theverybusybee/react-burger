@@ -21,6 +21,7 @@ export interface IWSConnectionClosedAction {
 }
 
 export interface IWSGetOrdersAction {
+  payload: any;
   readonly type: typeof WS_GET_ORDERS;
   allOrders: {
     orders: ReadonlyArray<TOrders>;

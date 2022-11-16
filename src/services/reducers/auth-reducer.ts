@@ -5,16 +5,27 @@ import {
   DELETE_USER,
   SET_LOGIN_STATUS,
 } from "../constants/auth";
+import { TAuthActions } from "../actions/auth";
 
-const initialState = {
+type TAuthReducerInitialState = {
+  isLoading: boolean;
+  hasError: boolean;
+  userInfo: { name: string; email: string };
+  isLogin: boolean;
+};
+
+const initialState: TAuthReducerInitialState = {
   isLoading: false,
   hasError: false,
   userInfo: { name: "", email: "" },
   isLogin: false,
 };
 
-const authUserReducer = (state = initialState, { type, payload }) => {
-  switch (type) {
+const authUserReducer = (
+  state = initialState,
+  action: TAuthActions
+): TAuthReducerInitialState => {
+  switch (action.type) {
     case FETCH_AUTH_REQUEST: {
       return {
         ...state,
@@ -27,7 +38,7 @@ const authUserReducer = (state = initialState, { type, payload }) => {
         ...state,
         isLoading: false,
         hasError: false,
-        userInfo: { name: payload.user.name, email: payload.user.email },
+        userInfo: { name: action.payload.user.name, email: action.payload.user.email },
       };
     }
     case FETCH_AUTH_ERROR: {

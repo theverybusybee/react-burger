@@ -17,15 +17,15 @@ import {
   FETCH_REFRESH_TOKEN_SUCCESS,
   FETCH_REFRESH_TOKEN_ERROR,
 } from "../constants/auth";
-import { TUserData } from "../types/data";
+import { TApiUserData } from "../types/data";
 
 export interface IAuthRequestAction {
   readonly type: typeof FETCH_AUTH_REQUEST;
 }
 
 export interface IAuthSuccessAction {
+  payload: TApiUserData;
   readonly type: typeof FETCH_AUTH_SUCCESS;
-  userInfo: Omit<TUserData, "password">;
 }
 
 export interface IAuthFailedAction {
@@ -69,7 +69,7 @@ export function setRegister(form: any) {
   return function (dispatch: any) {
     dispatch({ type: FETCH_AUTH_REQUEST });
     fetchRegister(form)
-      .then((res) => {
+      .then((res: any) => {
         if (res && res.success) {
           dispatch({
             type: FETCH_AUTH_SUCCESS,
@@ -97,7 +97,7 @@ export function authenticateUser(form: any) {
   return function (dispatch: any) {
     dispatch({ type: FETCH_AUTH_REQUEST });
     fetchLogin(form)
-      .then((res) => {
+      .then((res:any) => {
         if (res && res.success) {
           dispatch({
             type: FETCH_AUTH_SUCCESS,
@@ -126,7 +126,7 @@ export function refreshAccessToken() {
   return function (dispatch: any) {
     dispatch({ type: FETCH_REFRESH_TOKEN_REQUEST });
     fetchToken()
-      .then((res) => {
+      .then((res: any) => {
         if (res && res.success) {
           deleteCookie("token");
           localStorage.removeItem("refreshToken");
@@ -148,7 +148,7 @@ export function logoutFromAccount() {
   return function (dispatch: any) {
     dispatch({ type: FETCH_AUTH_REQUEST });
     fetchLogout()
-      .then((res) => {
+      .then((res: any) => {
         if (res && res.success) {
           dispatch({
             type: DELETE_USER,
@@ -170,7 +170,7 @@ export function updateData(name: string, email: string) {
   return function (dispatch: any) {
     dispatch({ type: FETCH_AUTH_REQUEST });
     updateUserData(name, email)
-      .then((res) => {
+      .then((res: any) => {
         if (res && res.success) {
           dispatch({
             type: FETCH_AUTH_SUCCESS,
@@ -188,7 +188,7 @@ export function getData() {
   return function (dispatch: any) {
     dispatch({ type: FETCH_AUTH_REQUEST });
     getUserData()
-      .then((res) => {
+      .then((res: any) => {
         if (res && res.success) {
           dispatch({
             type: FETCH_AUTH_SUCCESS,

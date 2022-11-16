@@ -3,15 +3,26 @@ import {
   FETCH_API_SUCCESS,
   FETCH_API_ERROR,
 } from "../constants/api-state";
+import { TIngredient } from "../types/data";
+import { TApiStateActions } from "../actions/api-state-actions";
 
-const initialState = {
+type TApiStateReducerTyping = {
+  isLoading: boolean;
+  hasError: boolean;
+  data: [] | ReadonlyArray<TIngredient>;
+};
+
+const initialState: TApiStateReducerTyping = {
   isLoading: false,
   hasError: false,
   data: [],
 };
 
-export function apiStateReducer(state = initialState, { type, payload }) {
-  switch (type) {
+const apiStateReducer = (
+  state = initialState,
+  action: TApiStateActions
+): TApiStateReducerTyping => {
+  switch (action.type) {
     case FETCH_API_REQUEST: {
       return {
         ...state,
@@ -24,7 +35,7 @@ export function apiStateReducer(state = initialState, { type, payload }) {
         ...state,
         isLoading: false,
         hasError: false,
-        data: payload,
+        data: action.payload,
       };
     }
     case FETCH_API_ERROR: {
@@ -37,4 +48,6 @@ export function apiStateReducer(state = initialState, { type, payload }) {
     default:
       return state;
   }
-}
+};
+
+export default apiStateReducer;

@@ -6,8 +6,8 @@ import {
 import { TIngredient } from "../types/data";
 
 export interface ISetModalIngredientAction {
+  payload: {} | ReadonlyArray<TIngredient>;
   readonly type: typeof SET_MODAL_INGREDIENT;
-  currentModalIngredient: ReadonlyArray<TIngredient>;
 }
 
 export interface ISetOrderNumberVisibilityAction {

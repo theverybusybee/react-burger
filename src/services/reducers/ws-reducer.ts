@@ -4,10 +4,23 @@ import {
   WS_CONNECTION_CLOSED,
   WS_GET_ORDERS,
 } from "../constants/ws-actions";
+import { TWSActions } from "../actions/ws-actions";
+import { TOrders } from "../types/data";
 
-const initialState = {
+type TWSReducerInitialState = {
+  wsConnected: boolean;
+  error: boolean;
+  isRefreshed: boolean;
+  allOrders: {
+    orders: ReadonlyArray<TOrders> | [];
+    total: number;
+    totalToday: number;
+  };
+};
+
+const initialState: TWSReducerInitialState = {
   wsConnected: false,
-  error: undefined,
+  error: false,
   isRefreshed: false,
   allOrders: {
     orders: [],
@@ -16,12 +29,15 @@ const initialState = {
   },
 };
 
-const wsReducer = (state = initialState, { type, payload }) => {
-  switch (type) {
+const wsReducer = (
+  state = initialState,
+  action: TWSActions
+): TWSReducerInitialState => {
+  switch (action.type) {
     case WS_CONNECTION_SUCCESS:
       return {
         ...state,
-        error: undefined,
+        error: initialState.error,
         wsConnected: true,
         isRefreshed: true,
       };
@@ -29,7 +45,7 @@ const wsReducer = (state = initialState, { type, payload }) => {
     case WS_CONNECTION_ERROR:
       return {
         ...state,
-        error: payload,
+        error: true,
         wsConnected: false,
       };
 
@@ -38,7 +54,7 @@ const wsReducer = (state = initialState, { type, payload }) => {
     case WS_CONNECTION_CLOSED:
       return {
         ...state,
-        error: undefined,
+        error: initialState.error,
         wsConnected: false,
         isRefreshed: false,
       };
@@ -49,11 +65,11 @@ const wsReducer = (state = initialState, { type, payload }) => {
     case WS_GET_ORDERS:
       return {
         ...state,
-        error: undefined,
+        error: initialState.error,
         allOrders: {
-          orders: payload.data.orders,
-          total: payload.data.total,
-          totalToday: payload.data.totalToday,
+          orders: action.payload.data.orders,
+          total: action.payload.data.total,
+          totalToday: action.payload.data.totalToday,
         },
       };
 

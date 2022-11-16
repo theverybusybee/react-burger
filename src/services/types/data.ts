@@ -29,3 +29,10 @@ export type TUserData = {
   readonly email: string;
   readonly password: string;
 };
+
+export type TApiUserData = {
+  readonly user: {
+    readonly name: string;
+    readonly email: string;
+  };
+};

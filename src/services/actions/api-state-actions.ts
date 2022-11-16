@@ -15,7 +15,7 @@ export interface IApiRequestFailedAction {
 
 export interface IApiRequestSuccessAction {
   readonly type: typeof FETCH_API_SUCCESS;
-  data: ReadonlyArray<TIngredient>;
+   payload: ReadonlyArray<TIngredient>;
 }
 
 export type TApiStateActions =
