@@ -36,3 +36,7 @@ export type TApiUserData = {
     readonly email: string;
   };
 };
+
+export type useAppParams = {
+  id: string,
+}

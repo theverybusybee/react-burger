@@ -1,5 +1,6 @@
 {
   "name": "react-burger",
+   "homepage": "https://theverybusybee.github.io/react-burger/",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -58,6 +59,5 @@
   },
   "devDependencies": {
     "gh-pages": "^4.0.0"
-  },
-  "homepage": "./"
+  }
 }

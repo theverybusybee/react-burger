@@ -21,6 +21,7 @@ const rootReducer = combineReducers({
 });
 
 const preloadedState = {};
+
 export const store = configureStore({
   reducer: rootReducer,
   middleware: (thunkMiddleware) =>
@@ -28,5 +29,7 @@ export const store = configureStore({
       serializableCheck: false,
     }).concat(socketMiddleware(wsUrl, wsActions)),
   preloadedState,
-  devtools: true,
 });
+
+export type TRootState = ReturnType<typeof rootReducer>;
+export type TAppDispatch = typeof store.dispatch;
