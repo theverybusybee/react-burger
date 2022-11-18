@@ -1,23 +1,24 @@
 import detailsStyles from "./ingredient-details.module.css";
-import { memo, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useAppSelector } from "../../services/redux-hooks";
+import { useAppParams } from "../../services/types/data";
 
 function IngredientDetails() {
   const [ingredient, setIngredient] = useState({
     image: "",
     name: "",
-    calories: "",
-    proteins: "",
-    fat: "",
-    carbohydrates: "",
+    calories: 0,
+    proteins: 0,
+    fat: 0,
+    carbohydrates: 0,
   });
 
-  const allIngredients = useSelector(
+  const allIngredients = useAppSelector(
     (state) => state.apiDataReducer.allIngredients
   );
 
-  const { id } = useParams();
+  const { id } : useAppParams = useParams();
   useEffect(() => {
     if (allIngredients.length) {
       const ingredient = allIngredients.find((el) => el._id === id);
@@ -76,4 +77,4 @@ function IngredientDetails() {
   );
 }
 
-export default memo(IngredientDetails);
+export default IngredientDetails;

@@ -1,4 +1,13 @@
+import { TIngredient } from "../../services/types/data";
 import IconStyles from "./ingredient-icon.module.css";
+
+interface IIngredientIcon {
+  type: string;
+  ingredient: TIngredient;
+  lastIngredient?: TIngredient;
+  ingredientsArray?: Array<TIngredient>;
+  tagType: string;
+}
 
 function IngredientIcon({
   type,
@@ -6,10 +15,9 @@ function IngredientIcon({
   lastIngredient,
   ingredientsArray,
   tagType,
-}) {
- 
+}: IIngredientIcon) {
   const CustomTag = tagType === "li" ? "li" : "div";
-  return type === "ordinary ingredient" ? (
+  return (type === "ordinary ingredient") ? (
     <CustomTag className={IconStyles.ingredient}>
       <div className={IconStyles.ingredientBackground}>
         <img
@@ -19,18 +27,18 @@ function IngredientIcon({
         />
       </div>
     </CustomTag>
-  ) : (
+  ) : ( 
     <li className={IconStyles.ingredient}>
       <div className={IconStyles.ingredientBackground}>
         <img
           className={`${IconStyles.ingredientImage} ${IconStyles.lastIngredient}`}
-          src={lastIngredient.image}
-          alt={lastIngredient.name}
+          src={lastIngredient?.image}
+          alt={lastIngredient?.name}
         />
         <p
           className={`${IconStyles.ingredientsAmount} text text_type_digits-default`}
         >
-          &#43;{`${ingredientsArray.length - 6}`}
+          &#43;{`${ingredientsArray!.length - 6}`}
         </p>
       </div>
     </li>

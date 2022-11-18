@@ -1,10 +1,21 @@
 import ingredientStyles from "./feed-details-ingredient.module.css";
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
-import { useState, useEffect, memo, useCallback } from "react";
+import { useState, useEffect, useCallback } from "react";
 import IngredientIcon from "../ingredient-icon/ingredient-icon";
+import { TIngredient } from "../../services/types/data";
 
-function FeedDetailsIngredient({ data }) {
-  const [orderState, setOrderState] = useState({
+interface IFeedDetailsIngredient {
+  data: Array<TIngredient>;
+}
+
+type TOrderState = {
+  ingredients: [] | Array<TIngredient>;
+  price: number;
+  reducedIngredients: [] | Array<TIngredient>;
+};
+
+function FeedDetailsIngredient({ data }: IFeedDetailsIngredient) {
+  const [orderState, setOrderState] = useState<TOrderState>({
     ingredients: [],
     price: 0,
     reducedIngredients: [],
@@ -13,7 +24,7 @@ function FeedDetailsIngredient({ data }) {
   const { ingredients, reducedIngredients } = orderState;
 
   const qty = useCallback(
-    (currentIngredientId) => {
+    (currentIngredientId: string) => {
       if (ingredients.length) {
         return ingredients.filter(
           (ingredient) => ingredient._id === currentIngredientId
@@ -35,14 +46,14 @@ function FeedDetailsIngredient({ data }) {
   }, [data]);
 
   return reducedIngredients.length
-    ? reducedIngredients.map((ingredient) => {
+    ? reducedIngredients.map((ingredient: TIngredient) => {
         return (
           <li className={ingredientStyles.containerItem} key={ingredient._id}>
             <IngredientIcon
               type="ordinary ingredient"
               ingredient={ingredient}
               key={ingredient.uuid}
-              tagType='div'
+              tagType="div"
             />
             <p
               className={`${ingredientStyles.ingredientName} text text_type_main-default`}
@@ -58,7 +69,6 @@ function FeedDetailsIngredient({ data }) {
               x{" "}
               <span className={ingredientStyles.price}>{ingredient.price}</span>
               <CurrencyIcon
-                className={ingredientStyles.currency}
                 type="primary"
               />
             </p>
@@ -68,4 +78,4 @@ function FeedDetailsIngredient({ data }) {
     : null;
 }
 
-export default memo(FeedDetailsIngredient);
+export default FeedDetailsIngredient;
