@@ -2,10 +2,10 @@ import detailsStyles from "./ingredient-details.module.css";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useAppSelector } from "../../services/redux-hooks";
-import { useAppParams } from "../../services/types/data";
+import { TIngredient, useAppParams } from "../../services/types/data";
 
 function IngredientDetails() {
-  const [ingredient, setIngredient] = useState({
+  const [ingredient, setIngredient] = useState<TIngredient>({
     image: "",
     name: "",
     calories: 0,
@@ -18,7 +18,7 @@ function IngredientDetails() {
     (state) => state.apiDataReducer.allIngredients
   );
 
-  const { id } : useAppParams = useParams();
+  const { id }: useAppParams = useParams();
   useEffect(() => {
     if (allIngredients.length) {
       const ingredient = allIngredients.find((el) => el._id === id);

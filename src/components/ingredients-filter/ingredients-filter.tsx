@@ -1,10 +1,14 @@
 import { useMemo } from "react";
 import IngredientCard from "../ingredient-card/ingredient-card";
 import PropTypes from "prop-types";
-import { useSelector } from "react-redux";
+import { useAppSelector } from "../../services/redux-hooks";
 
-export default function IngredientsFilter({ type }) {
-  const allIngredients = useSelector(
+interface IIngredientsFilter {
+  type: string;
+}
+
+export default function IngredientsFilter({ type }: IIngredientsFilter) {
+  const allIngredients = useAppSelector(
     (state) => state.apiDataReducer.allIngredients
   );
 
@@ -13,12 +17,7 @@ export default function IngredientsFilter({ type }) {
   }, [allIngredients, type]);
 
   return filteredIngredients.map((ingredient) => {
-    return (
-      <IngredientCard
-        ingredient={ingredient}
-        key={ingredient._id}
-      />
-    );
+    return <IngredientCard ingredient={ingredient} key={ingredient._id} />;
   });
 }
 

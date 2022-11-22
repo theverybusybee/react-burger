@@ -4,15 +4,18 @@ import {
   Counter,
   CurrencyIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import PropTypes from "prop-types";
-import { ingredientType } from "../../utils/types";
 import { useDrag } from "react-dnd";
-import { useSelector } from "react-redux";
 import { Link, useLocation } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { SET_MODAL_INGREDIENT } from "../../services/constants/modal";
+import { TIngredient } from "../../services/types/data";
+import { useAppSelector } from "../../services/redux-hooks";
 
-const IngredientCard = React.memo(({ ingredient }) => {
+interface IIngredientCard {
+  ingredient: TIngredient;
+}
+
+const IngredientCard = React.memo(({ ingredient }: IIngredientCard) => {
   const dispatch = useDispatch();
   const location = useLocation();
   const id = ingredient._id;
@@ -29,7 +32,7 @@ const IngredientCard = React.memo(({ ingredient }) => {
     }),
   });
 
-  const qty = useSelector(
+  const qty = useAppSelector(
     (state) =>
       state.dropContainerReducer.orderIngredients.filter(
         (item) => item._id === ingredient._id
@@ -59,7 +62,6 @@ const IngredientCard = React.memo(({ ingredient }) => {
             {ingredient.price}
           </p>
           <CurrencyIcon
-            className={IngredientCardStyles.currency}
             type="primary"
           />
         </div>
@@ -70,7 +72,6 @@ const IngredientCard = React.memo(({ ingredient }) => {
         </h2>
         {qty ? (
           <Counter
-            className={IngredientCardStyles.counter}
             count={qty}
             size="default"
           />
@@ -79,9 +80,5 @@ const IngredientCard = React.memo(({ ingredient }) => {
     </Link>
   );
 });
-
-IngredientCard.propTypes = {
-  ingredient: PropTypes.shape(ingredientType).isRequired,
-};
 
 export default IngredientCard;
