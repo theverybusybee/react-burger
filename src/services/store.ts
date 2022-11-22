@@ -1,4 +1,4 @@
-import { configureStore } from "@reduxjs/toolkit";
+import { configureStore, ThunkDispatch } from "@reduxjs/toolkit";
 import { socketMiddleware } from "./socket-middleware/socket-middleware";
 import tabReducer from "./reducers/tab";
 import dropContainerReducer from "./reducers/drop-container-reducer";

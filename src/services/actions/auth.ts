@@ -18,6 +18,7 @@ import {
   FETCH_REFRESH_TOKEN_ERROR,
 } from "../constants/auth";
 import { TApiUserData } from "../types/data";
+import { TAppDispatch } from "../store";
 
 export interface IAuthRequestAction {
   readonly type: typeof FETCH_AUTH_REQUEST;
@@ -66,10 +67,10 @@ export type TAuthActions =
 
 // регистрация
 export function setRegister(form: any) {
-  return function (dispatch: any) {
+  return function (dispatch: TAppDispatch) {
     dispatch({ type: FETCH_AUTH_REQUEST });
     fetchRegister(form)
-      .then((res: any) => {
+      .then((res) => {
         if (res && res.success) {
           dispatch({
             type: FETCH_AUTH_SUCCESS,
@@ -94,10 +95,10 @@ export function setRegister(form: any) {
 
 // аутентификация
 export function authenticateUser(form: any) {
-  return function (dispatch: any) {
+  return function (dispatch: TAppDispatch) {
     dispatch({ type: FETCH_AUTH_REQUEST });
     fetchLogin(form)
-      .then((res:any) => {
+      .then((res) => {
         if (res && res.success) {
           dispatch({
             type: FETCH_AUTH_SUCCESS,
@@ -123,10 +124,10 @@ export function authenticateUser(form: any) {
 }
 
 export function refreshAccessToken() {
-  return function (dispatch: any) {
+  return function (dispatch: TAppDispatch) {
     dispatch({ type: FETCH_REFRESH_TOKEN_REQUEST });
     fetchToken()
-      .then((res: any) => {
+      .then((res) => {
         if (res && res.success) {
           deleteCookie("token");
           localStorage.removeItem("refreshToken");
@@ -145,10 +146,10 @@ export function refreshAccessToken() {
 }
 
 export function logoutFromAccount() {
-  return function (dispatch: any) {
+  return function (dispatch: TAppDispatch) {
     dispatch({ type: FETCH_AUTH_REQUEST });
     fetchLogout()
-      .then((res: any) => {
+      .then((res) => {
         if (res && res.success) {
           dispatch({
             type: DELETE_USER,
@@ -167,10 +168,10 @@ export function logoutFromAccount() {
 
 // обновление данных профиля
 export function updateData(name: string, email: string) {
-  return function (dispatch: any) {
+  return function (dispatch: TAppDispatch) {
     dispatch({ type: FETCH_AUTH_REQUEST });
     updateUserData(name, email)
-      .then((res: any) => {
+      .then((res) => {
         if (res && res.success) {
           dispatch({
             type: FETCH_AUTH_SUCCESS,
@@ -185,10 +186,10 @@ export function updateData(name: string, email: string) {
 
 // получение данных юзера
 export function getData() {
-  return function (dispatch: any) {
+  return function (dispatch: TAppDispatch) {
     dispatch({ type: FETCH_AUTH_REQUEST });
     getUserData()
-      .then((res: any) => {
+      .then((res) => {
         if (res && res.success) {
           dispatch({
             type: FETCH_AUTH_SUCCESS,

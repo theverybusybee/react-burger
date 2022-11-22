@@ -1,4 +1,5 @@
 import { v4 as uuidv4 } from "uuid";
+import { TDropContainerActions } from "../actions/drop-container";
 
 import {
   SET_CONSTRUCTOR_ELEMENT,
@@ -9,28 +10,33 @@ import {
   SET_ORDER_INGREDIENTS,
   RESET_ORDER_INGREDIENTS,
 } from "../constants/drop-container";
+import { TIngredient } from "../types/data";
 
-const initialState = {
+type TDropContainerReducer = {
+  constructorElements: Array<TIngredient>;
+  totalPrice: number;
+  buns: Array<TIngredient> | [];
+  orderIngredients: Array<TIngredient>;
+};
+
+const initialState: TDropContainerReducer = {
   constructorElements: [],
-  qty: [],
-  constructorIngredients: [],
-  constructorBuns: [],
   totalPrice: 0,
-  buns: {},
+  buns: [],
   orderIngredients: [],
 };
 
 const dropContainerReducer = (
   state = initialState,
-  { type, payload, uuid }
-) => {
-  switch (type) {
+  action: TDropContainerActions
+): TDropContainerReducer => {
+  switch (action.type) {
     case SET_CONSTRUCTOR_ELEMENT:
       return {
         ...state,
         constructorElements: [
           ...state.constructorElements,
-          { ...payload, uuid: uuidv4() },
+          { ...action.payload, uuid: uuidv4() },
         ],
       };
 
@@ -38,22 +44,17 @@ const dropContainerReducer = (
       return {
         ...state,
         constructorElements: [...state.constructorElements].filter(
-          (item) => item.uuid !== uuid
+          (item) => item.uuid !== action.uuid
         ),
       };
 
     case SET_BUNS:
-      return { ...state, buns: [payload] };
+      return { ...state, buns: [action.payload] };
 
     case SET_TOTAL_PRICE:
       return {
         ...state,
-        totalPrice: state.constructorElements.length
-          ? [...state.constructorElements]
-              .map((el) => el.price)
-              .reduce((a, b) => a + b) +
-            state.buns[0].price * 2
-          : state.buns[0].price * 2,
+        totalPrice: action.payload,
       };
 
     case RESET_TOTAL_PRICE: {
@@ -86,3 +87,4 @@ const dropContainerReducer = (
 };
 
 export default dropContainerReducer;
+

@@ -11,15 +11,18 @@ import { TIngredient } from "../types/data";
 
 export interface ISetConstructorElementAction {
   readonly type: typeof SET_CONSTRUCTOR_ELEMENT;
-  constructorElements: ReadonlyArray<TIngredient>;
+  payload: ReadonlyArray<TIngredient>;
+  uuid?: string;
 }
 
 export interface IRemoveConstructorElementAction {
   readonly type: typeof REMOVE_CONSTRUCTOR_ELEMENT;
+  uuid?: string;
 }
 
 export interface ISetTotalPriceAction {
   readonly type: typeof SET_TOTAL_PRICE;
+  payload: number;
 }
 
 export interface IResetTotalPriceAction {
@@ -28,7 +31,7 @@ export interface IResetTotalPriceAction {
 
 export interface ISetBunsAction {
   readonly type: typeof SET_BUNS;
-  buns: ReadonlyArray<TIngredient>;
+  payload: TIngredient;
 }
 
 export interface ISetOrderIngredientsAction {
