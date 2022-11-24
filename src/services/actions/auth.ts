@@ -17,7 +17,7 @@ import {
   FETCH_REFRESH_TOKEN_SUCCESS,
   FETCH_REFRESH_TOKEN_ERROR,
 } from "../constants/auth";
-import { TApiUserData } from "../types/data";
+import { TApiUserData, TFetchLogin, TFetchRegister } from "../types/data";
 import { TAppDispatch } from "../store";
 
 export interface IAuthRequestAction {
@@ -66,7 +66,7 @@ export type TAuthActions =
   | ISetLoginStatusAction;
 
 // регистрация
-export function setRegister(form: any) {
+export function setRegister(form: TFetchRegister) {
   return function (dispatch: TAppDispatch) {
     dispatch({ type: FETCH_AUTH_REQUEST });
     fetchRegister(form)
@@ -94,7 +94,7 @@ export function setRegister(form: any) {
 }
 
 // аутентификация
-export function authenticateUser(form: any) {
+export function authenticateUser(form: TFetchLogin) {
   return function (dispatch: TAppDispatch) {
     dispatch({ type: FETCH_AUTH_REQUEST });
     fetchLogin(form)

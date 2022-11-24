@@ -22,7 +22,7 @@ type TRequestOptions = {
   body?: any;
 };
 
-export const fetchOrderDetails = (ingredients: TIngredient) => {
+export const fetchOrderDetails = (ingredients: Array<TIngredient>) => {
   const requestOptions: TRequestOptions = {
     method: "POST",
     mode: "cors",

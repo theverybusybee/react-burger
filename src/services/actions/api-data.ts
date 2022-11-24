@@ -12,6 +12,7 @@ import {
   RESET_ORDER_NUMBER,
 } from "../constants/api-data";
 import { TIngredient } from "../types/data";
+import { TAppDispatch } from "../store";
 
 export interface IGetIngredientAction {
   readonly type: typeof GET_INGREDIENTS_REQUEST;
@@ -40,7 +41,7 @@ export interface IResetOrderNumber {
 }
 
 export function getIngredients() {
-  return function (dispatch: any) {
+  return function (dispatch: TAppDispatch) {
     dispatch({ type: GET_INGREDIENTS_REQUEST });
     fetchIngredients()
       .then((res) => {
@@ -61,8 +62,8 @@ export function getIngredients() {
   };
 }
 
-export function getOrderNumber(ingredients: any) {
-  return function (dispatch: any) {
+export function getOrderNumber(ingredients: Array<TIngredient>) {
+  return function (dispatch: TAppDispatch) {
     dispatch({ type: GET_ORDER_NUMBER_REQUEST });
     fetchOrderDetails(ingredients)
       .then((res) => {
