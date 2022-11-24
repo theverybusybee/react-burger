@@ -1,7 +1,7 @@
 import {
-  fetchIngredients,
   fetchOrderDetails,
-} from "../../utils/fetchOrderData";
+} from "../../utils/fetches";
+import { fetchIngredients } from "../../utils/fetches";
 import { refreshAccessToken } from "./auth";
 import {
   GET_INGREDIENTS_REQUEST,

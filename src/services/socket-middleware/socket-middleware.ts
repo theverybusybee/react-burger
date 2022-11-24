@@ -6,7 +6,6 @@ import { TAppDispatch, TRootState } from "../store";
 export const socketMiddleware = (wsUrl: string, wsActions: TMiddlewareWSActions): Middleware => {
   return (store: MiddlewareAPI<TAppDispatch, TRootState>) => {
     let socket: null | WebSocket = null;
-    console.log(socket)
     const { wsInit, onOpen, onError, onClose, onMessage } = wsActions;
 
     return (next) => (action) => {

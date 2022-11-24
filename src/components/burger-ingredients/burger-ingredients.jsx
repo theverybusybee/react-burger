@@ -2,9 +2,8 @@ import { useEffect, useRef } from "react";
 import { useDispatch } from "react-redux";
 import BurgerIngredientsStyles from "./burger-ingredients.module.css";
 import Tabs from "../tabs/tabs";
-import IngredientsFilter from "../ingredients-filter/ingredients-filter.jsx";
+import IngredientsFilter from "../ingredients-filter/ingredients-filter.tsx";
 import { useSelector } from "react-redux";
-import { getIngredients } from "../../services/actions/api-data";
 import { TAB_NAME, TAB_SWITCH } from "../../services/constants/tab";
 
 export default function BurgerIngredients() {

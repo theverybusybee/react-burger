@@ -1,9 +1,35 @@
+import {
+  TFetchLogin,
+  TFetchRegister,
+  TForgotPassword,
+  TIngredient,
+  TResetPassword,
+} from "../services/types/data";
 import { baseUrl, checkResponse, baseAuthUrl } from "./constants";
 import { getCookie } from "./cookie";
 
-export const fetchOrderDetails = (ingredients) => {
-  const requestOptions = {
+type TRequestOptions = {
+  method: "POST" | "GET" | "PATCH";
+  mode: RequestMode | undefined;
+  cache: RequestCache | undefined;
+  credentials: RequestCredentials | undefined;
+  redirect: RequestRedirect | undefined;
+  referrerPolicy: ReferrerPolicy | undefined;
+  headers: {
+    "Content-Type": "application/json";
+    Authorization?: string;
+  };
+  body?: any;
+};
+
+export const fetchOrderDetails = (ingredients: TIngredient) => {
+  const requestOptions: TRequestOptions = {
     method: "POST",
+    mode: "cors",
+    cache: "no-cache",
+    credentials: "same-origin",
+    redirect: "follow",
+    referrerPolicy: "no-referrer",
     headers: {
       "Content-Type": "application/json",
       Authorization: getCookie("token"),
@@ -15,17 +41,21 @@ export const fetchOrderDetails = (ingredients) => {
 };
 
 export const fetchIngredients = () => {
-  const requestOptions = {
+  const requestOptions: TRequestOptions = {
     method: "GET",
+    mode: "cors",
+    cache: "no-cache",
+    credentials: "same-origin",
+    redirect: "follow",
+    referrerPolicy: "no-referrer",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(),
   };
 
   return fetch(`${baseUrl}/ingredients`, requestOptions).then(checkResponse);
 };
 
-export const fetchForgotPassword = (form) => {
-  const requestOptions = {
+export const fetchForgotPassword = (form: TForgotPassword) => {
+  const requestOptions: TRequestOptions = {
     method: "POST",
     mode: "cors",
     cache: "no-cache",
@@ -41,8 +71,8 @@ export const fetchForgotPassword = (form) => {
   return fetch(`${baseUrl}/password-reset`, requestOptions).then(checkResponse);
 };
 
-export const fetchResetPassword = (form) => {
-  const requestOptions = {
+export const fetchResetPassword = (form: TResetPassword) => {
+  const requestOptions: TRequestOptions = {
     method: "POST",
     mode: "cors",
     cache: "no-cache",
@@ -60,8 +90,8 @@ export const fetchResetPassword = (form) => {
   );
 };
 
-export const fetchRegister = (form) => {
-  const requestOptions = {
+export const fetchRegister = (form: TFetchRegister) => {
+  const requestOptions: TRequestOptions = {
     method: "POST",
     mode: "cors",
     cache: "no-cache",
@@ -77,8 +107,8 @@ export const fetchRegister = (form) => {
   return fetch(`${baseAuthUrl}/register`, requestOptions).then(checkResponse);
 };
 
-export const fetchLogin = (form) => {
-  const requestOptions = {
+export const fetchLogin = (form: TFetchLogin) => {
+  const requestOptions: TRequestOptions = {
     method: "POST",
     mode: "cors",
     cache: "no-cache",
@@ -95,7 +125,7 @@ export const fetchLogin = (form) => {
 };
 
 export const fetchLogout = () => {
-  const requestOptions = {
+  const requestOptions: TRequestOptions = {
     method: "POST",
     mode: "cors",
     cache: "no-cache",
@@ -114,7 +144,7 @@ export const fetchLogout = () => {
 };
 
 export const fetchToken = () => {
-  const requestOptions = {
+  const requestOptions: TRequestOptions = {
     method: "POST",
     mode: "cors",
     cache: "no-cache",
@@ -132,8 +162,8 @@ export const fetchToken = () => {
   return fetch(`${baseAuthUrl}/token`, requestOptions).then(checkResponse);
 };
 
-export const updateUserData = (name, email) => {
-  const requestOptions = {
+export const updateUserData = (name: string, email: string) => {
+  const requestOptions: TRequestOptions = {
     method: "PATCH",
     mode: "cors",
     cache: "no-cache",
@@ -150,11 +180,11 @@ export const updateUserData = (name, email) => {
     }),
   };
 
-  return fetch(`${baseAuthUrl}/user`, requestOptions).then(checkResponse)
+  return fetch(`${baseAuthUrl}/user`, requestOptions).then(checkResponse);
 };
 
 export const getUserData = () => {
-  const requestOptions = {
+  const requestOptions: TRequestOptions = {
     method: "GET",
     mode: "cors",
     cache: "no-cache",
@@ -165,8 +195,7 @@ export const getUserData = () => {
     },
     redirect: "follow",
     referrerPolicy: "no-referrer",
-    body: JSON.stringify(),
   };
 
-  return fetch(`${baseAuthUrl}/user`, requestOptions).then(checkResponse)
+  return fetch(`${baseAuthUrl}/user`, requestOptions).then(checkResponse);
 };

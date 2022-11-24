@@ -3,8 +3,8 @@ import {
   Input,
   Button,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import { Link, useHistory } from "react-router-dom";
-import { fetchResetPassword } from "../../utils/fetchOrderData";
+import { Link, Redirect, useHistory } from "react-router-dom";
+import { fetchResetPassword } from "../../utils/fetches";
 import { useState } from "react";
 
 function ResetPasswordPage() {
@@ -23,9 +23,13 @@ function ResetPasswordPage() {
   const resetPassword = async (form) => {
     const data = await fetchResetPassword(form).then((data) => data);
     if (data.success) {
-      setApiState({ ...apiState, data: data.success });
+      setApiState({ ...apiState, success: data.success });
     }
   };
+
+  if (apiState.success) {
+    return <Redirect to="/login" />;
+  }
 
   const submitResetPassword = (e) => {
     e.preventDefault();
@@ -62,7 +66,7 @@ function ResetPasswordPage() {
           disabled={false}
           onChange={onInputChange}
         />
-        <Button type="primary" size="medium">
+        <Button type="primary" size="medium" htmlType='submit'>
           Сохранить
         </Button>
       </form>

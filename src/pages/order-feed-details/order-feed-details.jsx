@@ -1,18 +1,18 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import FeedDetailsStyles from "./order-feed-details.module.css";
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
-import { useSelector } from "react-redux";
 import FeedDetailsIngredient from "../../components/feed-details-ingredient/feed-details-ingredient";
 import { useParams } from "react-router-dom";
 import { useMemo, useEffect, useState, memo } from "react";
 import { getDate } from "../../utils/constants";
+import { useAppSelector } from "../../services/redux-hooks";
 
 function OrderFeedDetails() {
-  const allIngredients = useSelector(
+  const allIngredients = useAppSelector(
     (state) => state.apiDataReducer.allIngredients
   );
 
-  const allOrders = useSelector(
+  const allOrders = useAppSelector(
     (state) => state.wsReducer.allOrders.orders
   );
 
@@ -37,10 +37,10 @@ function OrderFeedDetails() {
   }, [ingredients, allIngredients]);
 
   const orderPrice = useMemo(() => {
-    if(ingredient.length) {
-      return ingredient.map((item) => item.price).reduce((a, b) => a + b)
+    if(ingredient?.length) {
+      return ingredient.map((item) => item?.price).reduce((a, b) => a + b)
     }
-  })
+  }, [])
 
   const { id } = useParams();
   const currentOrder = useMemo(() => {
@@ -98,7 +98,7 @@ function OrderFeedDetails() {
           >
             {orderPrice}
           </p>
-          <CurrencyIcon className={FeedDetailsStyles.currency} type="primary" />
+          <CurrencyIcon type="primary" />
         </div>
       </div>
     </div>

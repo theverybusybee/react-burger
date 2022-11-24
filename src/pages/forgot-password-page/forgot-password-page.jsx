@@ -5,7 +5,7 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { Link, Redirect } from "react-router-dom";
 import { useState, useCallback } from "react";
-import { fetchForgotPassword } from "../../utils/fetchOrderData";
+import { fetchForgotPassword } from "../../utils/fetches";
 
 function ForgotPasswordPage() {
   const [apiState, setApiState] = useState({
@@ -58,7 +58,7 @@ function ForgotPasswordPage() {
           disabled={false}
           onChange={onInputChange}
         />
-        <Button type="primary" size="medium">
+        <Button type="primary" size="medium" htmlType='submit'>
           Восстановить
         </Button>
       </form>

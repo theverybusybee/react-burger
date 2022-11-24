@@ -3,10 +3,11 @@ import {
   Input,
   Button,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 import { useState, useEffect } from "react";
 
 import { updateData } from "../../services/actions/auth";
+import { useAppSelector } from "../../services/redux-hooks";
 
 function ProfileForms() {
   const dispatch = useDispatch();
@@ -17,10 +18,10 @@ function ProfileForms() {
     password: "",
   });
 
-  const currentUserName = useSelector(
+  const currentUserName = useAppSelector(
     (state) => state.authUserReducer.userInfo.name
   );
-  const currentUserEmail = useSelector(
+  const currentUserEmail = useAppSelector(
     (state) => state.authUserReducer.userInfo.email
   );
 
@@ -36,12 +37,12 @@ function ProfileForms() {
     setForm({ email: currentUserEmail, name: currentUserName, password: "" });
   };
 
-  const updateUserData = (e) => {
+  const updateUserData = (e) => { //: React.FormEvent
     e.preventDefault();
     dispatch(updateData(form.name, form.email));
   };
 
-  const onInputChange = (e) => {
+  const onInputChange = (e) => { //: React.ChangeEvent<HTMLInputElement>
     e.preventDefault();
     setForm({ ...form, [e.target.name]: e.target.value });
   };

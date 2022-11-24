@@ -24,14 +24,19 @@ export type TOrders = {
   number: number;
 };
 
-export type TUserData = {
+export type TFetchRegister = {
   readonly name: string;
   readonly email: string;
   readonly password: string;
 };
 
+export type TFetchLogin = {
+  readonly name: string;
+  readonly email: string;
+};
+
 export type TApiUserData = {
-  readonly user: {
+  user: {
     readonly name: string;
     readonly email: string;
   };
@@ -40,6 +45,15 @@ export type TApiUserData = {
 export type TUserDataParams = {
   readonly name: string;
   readonly email: string;
+};
+
+export type TForgotPassword = {
+  readonly email: string;
+};
+
+export type TResetPassword = {
+  readonly password: string;
+  readonly token: string;
 };
 
 export type useAppParams = {

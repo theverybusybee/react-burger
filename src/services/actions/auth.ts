@@ -3,10 +3,10 @@ import {
   fetchRegister,
   fetchLogin,
   fetchLogout,
+  fetchToken,
   updateUserData,
   getUserData,
-} from "../../utils/fetchOrderData";
-import { fetchToken } from "../../utils/fetchOrderData";
+} from "../../utils/fetches";
 import {
   FETCH_AUTH_REQUEST,
   FETCH_AUTH_SUCCESS,
@@ -149,7 +149,7 @@ export function logoutFromAccount() {
   return function (dispatch: TAppDispatch) {
     dispatch({ type: FETCH_AUTH_REQUEST });
     fetchLogout()
-      .then((res) => {
+      .then((res: any) => {
         if (res && res.success) {
           dispatch({
             type: DELETE_USER,

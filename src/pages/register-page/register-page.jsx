@@ -69,7 +69,7 @@ function RegisterPage() {
           onChange={onInputChange}
         />
 
-        <Button type="primary" size="medium">
+        <Button type="primary" size="medium" htmlType='submit'>
           Зарегистрироваться
         </Button>
       </form>
