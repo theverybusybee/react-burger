@@ -1,13 +1,16 @@
+import { Middleware, MiddlewareAPI } from "redux";
+import { TMiddlewareWSActions } from "../actions/ws-actions";
 import { OPEN, CLOSING, CLOSED } from "../constants/ws-actions";
+import { TAppDispatch, TRootState } from "../store";
 
-export const socketMiddleware = (wsUrl, wsActions) => {
-  return (store) => {
-    let socket = null;
-
+export const socketMiddleware = (wsUrl: string, wsActions: TMiddlewareWSActions): Middleware => {
+  return (store: MiddlewareAPI<TAppDispatch, TRootState>) => {
+    let socket: null | WebSocket = null;
+    console.log(socket)
     const { wsInit, onOpen, onError, onClose, onMessage } = wsActions;
 
     return (next) => (action) => {
-      const { dispatch, getState } = store;
+      const { dispatch } = store;
       const { type, payload } = action;
 
       if (type === onClose && socket) {

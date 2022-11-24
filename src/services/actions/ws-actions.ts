@@ -1,11 +1,26 @@
 import {
+  WS_CONNECTION_START,
   WS_CONNECTION_SUCCESS,
   WS_CONNECTION_ERROR,
   WS_CONNECTION_CLOSED,
   WS_GET_ORDERS,
   WS_SEND_MESSAGE,
+  wsActions,
 } from "../constants/ws-actions";
 import { TOrders } from "../types/data";
+
+// export const wsActions = {
+//   wsInit: WS_CONNECTION_START,
+//   wsSendMessage: WS_SEND_MESSAGE,
+//   onOpen: WS_CONNECTION_SUCCESS,
+//   onClose: WS_CONNECTION_CLOSED,
+//   onError: WS_CONNECTION_ERROR,
+//   onMessage: WS_GET_ORDERS,
+// };
+
+export interface IWSConnectionStartAction {
+  readonly type: typeof WS_CONNECTION_START;
+}
 
 export interface IWSConnectionSuccessAction {
   readonly type: typeof WS_CONNECTION_SUCCESS;
@@ -30,11 +45,20 @@ export interface IWSGetOrdersAction {
   };
 }
 
+export interface IWSConnectionSendMessage {
+  readonly type: typeof WS_SEND_MESSAGE;
+}
+
+export type TMiddlewareWSActions = typeof wsActions;
+
+
 export type TWSActions =
+  | IWSConnectionStartAction
   | IWSConnectionSuccessAction
   | IWSConnectionErrorAction
   | IWSConnectionClosedAction
-  | IWSGetOrdersAction;
+  | IWSGetOrdersAction
+  | IWSConnectionSendMessage;
 
 export const wsConnectionSuccess = () => {
   return {

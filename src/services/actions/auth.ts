@@ -79,7 +79,7 @@ export function setRegister(form: any) {
           dispatch({ type: SET_LOGIN_STATUS });
           const authToken = res.accessToken.split("Bearer ")[1];
           const refreshToken = res.refreshToken;
-          setCookie("token", authToken);
+          setCookie("token", authToken, {});
           localStorage.setItem("refreshToken", refreshToken);
         } else {
           dispatch({ type: FETCH_AUTH_ERROR });
@@ -109,7 +109,7 @@ export function authenticateUser(form: any) {
           });
           const authToken = res.accessToken.split("Bearer ")[1];
           const refreshToken = res.refreshToken;
-          setCookie("token", authToken);
+          setCookie("token", authToken, {});
           localStorage.setItem("refreshToken", refreshToken);
         } else {
           dispatch({ type: FETCH_AUTH_ERROR });
@@ -132,7 +132,7 @@ export function refreshAccessToken() {
           deleteCookie("token");
           localStorage.removeItem("refreshToken");
           const authToken = res.accessToken.split("Bearer ")[1];
-          setCookie("token", authToken);
+          setCookie("token", authToken, {});
           localStorage.setItem("refreshToken", res.refreshToken);
           dispatch({ type: FETCH_REFRESH_TOKEN_SUCCESS });
         }
