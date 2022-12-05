@@ -17,7 +17,7 @@ import {
   FETCH_REFRESH_TOKEN_SUCCESS,
   FETCH_REFRESH_TOKEN_ERROR,
 } from "../constants/auth";
-import { TApiUserData, TFetchLogin, TFetchRegister } from "../types/data";
+import { TApiUserData, TFetchLogin, TFetchRegister, TUserDataParams } from "../types/data";
 import { TAppDispatch } from "../store";
 
 export interface IAuthRequestAction {
@@ -167,10 +167,10 @@ export function logoutFromAccount() {
 }
 
 // обновление данных профиля
-export function updateData(name: string, email: string) {
+export function updateData(form: TUserDataParams) {
   return function (dispatch: TAppDispatch) {
     dispatch({ type: FETCH_AUTH_REQUEST });
-    updateUserData(name, email)
+    updateUserData(form)
       .then((res) => {
         if (res && res.success) {
           dispatch({

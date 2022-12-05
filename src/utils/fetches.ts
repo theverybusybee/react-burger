@@ -4,6 +4,7 @@ import {
   TForgotPassword,
   TIngredient,
   TResetPassword,
+  TUserDataParams
 } from "../services/types/data";
 import { baseUrl, checkResponse, baseAuthUrl } from "./constants";
 import { getCookie } from "./cookie";
@@ -162,7 +163,7 @@ export const fetchToken = () => {
   return fetch(`${baseAuthUrl}/token`, requestOptions).then(checkResponse);
 };
 
-export const updateUserData = (name: string, email: string) => {
+export const updateUserData = (form: TUserDataParams) => {
   const requestOptions: TRequestOptions = {
     method: "PATCH",
     mode: "cors",
@@ -174,10 +175,7 @@ export const updateUserData = (name: string, email: string) => {
     },
     redirect: "follow",
     referrerPolicy: "no-referrer",
-    body: JSON.stringify({
-      name: name,
-      email: email,
-    }),
+    body: JSON.stringify(form),
   };
 
   return fetch(`${baseAuthUrl}/user`, requestOptions).then(checkResponse);

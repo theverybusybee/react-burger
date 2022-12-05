@@ -7,10 +7,10 @@ import { useDispatch } from "react-redux";
 import { useState, useEffect } from "react";
 
 import { updateData } from "../../services/actions/auth";
-import { useAppSelector } from "../../services/redux-hooks";
+import { useAppDispatch, useAppSelector } from "../../services/redux-hooks";
 
 function ProfileForms() {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   const [form, setForm] = useState({
     email: "",
@@ -37,12 +37,12 @@ function ProfileForms() {
     setForm({ email: currentUserEmail, name: currentUserName, password: "" });
   };
 
-  const updateUserData = (e) => { //: React.FormEvent
+  const updateUserData = (e: React.FormEvent) => {
     e.preventDefault();
-    dispatch(updateData(form.name, form.email));
+    dispatch(updateData({name: form.name, email: form.email}));
   };
 
-  const onInputChange = (e) => { //: React.ChangeEvent<HTMLInputElement>
+  const onInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
     setForm({ ...form, [e.target.name]: e.target.value });
   };

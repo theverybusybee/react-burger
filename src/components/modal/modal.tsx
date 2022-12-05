@@ -6,10 +6,15 @@ import { createPortal } from "react-dom";
 import ModalOverlay from "../modal-overlay/modal-overlay";
 import { modalsRoot } from "../../utils/constants";
 
-function Modal({ children, isOpened, onClose }) {
+interface IModal {
+  children: any;
+  isOpened: boolean;
+  onClose: () => void;
+}
 
+function Modal({ children, isOpened, onClose }: IModal) {
   useEffect(() => {
-    const handleEscClose = (evt) => {
+    const handleEscClose = (evt: KeyboardEvent) => {
       if (evt.key === "Escape") {
         onClose();
       }
@@ -29,7 +34,7 @@ function Modal({ children, isOpened, onClose }) {
         {children}
       </div>
     </ModalOverlay>,
-    modalsRoot
+    modalsRoot!
   );
 }
 
