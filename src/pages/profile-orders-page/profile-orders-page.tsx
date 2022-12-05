@@ -1,4 +1,3 @@
-import { useDispatch } from "react-redux";
 import { useEffect } from "react";
 import {
   WS_CONNECTION_START,
@@ -10,9 +9,10 @@ import profileOrdersStyles from "./profile-orders-page.module.css";
 import { getCookie } from "../../utils/cookie";
 import ProfileOrders from "../profile-orders/profile-orders";
 import Profile from "../profile/profile";
+import { useAppDispatch } from "../../services/redux-hooks";
 
 function ProfileOrdersPage() {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
     dispatch({

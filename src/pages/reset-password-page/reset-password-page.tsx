@@ -6,6 +6,7 @@ import {
 import { Link, Redirect, useHistory } from "react-router-dom";
 import { fetchResetPassword } from "../../utils/fetches";
 import { useState } from "react";
+import { TResetPassword } from "../../services/types/data";
 
 function ResetPasswordPage() {
   const [formState, setFormState] = useState({
@@ -20,7 +21,7 @@ function ResetPasswordPage() {
     success: false,
   });
 
-  const resetPassword = async (form) => {
+  const resetPassword = async (form: TResetPassword) => {
     const data = await fetchResetPassword(form).then((data) => data);
     if (data.success) {
       setApiState({ ...apiState, success: data.success });
@@ -31,7 +32,7 @@ function ResetPasswordPage() {
     return <Redirect to="/login" />;
   }
 
-  const submitResetPassword = (e) => {
+  const submitResetPassword = (e: React.FormEvent) => {
     e.preventDefault();
     resetPassword(formState);
     if (apiState.success) {
@@ -39,8 +40,9 @@ function ResetPasswordPage() {
     }
   };
 
-  const onInputChange = (e) => {
-    setFormState({ ...formState, [e.target.name]: e.target.value });
+  const onInputChange = (e: React.FormEvent<HTMLInputElement>) => {
+    const target = e.target as HTMLInputElement;
+    setFormState({ ...formState, [target.name]: target.value });
   };
 
   return (
@@ -66,7 +68,7 @@ function ResetPasswordPage() {
           disabled={false}
           onChange={onInputChange}
         />
-        <Button type="primary" size="medium" htmlType='submit'>
+        <Button type="primary" size="medium" htmlType="submit">
           Сохранить
         </Button>
       </form>

@@ -1,9 +1,9 @@
 import ProfileOrdersStyles from "./profile-orders.module.css";
 import OrderFeedCard from "../../components/order-feed-card/order-feed-card";
-import { useSelector } from "react-redux";
+import { useAppSelector } from "../../services/redux-hooks";
 
 function ProfileOrders() {
-  const orders = useSelector((state) => state.wsReducer.allOrders.orders);
+  const orders = useAppSelector((state) => state.wsReducer.allOrders.orders);
   const upToDateOrders = [...orders].reverse();
 
   return upToDateOrders ? (

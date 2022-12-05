@@ -6,6 +6,7 @@ import {
 import { Link, Redirect } from "react-router-dom";
 import { useState, useCallback } from "react";
 import { fetchForgotPassword } from "../../utils/fetches";
+import { TForgotPassword } from "../../services/types/data";
 
 function ForgotPasswordPage() {
   const [apiState, setApiState] = useState({
@@ -18,11 +19,12 @@ function ForgotPasswordPage() {
     email: "",
   });
 
-  const onInputChange = (e) => {
-    setFormState({ ...formState, [e.target.name]: e.target.value });
+  const onInputChange = (e: React.FormEvent<HTMLInputElement>) => {
+    const target = e.target as HTMLInputElement;
+    setFormState({ ...formState, [target.name]: target.value });
   };
 
-  const resetPassword = async (form) => {
+  const resetPassword = async (form: TForgotPassword) => {
     const data = await fetchForgotPassword(form).then((data) => data);
     if (data.success) {
       setApiState({ ...apiState, data: data });
@@ -30,7 +32,7 @@ function ForgotPasswordPage() {
   };
 
   const push = useCallback(
-    (e) => {
+    (e: React.FormEvent) => {
       e.preventDefault();
       resetPassword(formState);
     },
@@ -38,7 +40,7 @@ function ForgotPasswordPage() {
     [formState]
   );
 
-  if (apiState.data.success) {
+  if (apiState.data) {
     return <Redirect to="/reset-password" />;
   }
 
