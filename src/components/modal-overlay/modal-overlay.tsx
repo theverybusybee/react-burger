@@ -1,9 +1,15 @@
 import modalOverlayStyles from "./modal-overlay.module.css";
 import PropTypes from "prop-types";
 
-export default function ModalOverlay({ children, onClose }) {
-  const handleCloseModal = (evt) => {
-    if (evt.target.id === "ModalOverlay") {
+interface IModalOverlay {
+  children: any, 
+  onClose: () => void,
+}
+
+export default function ModalOverlay({ children, onClose }: IModalOverlay) {
+  const handleCloseModal = (e: React.SyntheticEvent) => {
+   const target = e.target as HTMLInputElement;
+    if (target.id === "ModalOverlay") {
       onClose();
     }
   };

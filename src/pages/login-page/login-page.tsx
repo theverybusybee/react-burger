@@ -6,25 +6,26 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { Link, Redirect, useLocation } from "react-router-dom";
 import { useState, useCallback } from "react";
-import { useDispatch, useSelector } from "react-redux";
 import { authenticateUser } from "../../services/actions/auth";
+import { useAppDispatch, useAppSelector } from "../../services/redux-hooks";
 
 function LoginPage() {
-  const dispatch = useDispatch();
-  const isLogin = useSelector((state) => state.authUserReducer.isLogin);
+  const dispatch = useAppDispatch();
+  const isLogin = useAppSelector((state) => state.authUserReducer.isLogin);
   const location = useLocation();
 
   const [form, setValue] = useState({
     email: "",
     password: "",
   });
-
-  const onChange = (e) => {
-    setValue({ ...form, [e.target.name]: e.target.value });
+  console.log(form);
+  const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const target = e.target as HTMLInputElement;
+    setValue({ ...form, [target.name]: target.value });
   };
 
   const login = useCallback(
-    (e) => {
+    (e: React.FormEvent) => {
       e.preventDefault();
       dispatch(authenticateUser(form));
     },
@@ -36,7 +37,7 @@ function LoginPage() {
       <Redirect
         to={{
           pathname: "/",
-          from: location,
+          state: { from: location },
         }}
       />
     );
@@ -51,7 +52,6 @@ function LoginPage() {
         <Input
           value={form.email}
           name={"email"}
-          icon="undefined"
           placeholder="E-mail"
           onChange={onChange}
         />
@@ -62,7 +62,7 @@ function LoginPage() {
           onChange={onChange}
         />
 
-        <Button type="primary" size="medium" htmlType='submit'>
+        <Button type="primary" size="medium" htmlType="submit">
           Войти
         </Button>
       </form>

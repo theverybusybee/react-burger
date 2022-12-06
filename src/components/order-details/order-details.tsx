@@ -1,11 +1,10 @@
 import React from "react";
 import orderStyles from "./order-details.module.css";
 import { CheckMarkIcon } from "@ya.praktikum/react-developer-burger-ui-components";
-import PropTypes from "prop-types";
-import { useSelector } from "react-redux";
+import { useAppSelector } from "../../services/redux-hooks";
 
 const OrderDetails = React.memo(() => {
-  const createdOrderNumber = useSelector(
+  const createdOrderNumber = useAppSelector(
     (state) => state.apiDataReducer.createdOrderNumber
   );
 
@@ -33,9 +32,5 @@ const OrderDetails = React.memo(() => {
     </div>
   );
 });
-
-OrderDetails.propTypes = {
-  orderData: PropTypes.number,
-};
 
 export default OrderDetails;

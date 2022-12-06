@@ -1,7 +1,12 @@
 import feedOrdersStyles from "./order-feed-orders.module.css";
 import OrderFeedCard from "../order-feed-card/order-feed-card";
+import { TFeedOrders } from "../../services/types/data";
 
-function OrderFeedOrders({data}) {
+interface IOrderFeedOrders {
+  data: TFeedOrders,
+} 
+
+function OrderFeedOrders({data}: IOrderFeedOrders) {
   return (
     <section className={feedOrdersStyles.main}>
       <h1 className={`${feedOrdersStyles.title} text text_type_main-large`}>

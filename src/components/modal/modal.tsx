@@ -14,8 +14,8 @@ interface IModal {
 
 function Modal({ children, isOpened, onClose }: IModal) {
   useEffect(() => {
-    const handleEscClose = (evt: KeyboardEvent) => {
-      if (evt.key === "Escape") {
+    const handleEscClose = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
         onClose();
       }
     };

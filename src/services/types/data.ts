@@ -19,8 +19,8 @@ export type TOrders = {
   readonly ingredients: Array<string>;
   readonly status: string;
   readonly name: string;
-  createdAt: number;
-  updatedAt: number;
+  createdAt: string;
+  updatedAt: string;
   number: number;
 };
 
@@ -31,8 +31,8 @@ export type TFetchRegister = {
 };
 
 export type TFetchLogin = {
-  readonly name: string;
   readonly email: string;
+  readonly password: string;
 };
 
 export type TApiUserData = {
@@ -58,4 +58,10 @@ export type TResetPassword = {
 
 export type useAppParams = {
   id: string;
+};
+
+export type TFeedOrders = {
+  orders: [] | readonly TOrders[];
+  total: number;
+  totalToday: number;
 };
