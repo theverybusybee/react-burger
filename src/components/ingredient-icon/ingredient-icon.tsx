@@ -3,9 +3,9 @@ import IconStyles from "./ingredient-icon.module.css";
 
 interface IIngredientIcon {
   type: string;
-  ingredient: TIngredient;
+  ingredient?: TIngredient;
   lastIngredient?: TIngredient;
-  ingredientsArray?: Array<TIngredient>;
+  ingredientsArray?: Array<string>;
   tagType: string;
 }
 
@@ -22,8 +22,8 @@ function IngredientIcon({
       <div className={IconStyles.ingredientBackground}>
         <img
           className={IconStyles.ingredientImage}
-          src={ingredient.image_large}
-          alt={ingredient.name}
+          src={ingredient!.image_large}
+          alt={ingredient!.name}
         />
       </div>
     </CustomTag>

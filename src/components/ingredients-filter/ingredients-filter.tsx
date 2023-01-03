@@ -1,6 +1,5 @@
 import { useMemo } from "react";
 import IngredientCard from "../ingredient-card/ingredient-card";
-import PropTypes from "prop-types";
 import { useAppSelector } from "../../services/redux-hooks";
 
 interface IIngredientsFilter {
@@ -16,11 +15,11 @@ export default function IngredientsFilter({ type }: IIngredientsFilter) {
     return allIngredients.filter((ingredient) => ingredient.type === type);
   }, [allIngredients, type]);
 
-  return filteredIngredients.map((ingredient) => {
-    return <IngredientCard ingredient={ingredient} key={ingredient._id} />;
-  });
+  return (
+    <>
+      {filteredIngredients.map((ingredient) => {
+        return <IngredientCard ingredient={ingredient} key={ingredient._id} />;
+      })}
+    </>
+  );
 }
-
-IngredientsFilter.propTypes = {
-  type: PropTypes.string.isRequired,
-};

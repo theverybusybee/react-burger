@@ -1,7 +1,13 @@
 import { memo } from "react";
+import { TFeedOrders } from "../../services/types/data";
 import feedStatsStyles from "./order-feed-stats.module.css";
 
-function OrderFeedStats({ data }) {
+interface IOrderFeedStats {
+  data: TFeedOrders,
+} 
+
+function OrderFeedStats({ data }: IOrderFeedStats) {
+
   const isReady = data.orders.filter((el) => el.status === "done");
   const inProcess = data.orders.filter((el) => el.status === "inProcess");
   return (

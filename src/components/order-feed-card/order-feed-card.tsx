@@ -1,21 +1,27 @@
 import OrderCardStyles from "./order-feed-card.module.css";
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { SET_CURRENT_ORDER } from "../../services/constants/feed-data";
 import { useCallback, memo, useMemo, useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { getDate } from "../../utils/constants";
 import IngredientIcon from "../ingredient-icon/ingredient-icon";
+import { useAppSelector } from "../../services/redux-hooks";
+import { TOrders } from "../../services/types/data";
 
-function OrderFeedCard({ data }) {
+interface IOrderFeedCard {
+  data: TOrders;
+}
+
+function OrderFeedCard({ data }: IOrderFeedCard) {
   const dispatch = useDispatch();
   const location = useLocation();
   const id = data._id;
-  const allIngredients = useSelector(
+  const allIngredients = useAppSelector(
     (state) => state.apiDataReducer.allIngredients
   );
 
-  const currentOrder = useSelector(
+  const currentOrder = useAppSelector(
     (state) => state.feedDataReducer.currentOrder
   );
 
@@ -26,8 +32,8 @@ function OrderFeedCard({ data }) {
       .map((item) => {
         return allIngredients.find((el) => el._id === item);
       })
-      .map((el) => el.price)
-      .reduce((a, b) => a + b);
+      .map((el) => el!.price)
+      .reduce((a, b) => a! + b!, 0);
   }, [data, allIngredients]);
 
   const openModal = useCallback(() => {

@@ -6,6 +6,7 @@ import { TIngredient, useAppParams } from "../../services/types/data";
 
 function IngredientDetails() {
   const [ingredient, setIngredient] = useState<TIngredient>({
+    _id: "",
     image: "",
     name: "",
     calories: 0,
@@ -24,6 +25,7 @@ function IngredientDetails() {
       const ingredient = allIngredients.find((el) => el._id === id);
       if (ingredient) {
         setIngredient({
+          _id: "",
           image: ingredient.image_large,
           name: ingredient.name,
           calories: ingredient.calories,
@@ -38,42 +40,44 @@ function IngredientDetails() {
   const { image, name, calories, proteins, fat, carbohydrates } = ingredient;
 
   return (
-    image && (
-      <div className={detailsStyles.main}>
-        <h2 className={`${detailsStyles.title} text text_type_main-large`}>
-          Детали ингредиента
-        </h2>
-        <figure className={detailsStyles.imgContainer}>
-          <img className={detailsStyles.img} src={image} alt={name} />
-          <figcaption
-            className={`${detailsStyles.caption} text text_type_main-medium`}
-          >
-            {name}
-          </figcaption>
-        </figure>
+    <>
+      {image && (
+        <div className={detailsStyles.main}>
+          <h2 className={`${detailsStyles.title} text text_type_main-large`}>
+            Детали ингредиента
+          </h2>
+          <figure className={detailsStyles.imgContainer}>
+            <img className={detailsStyles.img} src={image} alt={name} />
+            <figcaption
+              className={`${detailsStyles.caption} text text_type_main-medium`}
+            >
+              {name}
+            </figcaption>
+          </figure>
 
-        <table
-          className={`${detailsStyles.nutrValTable} text text_type_main-small text_color_inactive`}
-        >
-          <thead>
-            <tr>
-              <td className={detailsStyles.nutrValCell}>Калории,ккал</td>
-              <td>Белки, г</td>
-              <td>Жиры, г</td>
-              <td>Углеводы, г</td>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>{calories}</td>
-              <td>{proteins}</td>
-              <td>{fat}</td>
-              <td>{carbohydrates}</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    )
+          <table
+            className={`${detailsStyles.nutrValTable} text text_type_main-small text_color_inactive`}
+          >
+            <thead>
+              <tr>
+                <td className={detailsStyles.nutrValCell}>Калории,ккал</td>
+                <td>Белки, г</td>
+                <td>Жиры, г</td>
+                <td>Углеводы, г</td>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>{calories}</td>
+                <td>{proteins}</td>
+                <td>{fat}</td>
+                <td>{carbohydrates}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      )}
+    </>
   );
 }
 

@@ -8,7 +8,7 @@ import { modalsRoot } from "../../utils/constants";
 
 interface IModal {
   children: any;
-  isOpened: boolean;
+  isOpened?: boolean;
   onClose: () => void;
 }
 
