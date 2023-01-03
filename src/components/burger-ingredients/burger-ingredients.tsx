@@ -1,37 +1,40 @@
 import { useEffect, useRef } from "react";
-import { useDispatch } from "react-redux";
 import BurgerIngredientsStyles from "./burger-ingredients.module.css";
 import Tabs from "../tabs/tabs";
-import IngredientsFilter from "../ingredients-filter/ingredients-filter.tsx";
-import { useSelector } from "react-redux";
+import IngredientsFilter from "../ingredients-filter/ingredients-filter";
 import { TAB_NAME, TAB_SWITCH } from "../../services/constants/tab";
+import { useAppDispatch, useAppSelector } from "../../services/redux-hooks";
 
 export default function BurgerIngredients() {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
-  function getDistanceBetweenPoints(element, viewportCoords) {
+  function getDistanceBetweenPoints(
+    element: HTMLElement,
+    viewportCoords: DOMRect
+  ) {
     const coordsChild = element.getBoundingClientRect();
     return Math.abs(viewportCoords.top - coordsChild.top);
   }
 
-  const currentTab = useSelector((state) => state.tabReducer.currentTab);
-  const bunRef = useRef();
-  const sauceRef = useRef();
-  const stuffingRef = useRef();
+  const currentTab = useAppSelector((state) => state.tabReducer.currentTab);
+  const bunRef = useRef<HTMLInputElement>(null);
+  const sauceRef = useRef<HTMLInputElement>(null);
+  const stuffingRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     function changeTab() {
       const viewportCoords = document
         .getElementById("scroll")
-        .getBoundingClientRect();
-      getDistanceBetweenPoints(bunRef.current, viewportCoords) <
-      getDistanceBetweenPoints(sauceRef.current, viewportCoords)
+        ?.getBoundingClientRect();
+      console.log(`viewportCoords ${viewportCoords}`);
+      getDistanceBetweenPoints(bunRef.current!, viewportCoords!) <
+      getDistanceBetweenPoints(sauceRef.current!, viewportCoords!)
         ? dispatch({
             type: TAB_SWITCH,
             value: TAB_NAME.BUN,
           })
-        : getDistanceBetweenPoints(sauceRef.current, viewportCoords) <
-          getDistanceBetweenPoints(stuffingRef.current, viewportCoords)
+        : getDistanceBetweenPoints(sauceRef.current!, viewportCoords!) <
+          getDistanceBetweenPoints(stuffingRef.current!, viewportCoords!)
         ? dispatch({
             type: TAB_SWITCH,
             value: TAB_NAME.SAUCE,
@@ -43,17 +46,17 @@ export default function BurgerIngredients() {
     }
 
     const scrollSection = document.getElementById("scroll");
-    scrollSection.addEventListener("scroll", changeTab);
-    return () => scrollSection.removeEventListener("scroll", changeTab);
+    scrollSection?.addEventListener("scroll", changeTab);
+    return () => scrollSection?.removeEventListener("scroll", changeTab);
   }, [dispatch]);
 
-  const onTabClick = (evt) => {
+  const onTabClick = (e: string) => {
     dispatch({
       type: TAB_SWITCH,
-      value: evt,
+      value: e,
     });
-    const paragraph = document.getElementById(evt);
-    paragraph.scrollIntoView({ behavior: "smooth" });
+    const paragraph = document.getElementById(e);
+    paragraph?.scrollIntoView({ behavior: "smooth" });
   };
 
   return (

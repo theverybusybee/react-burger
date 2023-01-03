@@ -17,7 +17,6 @@ import {
   OrderFeedDetails,
 } from "../../pages/index";
 import ProtectedRoute from "../protected-route/protected-route";
-import { useDispatch, useSelector } from "react-redux";
 import Modal from "../modal/modal";
 import IngredientDetails from "../ingredient-details/ingredient-details";
 import ProfileForm from "../profile-forms/profile-forms";
@@ -27,22 +26,25 @@ import NotFound from "../../pages/not-found-page/not-found-page";
 import { getData } from "../../services/actions/auth";
 import { SET_LOGIN_STATUS } from "../../services/constants/auth";
 import { getCookie } from "../../utils/cookie";
+import { useAppDispatch, useAppSelector } from "../../services/redux-hooks";
+import { TUseLocation } from "../../services/types/data";
 
 function App() {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const history = useHistory();
-  const location = useLocation();
+  const location = useLocation<TUseLocation>();
   const { hasError, isLoading, data } = useFetchIngredients();
-  const isLogin = useSelector((state) => state.authUserReducer.isLogin);
+  const isLogin = useAppSelector((state) => state.authUserReducer.isLogin);
   function closePopup() {
     history.goBack();
   }
-  const background = location.state?.background;
+  const background = location?.state?.background;
+  console.log(background);
 
   const token = getCookie("token");
 
   const isTokenExist = !!localStorage.getItem("refreshToken");
-  const isTokenUpdated = useSelector(
+  const isTokenUpdated = useAppSelector(
     (state) => state.apiDataReducer.isTokenUpdated
   );
 
@@ -72,37 +74,29 @@ function App() {
             </DndProvider>
           </Route>
 
-          <ProtectedRoute
-            path="/profile"
-            exact={true}
+                   <ProtectedRoute
+            path="/profile/orders"
             isAuth={isLogin}
             anonymous={false}
           >
+            <ProfileOrdersPage />
+          </ProtectedRoute>
+
+          <ProtectedRoute path="/profile" isAuth={isLogin} anonymous={false}>
             <Profile>
               <ProfileForm />
             </Profile>
           </ProtectedRoute>
 
-          <ProtectedRoute
-            path="/login"
-            exact={true}
-            anonymous={true}
-            isAuth={isLogin}
-          >
+          <ProtectedRoute path="/login" anonymous={true} isAuth={isLogin}>
             <LoginPage />
           </ProtectedRoute>
 
-          <ProtectedRoute
-            path="/register"
-            exact={true}
-            anonymous={true}
-            isAuth={isLogin}
-          >
+          <ProtectedRoute path="/register" anonymous={true} isAuth={isLogin}>
             <RegisterPage />
           </ProtectedRoute>
           <ProtectedRoute
             path="/forgot-password"
-            exact={true}
             anonymous={true}
             isAuth={isLogin}
           >
@@ -110,7 +104,6 @@ function App() {
           </ProtectedRoute>
           <ProtectedRoute
             path="/reset-password"
-            exact={true}
             anonymous={true}
             isAuth={isLogin}
           >
@@ -125,13 +118,7 @@ function App() {
           <Route path="/feed">
             <OrderFeedPage />
           </Route>
-          <ProtectedRoute
-            path="/profile/orders"
-            isAuth={isLogin}
-            anonymous={false}
-          >
-            <ProfileOrdersPage isAuth={isLogin} />
-          </ProtectedRoute>
+ 
           <Route path="*">
             <NotFound />
           </Route>
