@@ -1,4 +1,3 @@
-import { useDispatch } from "react-redux";
 import { useEffect } from "react";
 import {
   WS_CONNECTION_START,
@@ -8,9 +7,10 @@ import { Route, Switch } from "react-router-dom";
 import FeedMainPage from "../feed-main-page/feed-main-page";
 import OrderFeedDetails from "../order-feed-details/order-feed-details";
 import feedStyles from './order-feed-page.module.css'
+import { useAppDispatch } from "../../services/redux-hooks";
 
 function OrderFeedPage() {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
     dispatch({

@@ -3,7 +3,6 @@ import {
   Input,
   Button,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import { useDispatch } from "react-redux";
 import { useState, useEffect } from "react";
 
 import { updateData } from "../../services/actions/auth";

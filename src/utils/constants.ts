@@ -12,16 +12,29 @@ export const modalsRoot = document.querySelector("#react-modals");
 
 export const getDate = (setDate: string) => {
   const enteringDate = new Date(setDate);
-  const enter = enteringDate.toLocaleDateString("ru").slice(0, 2)
+  const currentDate = new Date();
+  const enterDay = enteringDate.toLocaleDateString("ru").slice(0, 2);
   const hours = enteringDate.getHours();
   const minutes = enteringDate.getMinutes();
-  const today = new Date().toLocaleDateString("ru").slice(0, 2)
+  const today = currentDate.toLocaleDateString("ru").slice(0, 2);
+  const gotMonth = enteringDate.getMonth();
+  const currentMonth = currentDate.getMonth();
+  const gotYear = enteringDate.getFullYear();
+  const currentYear = currentDate.getFullYear();
+
   const day = (() => {
-    if ((Number(today) - Number(enter)) === 0) {
-      return 'Сегодня';
-    } else if((Number(today) - Number(enter)) === 1 ) {
-      return "Вчера";
-    } else return enteringDate.toLocaleDateString("ru", {timeZone: 'Europe/Moscow'});
+    if (gotMonth === currentMonth && gotYear === currentYear) {
+      switch (Number(today) - Number(enterDay)) {
+        case 0:
+          return "Сегодня";
+        case 1:
+          return "Вчера";
+      }
+    }
+     return enteringDate.toLocaleDateString("ru", {
+        timeZone: "Europe/Moscow",
+      });
   })();
+
   return `${day}, ${hours}:${minutes} i-GMT+3`;
 };

@@ -9,7 +9,7 @@ import profileOrdersStyles from "./profile-orders-page.module.css";
 import { getCookie } from "../../utils/cookie";
 import ProfileOrders from "../profile-orders/profile-orders";
 import Profile from "../profile/profile";
-import { useAppDispatch } from "../../services/redux-hooks";
+import { useAppDispatch, useAppSelector } from "../../services/redux-hooks";
 
 function ProfileOrdersPage() {
   const dispatch = useAppDispatch();
@@ -25,7 +25,8 @@ function ProfileOrdersPage() {
       dispatch({ type: WS_CONNECTION_CLOSED });
     };
   }, []);
-
+  const orders = useAppSelector((state) => state.wsReducer.allOrders.orders);
+  console.log(orders)
   return (
     <Switch>
       <Route path="/profile/orders" exact={true}>

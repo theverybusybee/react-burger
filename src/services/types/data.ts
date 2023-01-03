@@ -15,8 +15,8 @@ export type TIngredient = {
 };
 
 export type TOrders = {
-  readonly _id: string;
-  readonly ingredients: Array<string>;
+  _id: string;
+  ingredients: Array<string>;
   readonly status: string;
   readonly name: string;
   createdAt: string;
@@ -64,4 +64,13 @@ export type TFeedOrders = {
   orders: [] | readonly TOrders[];
   total: number;
   totalToday: number;
+};
+
+export type TUseLocation = {
+  background: {
+    state: Object;
+    pathname: string;
+    search: string;
+    hash: string;
+  };
 };

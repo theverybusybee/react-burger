@@ -6,12 +6,13 @@ import {
 import { Link } from "react-router-dom";
 import registerStyles from "./register-page.module.css";
 import { useState, useCallback } from "react";
-import { useDispatch } from "react-redux";
 import { setRegister } from "../../services/actions/auth";
+import { useAppDispatch } from "../../services/redux-hooks";
+import { TFetchRegister } from "../../services/types/data";
 
 function RegisterPage() {
 
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   const [formState, setFormState] = useState({
     email: "",
@@ -19,16 +20,17 @@ function RegisterPage() {
     password: "",
   });
 
-  const registerUser = (form) => {
+  const registerUser = (form: TFetchRegister) => {
     dispatch(setRegister(form));
   };
 
-  const onInputChange = (e) => {
-    setFormState({ ...formState, [e.target.name]: e.target.value });
+  const onInputChange = (e: React.FormEvent<HTMLInputElement>) => {
+    const target = e.target as HTMLInputElement;
+    setFormState({ ...formState, [target.name]: target.value });
   };
 
   const push = useCallback(
-    (e) => {
+    (e: React.FormEvent) => {
       e.preventDefault();
       registerUser(formState);
     },
@@ -58,7 +60,6 @@ function RegisterPage() {
         <Input
           value={formState.email}
           name={"email"}
-          icon="undefined"
           placeholder="E-mail"
           onChange={onInputChange}
         />

@@ -4,6 +4,7 @@ type TProtectedRoute = {
   anonymous: boolean;
   isAuth: boolean;
   children: any;
+  path: string;
 };
 
 interface stateType {
@@ -14,6 +15,7 @@ export default function ProtectedRoute({
   anonymous = false,
   isAuth,
   children,
+  path,
   ...rest
 }: TProtectedRoute) {
   const location = useLocation<stateType>();
@@ -26,5 +28,5 @@ export default function ProtectedRoute({
     return <Redirect to={{ pathname: "/login", state: { from: location } }} />;
   }
 
-  return <Route {...rest}>{children}</Route>;
+  return <Route exact={true} {...rest}>{children}</Route>;
 }

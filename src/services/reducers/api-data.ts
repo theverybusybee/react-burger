@@ -18,7 +18,7 @@ import { TApiDataActions } from "../actions/api-data";
 import { TTokenActions } from "../actions/auth";
 
 type TApiDataState = {
-  allIngredients: ReadonlyArray<TIngredient>;
+  allIngredients: Array<TIngredient>;
   allIngredientsRequest: boolean;
   allIngredientsFailed: boolean;
 

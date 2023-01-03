@@ -9,15 +9,6 @@ import {
 } from "../constants/ws-actions";
 import { TOrders } from "../types/data";
 
-// export const wsActions = {
-//   wsInit: WS_CONNECTION_START,
-//   wsSendMessage: WS_SEND_MESSAGE,
-//   onOpen: WS_CONNECTION_SUCCESS,
-//   onClose: WS_CONNECTION_CLOSED,
-//   onError: WS_CONNECTION_ERROR,
-//   onMessage: WS_GET_ORDERS,
-// };
-
 export interface IWSConnectionStartAction {
   readonly type: typeof WS_CONNECTION_START;
 }

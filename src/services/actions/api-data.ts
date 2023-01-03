@@ -24,7 +24,7 @@ export interface IGetIngredientActionFailed {
 
 export interface IGetIngredientActionSuccess {
   readonly type: typeof GET_INGREDIENTS_SUCCESS;
-  payload: ReadonlyArray<TIngredient>;
+  payload: Array<TIngredient>;
 }
 
 export interface IGetOrderNumberAction {
