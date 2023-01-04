@@ -26,7 +26,6 @@ export default function BurgerIngredients() {
       const viewportCoords = document
         .getElementById("scroll")
         ?.getBoundingClientRect();
-      console.log(`viewportCoords ${viewportCoords}`);
       getDistanceBetweenPoints(bunRef.current!, viewportCoords!) <
       getDistanceBetweenPoints(sauceRef.current!, viewportCoords!)
         ? dispatch({

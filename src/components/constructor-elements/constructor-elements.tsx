@@ -1,13 +1,12 @@
-import React from "react";
 import {
   ConstructorElement,
   DragIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import ConstructorElementsStyles from "./constructor-elements.module.css";
-import { useDispatch } from "react-redux";
 import { REMOVE_CONSTRUCTOR_ELEMENT } from "../../services/constants/drop-container";
 import { useMotionValue, Reorder } from "framer-motion";
 import { TIngredient } from "../../services/types/data";
+import { useAppDispatch } from "../../services/redux-hooks";
 
 interface IConstructorElements {
   ingredient: TIngredient;
@@ -20,7 +19,7 @@ const ConstructorElements = ({
   type,
   isLocked,
 }: IConstructorElements) => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const y = useMotionValue(0);
 
   const handleClose = () => {

@@ -1,12 +1,11 @@
 import OrderCardStyles from "./order-feed-card.module.css";
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
-import { useDispatch } from "react-redux";
 import { SET_CURRENT_ORDER } from "../../services/constants/feed-data";
 import { useCallback, memo, useMemo, useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { getDate } from "../../utils/constants";
 import IngredientIcon from "../ingredient-icon/ingredient-icon";
-import { useAppSelector } from "../../services/redux-hooks";
+import { useAppDispatch, useAppSelector } from "../../services/redux-hooks";
 import { TOrders } from "../../services/types/data";
 
 interface IOrderFeedCard {
@@ -14,7 +13,7 @@ interface IOrderFeedCard {
 }
 
 function OrderFeedCard({ data }: IOrderFeedCard) {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const location = useLocation();
   const id = data._id;
   const allIngredients = useAppSelector(

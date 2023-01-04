@@ -18,7 +18,6 @@ function LoginPage() {
     email: "",
     password: "",
   });
-  console.log(form);
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const target = e.target as HTMLInputElement;
     setValue({ ...form, [target.name]: target.value });

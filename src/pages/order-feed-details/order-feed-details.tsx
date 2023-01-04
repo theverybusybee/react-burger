@@ -64,8 +64,6 @@ function OrderFeedDetails() {
     return ingredient!.map((item) => item?.price).reduce((a, b) => a! + b!, 0);
   }, [ingredient]);
 
-  console.log(orderPrice);
-
   return !!ingredients || ingredient ? (
     <div className={FeedDetailsStyles.main}>
       <p

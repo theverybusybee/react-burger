@@ -6,17 +6,16 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useDrag } from "react-dnd";
 import { Link, useLocation } from "react-router-dom";
-import { useDispatch } from "react-redux";
 import { SET_MODAL_INGREDIENT } from "../../services/constants/modal";
 import { TIngredient } from "../../services/types/data";
-import { useAppSelector } from "../../services/redux-hooks";
+import { useAppDispatch, useAppSelector } from "../../services/redux-hooks";
 
 interface IIngredientCard {
   ingredient: TIngredient;
 }
 
 const IngredientCard = React.memo(({ ingredient }: IIngredientCard) => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const location = useLocation();
   const id = ingredient._id;
 
@@ -61,21 +60,14 @@ const IngredientCard = React.memo(({ ingredient }: IIngredientCard) => {
           >
             {ingredient.price}
           </p>
-          <CurrencyIcon
-            type="primary"
-          />
+          <CurrencyIcon type="primary" />
         </div>
         <h2
           className={`${IngredientCardStyles.name} text text_type_main-small`}
         >
           {ingredient.name}
         </h2>
-        {qty ? (
-          <Counter
-            count={qty}
-            size="default"
-          />
-        ) : null}
+        {qty ? <Counter count={qty} size="default" /> : null}
       </li>
     </Link>
   );

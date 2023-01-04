@@ -39,10 +39,7 @@ function App() {
     history.goBack();
   }
   const background = location?.state?.background;
-  console.log(background);
-
   const token = getCookie("token");
-
   const isTokenExist = !!localStorage.getItem("refreshToken");
   const isTokenUpdated = useAppSelector(
     (state) => state.apiDataReducer.isTokenUpdated
