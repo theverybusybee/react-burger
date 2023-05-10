@@ -1,5 +1,6 @@
 {
   "name": "react-burger",
+  "homepage": "https://theverybusybee.github.io/react-burger/",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -11,7 +12,10 @@
     "@types/node": "^16.11.47",
     "@types/react": "^18.0.16",
     "@types/react-dom": "^18.0.6",
-    "@ya.praktikum/react-developer-burger-ui-components": "^1.13.1",
+    "@types/react-router-dom": "^5.3.3",
+    "@types/websocket": "^1.0.5",
+    "@ya.praktikum/react-developer-burger-ui-components": "^1.14.0",
+    "aria-query": "^5.1.3",
     "framer-motion": "^7.3.5",
     "react": "^18.2.0",
     "react-dnd": "^16.0.1",
@@ -55,7 +59,7 @@
     ]
   },
   "devDependencies": {
+    "@types/uuid": "^8.3.4",
     "gh-pages": "^4.0.0"
-  },
-  "homepage": "./"
+  }
 }
