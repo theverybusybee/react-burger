@@ -98,10 +98,10 @@ function OrderFeedCard({ data }: IOrderFeedCard) {
         </p>
         <ul className={OrderCardStyles.ingredients}>
           {foundIngredients
-            .slice(
-              -(foundIngredients.length - 1 > 5
+            .slice(0, 
+            foundIngredients.length - 1 > 5
                 ? 5
-                : foundIngredients.length - 1)
+                : foundIngredients.length - 1
             )
             ?.map((item, index) => {
               return (
