@@ -30,6 +30,12 @@
 
 ![Alt text](./src/images/demo.png "demo")
 
+## Клонирование репозитория 
+
+```bash
+$ git clone git@github.com:theverybusybee/react-burger.git
+```
+
 ## Установка зависимостей и запуск проекта
 
 #### install dependencies
