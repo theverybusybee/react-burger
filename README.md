@@ -16,20 +16,24 @@
 
 ## Установка зависимостей и запуск проекта
 
-```
-# install dependencies
+#### install dependencies
+```bash
 $ npm install
+```
 
-# build project
+#### build project
+```bash
 $ npm run build
+```
 
-# run prod mode
+#### run prod mode
+```bash
 $ npm run start
+```
 
-# run eslint
-$ npm run eslint
-
-# run test
+#### run test
+```bash
+$ npm run test
 ```
 
 ## Links
