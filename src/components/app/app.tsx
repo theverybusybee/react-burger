@@ -71,7 +71,7 @@ function App() {
             </DndProvider>
           </Route>
 
-                   <ProtectedRoute
+          <ProtectedRoute
             path="/profile/orders"
             isAuth={isLogin}
             anonymous={false}
@@ -115,7 +115,7 @@ function App() {
           <Route path="/feed">
             <OrderFeedPage />
           </Route>
- 
+
           <Route path="*">
             <NotFound />
           </Route>

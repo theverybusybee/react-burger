@@ -1,46 +1,54 @@
-# Getting Started with Create React App
+# Stellar burgers - космическая бургерная 
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Tech Stack
+![HTML5](https://img.shields.io/badge/-HTML5-black?style=flat-square&logo=html5&logoColor=white)
+![CSS3](https://img.shields.io/badge/-CSS3-black?style=flat-square&logo=css3)
+![JavaScript](https://img.shields.io/badge/-JavaScript-black?style=flat-square&logo=javascript)
+![TypeScript](https://img.shields.io/badge/-TypeScript-black?style=flat-square&logo=typescript)
+![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)
+![Redux](https://img.shields.io/badge/Redux-593D88?style=for-the-badge&logo=redux&logoColor=white)
+![WebSocket](https://img.shields.io/badge/WebSocket-black)
+![ReactDnD](https://img.shields.io/badge/react-dnd-black)
+![uuidv4](https://img.shields.io/badge/uuidv4-purple)
 
-## Available Scripts
+## Description
+  Доставка космической бургерной. Проект написан при помощи библиотек React, Redux, Drag-n-Drop и обладает разнообразным функционалом: 
+- Данные ингредиентов загружаются с сервера;
+- При нажатии на ингредиент открывается модальное окно с подробным описанием ингредиента;
+- Чтобы добавить ингредиент в бургер, перетащите его в конструктор;
+- При перетаскивании ингредиента срабатывает счетчик его количества и пересчитывается итоговая стоимость заказа;
+- Есть возможность удалить ингредиент;
+- Можно установить желаемый порядок ингредиентов в бургере при помощи перетаскивания;
+- При оформлении заказа, на сервер отправляются все ингредиенты в заказе, а в ответ с сервера приходит номер заказа.
+- Есть авторизация, регистрация, восстановление пароля, личный кабинет пользователя. 
+- Можно посмотреть историю заказов.
+При написании проекта использовались функциональные компоненты и подключение WebSocket для непрерывного обновления данных в реальном времени.
 
-In the project directory, you can run:
+## Demo
+![Alt text](./src/images/demo.png "demo")
 
-### `npm start`
+## Установка зависимостей и запуск проекта
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+#### install dependencies
+```bash
+$ npm install
+```
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+#### build project
+```bash
+$ npm run build
+```
 
-### `npm test`
+#### run prod mode
+```bash
+$ npm run start
+```
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+#### run test
+```bash
+$ npm run test
+```
 
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+## Links
+* [Link to figma](https://www.figma.com/file/zFGN2O5xktHl9VmoOieq5E/React-_-%D0%9F%D1%80%D0%BE%D0%B5%D0%BA%D1%82%D0%BD%D1%8B%D0%B5-%D0%B7%D0%B0%D0%B4%D0%B0%D1%87%D0%B8_external_link)
+* [React Developer Burger UI Components](https://yandex-practicum.github.io/react-developer-burger-ui-components/docs/)

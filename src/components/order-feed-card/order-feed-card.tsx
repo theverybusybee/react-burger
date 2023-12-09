@@ -19,20 +19,25 @@ function OrderFeedCard({ data }: IOrderFeedCard) {
   const allIngredients = useAppSelector(
     (state) => state.apiDataReducer.allIngredients
   );
+  const orderIngredients = data.ingredients;
 
   const currentOrder = useAppSelector(
     (state) => state.feedDataReducer.currentOrder
   );
 
-  const lastImage = allIngredients.find((el) => el._id === data.ingredients[6]);
+  const lastImage = allIngredients.find((el) => el._id === orderIngredients[6]);
 
+  const foundIngredients = useMemo(() => {
+    return orderIngredients.map((item) => {
+      return allIngredients?.find((el) => el._id === item);
+    });
+  }, [data, allIngredients]);
+  console.log(
+    foundIngredients.length - 1 > 5 ? 5 : foundIngredients.length - 1
+  );
   const totalPrice = useMemo(() => {
-    return data.ingredients
-      .map((item) => {
-        return allIngredients.find((el) => el._id === item);
-      })
-      .map((el) => el!.price)
-      .reduce((a, b) => a! + b!, 0);
+    const prices = foundIngredients.map((el) => el?.price);
+    return prices.length ? prices.reduce((a, b) => a! + b!, 0) : [];
   }, [data, allIngredients]);
 
   const openModal = useCallback(() => {
@@ -92,22 +97,29 @@ function OrderFeedCard({ data }: IOrderFeedCard) {
           {orderStatus.status}
         </p>
         <ul className={OrderCardStyles.ingredients}>
-          {data.ingredients.slice(0, 5).map((item, index) => {
-            const ingredient = allIngredients.find((el) => el._id === item);
-            return (
-              <IngredientIcon
-                type="ordinary ingredient"
-                ingredient={ingredient}
-                key={index}
-                tagType="li"
-              />
-            );
-          })}
+          {foundIngredients
+            .slice(0, 
+            foundIngredients.length - 1 > 5
+                ? 5
+                : foundIngredients.length - 1
+            )
+            ?.map((item, index) => {
+              return (
+                item !== undefined && (
+                  <IngredientIcon
+                    type="ordinary ingredient"
+                    ingredient={item}
+                    key={index}
+                    tagType="li"
+                  />
+                )
+              );
+            })}
 
-          {lastImage ? (
+          {lastImage && foundIngredients.length ? (
             <IngredientIcon
               type="last ingredient"
-              lastIngredient={lastImage}
+              lastIngredient={foundIngredients[foundIngredients.length - 1]}
               ingredientsArray={data.ingredients}
               tagType="li"
               key="6"

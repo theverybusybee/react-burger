@@ -33,7 +33,7 @@ export const fetchOrderDetails = (ingredients: Array<TIngredient>) => {
     referrerPolicy: "no-referrer",
     headers: {
       "Content-Type": "application/json",
-      Authorization: getCookie("token"),
+      Authorization: `Bearer ${getCookie("token")}`,
     },
     body: JSON.stringify({ ingredients }),
   };
