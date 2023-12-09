@@ -8,7 +8,7 @@
 ![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)
 ![Redux](https://img.shields.io/badge/Redux-593D88?style=for-the-badge&logo=redux&logoColor=white)
 ![WebSocket](https://img.shields.io/badge/WebSocket-black)
-![ReactDnD](react-dnd-black)
+![ReactDnD](https://img.shields.io/badge/react-dnd-black)
 ![uuidv4](https://img.shields.io/badge/uuidv4-purple)
 
 ## Demo
